@@ -17,7 +17,7 @@ namespace Past.Protocol
             WritePacket(writer);
         }
 
-        public void UnPack(BigEndianReader reader)
+        public void Unpack(BigEndianReader reader)
         {
             Deserialize(reader);
         }

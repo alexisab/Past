@@ -98,6 +98,8 @@
     <Compile Include="IO\BooleanByteWrapper.cs" />
     <Compile Include="IO\IDataReader.cs" />
     <Compile Include="IO\IDataWriter.cs" />
+    <Compile Include="MessagePart.cs" />
+    <Compile Include="MessageReceiver.cs" />
     <Compile Include="Messages\authorized\AdminCommandMessage.cs" />
     <Compile Include="Messages\authorized\AdminQuietCommandMessage.cs" />
     <Compile Include="Messages\authorized\ConsoleMessage.cs" />

@@ -8,7 +8,6 @@ namespace Past.Protocol.Types
 		public ushort honor;
         public ushort dishonor;
         public bool pvpEnabled;
-
 		public new const short Id = 202;
 		public override short TypeId
 		{

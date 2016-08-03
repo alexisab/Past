@@ -5,7 +5,6 @@ using System.Linq;
 
 namespace Past.Tools
 {
-    //Don't laugh :(
     class ParseProtocolEnums
     {
         static Dictionary<string, List<string>> _data = new Dictionary<string, List<string>>();

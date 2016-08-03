@@ -1,4 +1,5 @@
-﻿using Past.Protocol;
+﻿using Past.Network.Handlers;
+using Past.Protocol;
 using Past.Protocol.IO;
 using Past.Protocol.Messages;
 using Past.Utils;
@@ -9,6 +10,7 @@ namespace Past.Network.Login
     public class LoginClient
     {
         private Client Login { get; set; }
+        public string Ticket { get; set; }
 
         public LoginClient(Client client)
         {
@@ -20,8 +22,9 @@ namespace Past.Network.Login
 
         private void Login_OnClientSocketConnected()
         {
+            Ticket = Utils.Functions.RandomString(32, true);
             Send(new ProtocolRequired(1165, 1165));
-            Send(new HelloConnectMessage(Utils.Functions.RandomString(32, true)));
+            Send(new HelloConnectMessage(Ticket));
         }
 
         private void Login_OnClientSocketClosed()
@@ -31,10 +34,25 @@ namespace Past.Network.Login
             ConsoleUtils.Write(ConsoleUtils.type.INFO, "Client disconnected from LoginServer ...");
         }
 
+        public void Disconnect()
+        {
+            LoginServer.Clients.Remove(this);
+            Login.Close();
+        }
+
         private void Login_OnClientReceivedData(byte[] data)
         {
-            //read the incoming packet
-            ConsoleUtils.Write(ConsoleUtils.type.RECEIV, "{0} ...", Functions.ByteArrayToString(data));
+            using(BigEndianReader reader = new BigEndianReader(data))
+            {
+                //ConsoleUtils.Write(ConsoleUtils.type.DEBUG, "Header {0} Id {1} TypeLen {2} Length {3} \n Content {4} ...", header, id, typeLen, length, Functions.ByteArrayToString(data));*/
+                MessagePart messagePart = new MessagePart(false);
+                if (messagePart.Build(reader))
+                {
+                    NetworkMessage message = MessageReceiver.BuildMessage((uint)messagePart.MessageId, reader);
+                    ConsoleUtils.Write(ConsoleUtils.type.RECEIV, "{0} Id {1} Length {2} ...", message, messagePart.MessageId, messagePart.Length);
+                    MessageHandlerManager.InvokeHandler(this, message);
+                }
+            }   
         }
 
         public void Send(NetworkMessage message)

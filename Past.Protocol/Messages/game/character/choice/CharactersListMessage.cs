@@ -27,10 +27,10 @@ namespace Past.Protocol.Messages
             byte flag1 = 0;
             flag1 = BooleanByteWrapper.SetFlag(flag1, 0, hasStartupActions);
             flag1 = BooleanByteWrapper.SetFlag(flag1, 1, tutorielAvailable);
+            writer.WriteByte(flag1);
             writer.WriteUShort((ushort)characters.Length);
             foreach (var entry in characters)
             {
-                 writer.WriteByte(flag1);
                  writer.WriteShort(entry.TypeId);
                  entry.Serialize(writer);
             }

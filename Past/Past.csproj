@@ -59,6 +59,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Network\Client.cs" />
+    <Compile Include="Network\Game\GameClient.cs" />
+    <Compile Include="Network\Game\GameServer.cs" />
+    <Compile Include="Network\Handlers\Connection\ConnectionHandler.cs" />
+    <Compile Include="Network\Handlers\MessageHandlerAttribute.cs" />
+    <Compile Include="Network\Handlers\MessageHandlerManager.cs" />
     <Compile Include="Network\Login\LoginClient.cs" />
     <Compile Include="Network\Login\LoginServer.cs" />
     <Compile Include="Network\Server.cs" />
@@ -70,9 +75,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Network\Game\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>
