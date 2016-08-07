@@ -64,7 +64,7 @@ namespace Past.Network.Login
                     message.Pack(writer);
                     Login.Send(writer.Data);
                 }
-                ConsoleUtils.Write(ConsoleUtils.type.SEND, "{0} to client {1}:{2} ...", message.ToString(), Login.Ip, Login.Port);
+                ConsoleUtils.Write(ConsoleUtils.type.SEND, "{0} to client {1}:{2} ...", message, Login.Ip, Login.Port);
             }
             catch (Exception ex)
             {

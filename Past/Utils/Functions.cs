@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Past.Utils
 {
@@ -27,6 +29,22 @@ namespace Past.Utils
             if (upper)
                 return str.ToUpper();
             return str;
+        }
+
+        public static string GetMd5Hash(string input)
+        {
+            byte[] data = new MD5CryptoServiceProvider().ComputeHash(Encoding.UTF8.GetBytes(input));
+            StringBuilder sBuilder = new StringBuilder();
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+            return sBuilder.ToString();
+        }
+
+        public static string CipherString(string hashedPassword, string ticket)
+        {
+            return GetMd5Hash(hashedPassword + ticket);
         }
     }
 }

@@ -37,12 +37,12 @@ namespace Past.Network.Handlers
                     }
                     else
                     {
-                        ConsoleUtils.Write(ConsoleUtils.type.WARNING, "Received Unknown packet : {0}", message);
+                        ConsoleUtils.Write(ConsoleUtils.type.WARNING, "Received Unknown packet : {0} ...", message);
                     }
                 }
                 else
                 {
-                    ConsoleUtils.Write(ConsoleUtils.type.WARNING, "Receive empty packet");
+                    ConsoleUtils.Write(ConsoleUtils.type.WARNING, "Receive empty packet ...");
                 }
             }
             catch (Exception ex)

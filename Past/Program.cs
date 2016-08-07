@@ -9,10 +9,10 @@ namespace Past
 {
     class Program
     {
-       
         static void Main(string[] args)
         {
             ConsoleUtils.InitializeConsole();
+            Config.ReadConfig();
             LoginServer.Start();
             GameServer.Start();
             MessageReceiver.InitializeMessages();
@@ -22,6 +22,5 @@ namespace Past
                 Console.Read();
             }
         }
-        
     }
 }

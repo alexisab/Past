@@ -20,7 +20,7 @@ namespace Past.Utils
 
         public static void InitializeConsole()
         {
-            Console.Title = "#PAST";
+            Console.Title = "#PAST 0.0.9";
             Console.ForegroundColor = ConsoleColor.Green;
             for (int i = 0; i < logo.Length; i++)
             {

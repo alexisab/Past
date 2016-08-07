@@ -1,4 +1,5 @@
-﻿using Past.Protocol;
+﻿using Past.Network.Handlers;
+using Past.Protocol;
 using Past.Protocol.IO;
 using Past.Protocol.Messages;
 using Past.Utils;
@@ -34,25 +35,13 @@ namespace Past.Network.Game
         {
             using (BigEndianReader reader = new BigEndianReader(data))
             {
-                int header = reader.ReadShort();
-                int id = header >> 2;
-                int typeLen = header & 3;
-                int length = 0;
-                switch (typeLen)
+                MessagePart messagePart = new MessagePart(false);
+                if (messagePart.Build(reader))
                 {
-                    case 0:
-                        break;
-                    case 1:
-                        length = reader.ReadByte();
-                        break;
-                    case 2:
-                        length = reader.ReadUShort();
-                        break;
-                    case 3:
-                        length = ((reader.ReadSByte() & 255) << 16) + ((reader.ReadByte() & 255) << 8) + (reader.ReadByte() & 255);
-                        break;
+                    NetworkMessage message = MessageReceiver.BuildMessage((uint)messagePart.MessageId, reader);
+                    ConsoleUtils.Write(ConsoleUtils.type.RECEIV, "{0} Id {1} Length {2} ...", message, messagePart.MessageId, messagePart.Length);
+                    MessageHandlerManager.InvokeHandler(this, message);
                 }
-                ConsoleUtils.Write(ConsoleUtils.type.DEBUG, "Header {0} Id {1} TypeLen {2} Length {3} \n Content {4} ...", header, id, typeLen, length, Functions.ByteArrayToString(data));
             }
         }
 
@@ -65,7 +54,7 @@ namespace Past.Network.Game
                     message.Pack(writer);
                     Game.Send(writer.Data);
                 }
-                ConsoleUtils.Write(ConsoleUtils.type.SEND, "{0} to client {1}:{2} ...", message.ToString(), Game.Ip, Game.Port);
+                ConsoleUtils.Write(ConsoleUtils.type.SEND, "{0} to client {1}:{2} ...", message, Game.Ip, Game.Port);
             }
             catch (Exception ex)
             {
