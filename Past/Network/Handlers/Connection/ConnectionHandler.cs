@@ -18,18 +18,7 @@ namespace Past.Network.Handlers.Connection
             client.Send(new IdentificationSuccessMessage(true, false, "admin", 0, "Delete ?", 42195168000000));
             client.Send(new ServersListMessage(new GameServerInformations[]
             {
-                new GameServerInformations(104, 3, 0, true, 0),
                 new GameServerInformations(111, 3, 0, true, 0),
-                new GameServerInformations(118, 3, 0, true, 0),
-                new GameServerInformations(124, 3, 0, true, 0),
-                new GameServerInformations(126, 3, 0, true, 0),
-                new GameServerInformations(670, 3, 0, true, 0),
-                new GameServerInformations(671, 3, 0, true, 0),
-                new GameServerInformations(672, 3, 0, true, 0),
-                new GameServerInformations(902, 3, 0, true, 0),
-                new GameServerInformations(903, 3, 0, true, 0),
-                new GameServerInformations(904, 3, 0, true, 0),
-                new GameServerInformations(905, 3, 0, true, 0)
             }));
         }
 

@@ -31,6 +31,18 @@ namespace Past.Utils
             return str;
         }
 
+        public static string RandomName()
+        {
+            string str = string.Empty;
+            string vowels = "aeiouy";
+            string consonants = "bcdfghjklmnpqrstvwxz";
+            for (int i = 0; i <= random.Next(5, 10); i++)
+            {
+                str += i % 2 == 0 ? vowels[random.Next(vowels.Length - 1)] : consonants[random.Next(consonants.Length - 1)];
+            }
+            return char.ToUpper(str[0]) + str.Substring(1);
+        }
+
         public static string GetMd5Hash(string input)
         {
             byte[] data = new MD5CryptoServiceProvider().ComputeHash(Encoding.UTF8.GetBytes(input));
