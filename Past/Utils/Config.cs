@@ -17,7 +17,7 @@ Port = 443					; Port for the login server
 Host = localhost
 Database = login_past
 Username = root
-password =
+Password =
 
 [GAME]
 Address = 127.0.0.1 		; Address for the game server
@@ -27,7 +27,7 @@ Port = 5555					; Port for the game server
 Host = localhost
 Database = game_past
 Username = root
-password =
+Password =
 
 [OTHERS]
 LoginMessage = Welcome to the server Past 0.0.9";

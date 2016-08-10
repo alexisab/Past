@@ -1,4 +1,5 @@
-﻿using Past.Network.Handlers;
+﻿using Past.Database;
+using Past.Network.Handlers;
 using Past.Protocol;
 using Past.Protocol.IO;
 using Past.Protocol.Messages;
@@ -11,6 +12,7 @@ namespace Past.Network.Login
     {
         private Client Login { get; set; }
         public string Ticket { get; set; }
+        public Account Account { get; set; }
 
         public LoginClient(Client client)
         {
@@ -29,14 +31,14 @@ namespace Past.Network.Login
 
         private void Login_OnClientSocketClosed()
         {
-            LoginServer.Clients.Remove(this);
-            Login.Close();
+            Disconnect();
             ConsoleUtils.Write(ConsoleUtils.type.INFO, "Client disconnected from LoginServer ...");
         }
 
         public void Disconnect()
         {
             LoginServer.Clients.Remove(this);
+            Account = null;
             Login.Close();
         }
 

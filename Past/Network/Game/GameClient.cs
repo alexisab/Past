@@ -31,6 +31,12 @@ namespace Past.Network.Game
             ConsoleUtils.Write(ConsoleUtils.type.INFO, "Client disconnected from GameServer ...");
         }
 
+        public void Disconnect()
+        {
+            GameServer.Clients.Remove(this);
+            Game.Close();
+        }
+
         private void Game_OnClientReceivedData(byte[] data)
         {
             using (BigEndianReader reader = new BigEndianReader(data))

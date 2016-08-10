@@ -1,0 +1,47 @@
+        [MessageHandler(250)]
+        public static void HandleGameContextCreateRequestMessage(GameClient client, GameContextCreateRequestMessage message)
+        {
+            client.Send(new GameContextDestroyMessage());
+            client.Send(new GameContextCreateMessage((sbyte)GameContextEnum.ROLE_PLAY));
+            client.Send(new CharacterStatsListMessage(new CharacterCharacteristicsInformations(0, 0, 0, 0, 0, 0, new ActorExtendedAlignmentInformations(0, 0, 0, 0, 0, 0, false), 55, 55, 0, 0, 6, 3, new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), 0, new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterBaseCharacteristic(0, 0, 0, 0), new CharacterSpellModification[0])));
+            client.Send(new CurrentMapMessage(2323));
+            client.Send(new LifePointsRegenBeginMessage(1));
+            client.Send(new TextInformationMessage((sbyte)TextInformationTypeEnum.TEXT_INFORMATION_MESSAGE, 0, new string[] { Config.GetValue("OTHERS", "LoginMessage") }));
+        }
+
+        [MessageHandler(225)]
+        public static void HandleMapInformationsRequestMessage(GameClient client, MapInformationsRequestMessage message)
+        {
+            var look = new EntityLook(1, new short[] { 10 }, new int[0], new short[] { 125 }, new SubEntity[0]);
+            client.Send(new InteractiveMapUpdateMessage(new InteractiveElement[0]));
+            client.Send(new StatedMapUpdateMessage(new StatedElement[0]));
+            client.Send(new MapComplementaryInformationsDataMessage(2323, 95, new HouseInformations[0], new GameRolePlayActorInformations[]
+            {
+                GetGameContextActorInformations() as GameRolePlayActorInformations
+                }, new InteractiveElement[0], new StatedElement[0], new MapObstacle[0], new FightCommonInformations[0]));
+            //client.Send(new HousePropertiesMessage());
+            client.Send(new GameRolePlayShowActorMessage(GetGameContextActorInformations() as GameRolePlayActorInformations));
+        }
+
+        public static GameContextActorInformations GetGameContextActorInformations()
+        {
+            var look = new EntityLook(1, new short[] { 10 }, new int[0], new short[] { 125 }, new SubEntity[0]);
+            return new GameRolePlayCharacterInformations(1, look, new EntityDispositionInformations(409, 3), "admin", new HumanInformations(new EntityLook[0], 0, 0, new ActorRestrictionsInformations(false, false, false, false, false, false, false, false, true, false, false, false, false, true, true, true, false, false, false, false, false), 0), new ActorAlignmentInformations(0, 0, 0, 0));
+        }
+		
+		
+        [MessageHandler(152)]
+        public static void HandleCharacterSelectionMessage(GameClient client, CharacterSelectionMessage message)
+        {
+            client.Send(new CharacterSelectedSuccessMessage(new CharacterBaseInformations(1, "admin", 200, new EntityLook(1, new short[] { 10 }, new int[0], new short[] { 125 }, new SubEntity[0]), 1, false)));
+            client.Send(new NotificationListMessage(new int[] { 2147483647 }));
+            client.Send(new InventoryContentMessage(new ObjectItem[0], 0));
+            client.Send(new EmoteListMessage(new sbyte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 21, 19, 22, 23 }));
+            client.Send(new EnabledChannelsMessage(new sbyte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }, new sbyte[0]));
+            client.Send(new AlignmentRankUpdateMessage(1, false));
+            client.Send(new AlignmentSubAreasListMessage(new short[0], new short[0]));
+            client.Send(new SpellListMessage(true, new SpellItem[0]));
+            client.Send(new SetCharacterRestrictionsMessage(new ActorRestrictionsInformations(false, false, false, false, false, false, false, false, true, false, false, false, false, true, true, true, false, false, false, false, false)));
+            client.Send(new InventoryWeightMessage(0, 1000));
+            client.Send(new TextInformationMessage((sbyte)TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 89, new string[0]));
+        }

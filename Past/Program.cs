@@ -17,9 +17,11 @@ namespace Past
             GameServer.Start();
             MessageReceiver.InitializeMessages();
             MessageHandlerManager.InitializeHandlers();
+            Database.DatabaseManager.Connect();
+
             while (true)
             {
-                Console.Read();
+               Console.Read();
             }
         }
     }
