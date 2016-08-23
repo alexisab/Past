@@ -11,13 +11,12 @@ namespace Past.Network.Handlers.Connection
 {
     public class ConnectionHandler
     {
-        [MessageHandler(4)]
-        public static void HandleIdentificationMessage(LoginClient client, IdentificationMessage message)
+        public static void HandleIdentificationMessage(LoginClient client, IdentificationMessage message) //TODO Auto connect
         {
-            Account account = DatabaseManager.ReturnAccount(message.login);
+            Account account = Account.ReturnAccount(message.login);
             if (account == null)
             {
-                client.Send(new IdentificationFailedMessage((sbyte)IdentificationFailureReasonEnum.UNKNOWN_AUTH_ERROR));
+                client.Send(new IdentificationFailedMessage((sbyte)IdentificationFailureReasonEnum.WRONG_CREDENTIALS));
                 return;
             }
             string version = message.version.major + "." + message.version.minor + "." + message.version.revision + "." + message.version.buildType;
@@ -56,20 +55,17 @@ namespace Past.Network.Handlers.Connection
             }
         }
 
-        [MessageHandler(6104)]
         public static void HandleIdentificationMessageWithServerIdMessage(LoginClient client, IdentificationMessageWithServerIdMessage message)
         {
 
         }
 
-        [MessageHandler(40)]
         public static void HandleServerSelectionMessage(LoginClient client, ServerSelectionMessage message)
         {
             client.Send(new SelectedServerDataMessage(message.serverId, "127.0.0.1", 5555, true, client.Ticket));
             client.Disconnect();
         }
 
-        [MessageHandler(5639)]
         public static void HandleNicknameChoiceRequestMessage(LoginClient client, NicknameChoiceRequestMessage message)
         {
             

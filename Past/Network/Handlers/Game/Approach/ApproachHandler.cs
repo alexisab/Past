@@ -5,7 +5,6 @@ namespace Past.Network.Handlers.Game.Approach
 {
     public class ApproachHandler
     {
-        [MessageHandler(110)]
         public static void HandleAuthenticationTicketMessage(GameClient client, AuthenticationTicketMessage message)
         {
             client.Send(new AuthenticationTicketAcceptedMessage());

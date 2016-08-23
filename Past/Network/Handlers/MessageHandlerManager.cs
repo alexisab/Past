@@ -1,44 +1,53 @@
 ﻿using Past.Protocol;
 using Past.Utils;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
 namespace Past.Network.Handlers
 {
-    public class MessageHandlerManager
+    public class MessageHandlerManager<C>
     {
-        //Fallen
-        public static Dictionary<uint, MethodInfo> MethodHandlers = new Dictionary<uint, MethodInfo>();
-
         public static void InitializeHandlers()
         {
-            var methods = Assembly.GetExecutingAssembly().GetTypes()
+            var methods = 
+                Assembly.GetExecutingAssembly().GetTypes()
                 .SelectMany(t => t.GetMethods())
-                .Where(m => m.GetCustomAttributes(typeof(MessageHandlerAttribute), false).Length > 0)
-                .ToArray();
+                .Where(m => m.Name.EndsWith("Handler") && m.GetParameters().Length == 2 && 
+                (typeof(NetworkMessage).IsAssignableFrom(m.GetParameters().ElementAt(1).ParameterType) && 
+                m.GetParameters().ElementAt(0).ParameterType == typeof(C)));
+
             foreach (var method in methods)
             {
-                MethodHandlers.Add((uint)method.CustomAttributes.ToArray()[0].ConstructorArguments[0].Value, method);
+                //todo: make check to packetType, client type..
+                var packet_type = method.GetParameters()[1].ParameterType; //packet type!
+                var t = typeof(Messages<>).MakeGenericType(typeof(C), packet_type);
+                t.GetMethod("Register").Invoke(null, new object[] { method });
             }
         }
 
-        public static void InvokeHandler(object client, NetworkMessage message)
+        public static class Messages<T> where T : NetworkMessage
+        {
+            public static Action<C, T> Handler { get; private set; }
+
+            public static void Register(MethodInfo mi)
+            {
+                Handler = (Action<C, T>)mi.CreateDelegate(typeof(Action<C, T>));
+            }
+        }
+
+        public static void InvokeHandler<T>(C client, T message) where T : NetworkMessage
         {
             try
             {
-                MethodInfo methodToInvok;
-                if (message != null)
+                if (message != null) //?
                 {
-                    if (MethodHandlers.TryGetValue(message.Id, out methodToInvok))
-                    {
-                        methodToInvok.Invoke(null, new object[] { client, message });
-                    }
+                    Console.WriteLine(typeof(T));
+                    var h = Messages<T>.Handler;
+                    if (h != null)
+                        h(client, message);
                     else
-                    {
                         ConsoleUtils.Write(ConsoleUtils.type.WARNING, "Received Unknown packet : {0} ...", message);
-                    }
                 }
                 else
                 {

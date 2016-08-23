@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 
 namespace Past.Database
 {
@@ -12,5 +13,25 @@ namespace Past.Database
         public string SecretQuestion { get; set; }
         public string SecretAnswer { get; set; }
         public DateTime BannedUntil { get; set; }
+
+        public static Account ReturnAccount(string login)
+        {
+            MySqlCommand command = new MySqlCommand("SELECT * FROM accounts WHERE Login = '" + login + "' COLLATE latin1_bin", DatabaseManager.Connection);
+            using (MySqlDataReader reader = command.ExecuteReader())
+            {
+                if (!reader.Read())
+                    return null;
+                Account account = new Account();
+                account.Id = int.Parse(reader["Id"].ToString());
+                account.Login = reader["Login"].ToString();
+                account.Password = reader["Password"].ToString();
+                account.Nickname = reader["Nickname"].ToString();
+                account.HasRights = Convert.ToBoolean(reader["HasRights"]);
+                account.SecretQuestion = reader["SecretQuestion"].ToString();
+                account.BannedUntil = reader["BannedUntil"] as DateTime? ?? DateTime.MinValue;
+                reader.Close();
+                return account;
+            }
+        }
     }
 }
