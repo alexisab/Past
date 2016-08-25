@@ -7,8 +7,8 @@ namespace Past.Tools
     {
         static void Main(string[] args)
         {
-            DlmReader dlm = new DlmReader();
-            //dlm.ReadDLM("Maps/0.dlm");
+            /*DlmReader dlm = new DlmReader();
+            dlm.ReadDLM(@"C: \Users\skeee\Desktop\Dofus 2 Online\content\maps\0\24117770.dlm");*/
             while (true)
             {
                 Console.Read();

@@ -16,13 +16,13 @@ namespace Past.Tools.Dlm
         public int RightNeighbourId { get; set; }
         public int ShadowBonusOnEntities { get; set; }
         public byte BackgroundsCount { get; set; }
-        //public Array BackgroundFixtures { get; set; }
+        public Fixture[] BackgroundFixtures { get; set; }
         public byte ForegroundsCount { get; set; }
-        //public Array ForegroundFixtures { get; set; }
+        public Fixture[] ForegroundFixtures { get; set; }
         public int GroundCRC { get; set; }
         public byte LayersCount { get; set; }
-        //public Array Layers { get; set; }
-        public int CellsCount { get; set; }
+        public Layer[] Layers { get; set; }
+        public int CellsCount { get { return 560; } }
         //public Array Cells { get; set; }
 
         public void FromRaw(BigEndianReader raw)
@@ -46,7 +46,26 @@ namespace Past.Tools.Dlm
                 RightNeighbourId = raw.ReadInt();
                 ShadowBonusOnEntities = raw.ReadInt();
                 BackgroundsCount = raw.ReadByte();
-                //TO-DO
+                BackgroundFixtures = new Fixture[BackgroundsCount];
+                for (int i = 0; i < BackgroundsCount; i++)
+                {
+                    Fixture bg = new Fixture();
+                    BackgroundFixtures[i] = bg.FromRaw(raw);
+                }
+                ForegroundsCount = raw.ReadByte();
+                ForegroundFixtures = new Fixture[ForegroundsCount];
+                for (int i = 0; i < ForegroundsCount; i++)
+                {
+                    Fixture fg = new Fixture();
+                    ForegroundFixtures[i] = fg.FromRaw(raw);
+                }
+                GroundCRC = raw.ReadInt();
+                raw.ReadInt();
+                LayersCount = raw.ReadByte();
+                /*for (int i = 0; i < LayersCount; i++)
+                {
+                    TODO
+                }*/
             }
             catch(Exception ex)
             {
