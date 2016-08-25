@@ -15,3 +15,4 @@ Emulator for Dofus 2.0.0 in C#
 
 # Client link
 - [Client](https://mega.nz/#!L4wSWTBI!QMR2QK2BvwJ3Xj9VdgVQ3EFbBfHtwf9vxsPONx3A8tg)
+
