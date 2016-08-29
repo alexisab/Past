@@ -4,7 +4,7 @@ namespace Past.Tools.Dlm
 {
     public class Layer
     {
-        /*public int LayerId { get; set; }
+        public int LayerId { get; set; }
         public short CellsCount { get; set; }
         public Cell[] Cells { get; set; }
 
@@ -20,6 +20,6 @@ namespace Past.Tools.Dlm
                 Cells[i] = c.FromRaw(raw);
             }
             return layer;
-        }*/
+        }
     }
 }

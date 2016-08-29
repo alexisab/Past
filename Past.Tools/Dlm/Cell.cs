@@ -1,10 +1,11 @@
 ﻿using Past.Protocol.IO;
+using Past.Tools.Dlm.Elements;
 
 namespace Past.Tools.Dlm
 {
     public class Cell
     {
-        /*public short CellId { get; set; }
+        public short CellId { get; set; }
         public short ElementsCount { get; set; }
         public BasicElement[] Elements { get; set; }
 
@@ -17,9 +18,9 @@ namespace Past.Tools.Dlm
             for (int i = 0; i < cell.ElementsCount; i++)
             {
                 BasicElement be = new BasicElement();
-                cell.Elements[i] = be.FromRaw(raw);
+                cell.Elements[i] = be.GetElementFromType(raw.ReadByte(), this);
             }
             return cell;
-        }*/
+        }
     }
 }
