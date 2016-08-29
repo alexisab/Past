@@ -52,7 +52,7 @@ namespace Past.Network.Login
                 {
                     NetworkMessage message = MessageReceiver.BuildMessage((uint)messagePart.MessageId, reader);
                     ConsoleUtils.Write(ConsoleUtils.type.RECEIV, "{0} Id {1} Length {2} ...", message, messagePart.MessageId, messagePart.Length);
-                    MessageHandlerManager.InvokeHandler(this, message);
+                    MessageHandlerManager<LoginClient>.InvokeHandler(this, message);
                 }
             }   
         }

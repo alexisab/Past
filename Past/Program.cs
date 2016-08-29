@@ -16,7 +16,8 @@ namespace Past
             LoginServer.Start();
             GameServer.Start();
             MessageReceiver.InitializeMessages();
-            MessageHandlerManager.InitializeHandlers();
+            MessageHandlerManager<LoginClient>.InitializeHandlers();
+            MessageHandlerManager<GameClient>.InitializeHandlers();
             Database.DatabaseManager.Connect();
 
             while (true)
