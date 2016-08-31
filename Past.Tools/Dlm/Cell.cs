@@ -17,8 +17,8 @@ namespace Past.Tools.Dlm
             cell.Elements = new BasicElement[cell.ElementsCount];
             for (int i = 0; i < cell.ElementsCount; i++)
             {
-                BasicElement be = new BasicElement();
-                cell.Elements[i] = be.GetElementFromType(raw.ReadByte(), this);
+                BasicElement be = new BasicElement(cell);
+                cell.Elements[i] = be.GetElementFromType(cell, raw);
             }
             return cell;
         }

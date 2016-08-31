@@ -64,9 +64,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dlm\Cell.cs" />
+    <Compile Include="Dlm\CellData.cs" />
+    <Compile Include="Dlm\ColorMultiplicator.cs" />
     <Compile Include="Dlm\DlmReader.cs" />
     <Compile Include="Dlm\Elements\BasicElement.cs" />
     <Compile Include="Dlm\Elements\GraphicalElement.cs" />
+    <Compile Include="Dlm\Elements\SoundElement.cs" />
     <Compile Include="Dlm\Fixture.cs" />
     <Compile Include="Dlm\Layer.cs" />
     <Compile Include="Dlm\Map.cs" />

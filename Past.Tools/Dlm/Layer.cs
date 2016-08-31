@@ -17,7 +17,7 @@ namespace Past.Tools.Dlm
             for (int i = 0; i < layer.CellsCount; i++)
             {
                 Cell c = new Cell();
-                Cells[i] = c.FromRaw(raw);
+                layer.Cells[i] = c.FromRaw(raw);
             }
             return layer;
         }

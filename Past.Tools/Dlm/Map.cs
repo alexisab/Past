@@ -23,7 +23,7 @@ namespace Past.Tools.Dlm
         public byte LayersCount { get; set; }
         public Layer[] Layers { get; set; }
         public int CellsCount { get { return 560; } }
-        //public Array Cells { get; set; }
+        public CellData[] Cells { get; set; }
 
         public void FromRaw(BigEndianReader raw)
         {
@@ -62,10 +62,18 @@ namespace Past.Tools.Dlm
                 GroundCRC = raw.ReadInt();
                 raw.ReadInt();
                 LayersCount = raw.ReadByte();
-                /*for (int i = 0; i < LayersCount; i++)
+                Layers = new Layer[LayersCount];
+                for (int i = 0; i < LayersCount; i++)
                 {
-                    TODO
-                }*/
+                    Layer la = new Layer();
+                    Layers[i] = la.FromRaw(raw);
+                }
+                Cells = new CellData[CellsCount];
+                for (int i = 0; i < CellsCount; i++)
+                {
+                    CellData cd = new CellData();
+                    Cells[i] = cd.FromRaw(raw);
+                }
             }
             catch(Exception ex)
             {
