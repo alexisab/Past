@@ -19,7 +19,6 @@ namespace Past
             MessageHandlerManager<LoginClient>.InitializeHandlers();
             MessageHandlerManager<GameClient>.InitializeHandlers();
             Database.DatabaseManager.Connect();
-
             while (true)
             {
                Console.Read();

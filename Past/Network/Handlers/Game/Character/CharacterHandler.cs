@@ -1,7 +1,9 @@
 ﻿using Past.Network.Game;
+using Past.Protocol.Enums;
 using Past.Protocol.Messages;
 using Past.Protocol.Types;
 using Past.Utils;
+using System.Linq;
 
 namespace Past.Network.Handlers.Game.Character
 {
@@ -14,10 +16,9 @@ namespace Past.Network.Handlers.Game.Character
             else
             {
                 var array = new CharacterBaseInformations[client.Account.Characters.Count];
-                var look = new EntityLook(1, new short[] { 10 }, new int[0], new short[] { 125 }, new SubEntity[0]);
                 for (int i = 0; i < client.Account.Characters.Count; i++)
                 {
-                    array[i] = new CharacterBaseInformations(client.Account.Characters[i].Id, client.Account.Characters[i].Name, 1, look, client.Account.Characters[i].Breed, client.Account.Characters[i].Sex);
+                    array[i] = new CharacterBaseInformations(client.Account.Characters[i].Id, client.Account.Characters[i].Name, 1, client.Account.Characters[i].Look, client.Account.Characters[i].Breed, client.Account.Characters[i].Sex);
                 }
                 client.Send(new CharactersListMessage(false, false, array));
             }
@@ -25,8 +26,11 @@ namespace Past.Network.Handlers.Game.Character
 
         public static void HandleCharacterSelectionMessage(GameClient client, CharacterSelectionMessage message)
         {
-            client.Send(new CharacterSelectedSuccessMessage(new CharacterBaseInformations(1, "admin", 200, new EntityLook(1, new short[] { 10 }, new int[0], new short[] { 125 }, new SubEntity[0]), 1, false)));
+            var character = client.Account.Characters.Where(x => x.Id == message.id).First();
+            client.Send(new CharacterSelectedSuccessMessage(new CharacterBaseInformations(character.Id, character.Name, 1, character.Look, character.Breed, character.Sex)));
+            client.Send(new TextInformationMessage((sbyte)TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 89, new string[0]));
         }
+
 
         public static void HandleCharacterCreationRequestMessage(GameClient client, CharacterCreationRequestMessage message)
         {

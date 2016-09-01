@@ -36,6 +36,7 @@ namespace Past.Network.Game
         public void Disconnect()
         {
             GameServer.Clients.Remove(this);
+            Account = null;
             Game.Close();
         }
 

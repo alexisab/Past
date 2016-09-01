@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50709
 File Encoding         : 65001
 
-Date: 2016-09-01 03:29:33
+Date: 2016-09-01 08:53:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -79,6 +79,7 @@ CREATE TABLE `characters` (
   `OwnerId` int(11) NOT NULL,
   `Name` mediumtext COLLATE latin1_bin NOT NULL,
   `Breed` tinyint(4) NOT NULL,
+  `EntityLook` mediumtext COLLATE latin1_bin,
   `Sex` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
@@ -86,8 +87,8 @@ CREATE TABLE `characters` (
 -- ----------------------------
 -- Records of characters
 -- ----------------------------
-INSERT INTO `characters` VALUES ('1', '1', 0x41646D696E, '1', '0');
-INSERT INTO `characters` VALUES ('2', '1', 0x54657374, '1', '1');
+INSERT INTO `characters` VALUES ('1', '1', 0x41646D696E, '1', 0x7B317C31307C7C3132357D, '0');
+INSERT INTO `characters` VALUES ('2', '1', 0x54657374, '1', 0x7B317C31312C34397C313D31363736393334302C323D31363735333433342C333D353939323438322C343D363030333533302C353D31363736393334307C3132357D, '1');
 
 -- ----------------------------
 -- Table structure for maps
