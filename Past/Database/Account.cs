@@ -37,17 +37,17 @@ namespace Past.Database
             }
         }
         
-        public static void Update(Account obj)
+        public static void Update(Account account)
         {
             MySqlCommand command = new MySqlCommand("UPDATE accounts SET Id = @Id, Login = @Login, Password = @Password, Nickname = @Nickname, HasRights = @HasRights, SecretQuestion = @SecretQuestion, SecretAnswer = @SecretAnswer, BannedUntil = @BannedUntil WHERE Id = @Id", DatabaseManager.Connection);
-            command.Parameters.Add(new MySqlParameter("@Id", obj.Id));
-            command.Parameters.Add(new MySqlParameter("@Login", obj.Login));
-            command.Parameters.Add(new MySqlParameter("@Password", obj.Password));
-            command.Parameters.Add(new MySqlParameter("@Nickname", obj.Nickname));
-            command.Parameters.Add(new MySqlParameter("@HasRights", obj.HasRights));
-            command.Parameters.Add(new MySqlParameter("@SecretQuestion", obj.SecretQuestion));
-            command.Parameters.Add(new MySqlParameter("@SecretAnswer", obj.SecretAnswer));
-            command.Parameters.Add(new MySqlParameter("@BannedUntil", obj.BannedUntil));
+            command.Parameters.Add(new MySqlParameter("@Id", account.Id));
+            command.Parameters.Add(new MySqlParameter("@Login", account.Login));
+            command.Parameters.Add(new MySqlParameter("@Password", account.Password));
+            command.Parameters.Add(new MySqlParameter("@Nickname", account.Nickname));
+            command.Parameters.Add(new MySqlParameter("@HasRights", account.HasRights));
+            command.Parameters.Add(new MySqlParameter("@SecretQuestion", account.SecretQuestion));
+            command.Parameters.Add(new MySqlParameter("@SecretAnswer", account.SecretAnswer));
+            command.Parameters.Add(new MySqlParameter("@BannedUntil", account.BannedUntil));
             command.ExecuteNonQuery();
         }
 

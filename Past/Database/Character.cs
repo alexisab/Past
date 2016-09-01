@@ -10,6 +10,8 @@ namespace Past.Database
         public int Id { get; set; }
         public int OwnerId { get; set; }
         public string Name { get; set; }
+        public byte Level { get; set; }
+        public long Experience { get; set; }
         public sbyte Breed { get; set; }
         public string EntityLookString { get; set; }
         public bool Sex { get; set; }
@@ -27,6 +29,8 @@ namespace Past.Database
                     {
                         Id = int.Parse(reader["Id"].ToString()),
                         Name = reader["Name"].ToString(),
+                        Level = byte.Parse(reader["Level"].ToString()),
+                        Experience = long.Parse(reader["Experience"].ToString()),
                         Breed = sbyte.Parse(reader["Breed"].ToString()),
                         EntityLookString = reader["EntityLookString"].ToString(),
                         Sex = Convert.ToBoolean(reader["Sex"])

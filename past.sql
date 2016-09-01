@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50709
 File Encoding         : 65001
 
-Date: 2016-09-01 22:50:30
+Date: 2016-09-02 00:56:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -79,7 +79,7 @@ CREATE TABLE `characters` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `OwnerId` int(11) NOT NULL,
   `Name` mediumtext CHARACTER SET utf8 NOT NULL,
-  `Level` tinyint(3) NOT NULL,
+  `Level` tinyint(3) unsigned NOT NULL,
   `Experience` bigint(20) NOT NULL,
   `Breed` tinyint(4) NOT NULL,
   `EntityLookString` mediumtext CHARACTER SET utf8,
@@ -90,7 +90,7 @@ CREATE TABLE `characters` (
 -- ----------------------------
 -- Records of characters
 -- ----------------------------
-INSERT INTO `characters` VALUES ('1', '1', 'Admin', '1', '0', '1', '{1|10||125}', '0');
+INSERT INTO `characters` VALUES ('1', '1', 'Admin', '200', '0', '1', '{1|10||125}', '0');
 INSERT INTO `characters` VALUES ('2', '1', 'Test', '1', '0', '1', '{1|11,1135,1155|1=16769340,2=16753434,3=5992482,4=6003530,5=16769340|125}', '1');
 
 -- ----------------------------

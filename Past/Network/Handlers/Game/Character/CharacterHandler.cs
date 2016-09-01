@@ -18,7 +18,7 @@ namespace Past.Network.Handlers.Game.Character
                 var array = new CharacterBaseInformations[client.Account.Characters.Count];
                 for (int i = 0; i < client.Account.Characters.Count; i++)
                 {
-                    array[i] = new CharacterBaseInformations(client.Account.Characters[i].Id, client.Account.Characters[i].Name, 1, client.Account.Characters[i].Look, client.Account.Characters[i].Breed, client.Account.Characters[i].Sex);
+                    array[i] = new CharacterBaseInformations(client.Account.Characters[i].Id, client.Account.Characters[i].Name, client.Account.Characters[i].Level, client.Account.Characters[i].Look, client.Account.Characters[i].Breed, client.Account.Characters[i].Sex);
                 }
                 client.Send(new CharactersListMessage(false, false, array));
             }
@@ -27,7 +27,7 @@ namespace Past.Network.Handlers.Game.Character
         public static void HandleCharacterSelectionMessage(GameClient client, CharacterSelectionMessage message)
         {
             var character = client.Account.Characters.First(x => x.Id == message.id);
-            client.Send(new CharacterSelectedSuccessMessage(new CharacterBaseInformations(character.Id, character.Name, 1, character.Look, character.Breed, character.Sex)));
+            client.Send(new CharacterSelectedSuccessMessage(new CharacterBaseInformations(character.Id, character.Name, character.Level, character.Look, character.Breed, character.Sex)));
             client.Send(new TextInformationMessage((sbyte)TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 89, new string[0]));
         }
 
