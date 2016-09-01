@@ -1,4 +1,5 @@
-﻿using Past.Network.Handlers;
+﻿using Past.Database;
+using Past.Network.Handlers;
 using Past.Protocol;
 using Past.Protocol.IO;
 using Past.Protocol.Messages;
@@ -10,6 +11,7 @@ namespace Past.Network.Game
     public class GameClient
     {
         private Client Game { get; set; }
+        public Account Account { get; set; }
 
         public GameClient(Client client)
         {
@@ -44,7 +46,7 @@ namespace Past.Network.Game
                 MessagePart messagePart = new MessagePart(false);
                 if (messagePart.Build(reader))
                 {
-                    NetworkMessage message = MessageReceiver.BuildMessage((uint)messagePart.MessageId, reader);
+                    dynamic message = MessageReceiver.BuildMessage((uint)messagePart.MessageId, reader);
                     ConsoleUtils.Write(ConsoleUtils.type.RECEIV, "{0} Id {1} Length {2} ...", message, messagePart.MessageId, messagePart.Length);
                     MessageHandlerManager<GameClient>.InvokeHandler(this, message);
                 }

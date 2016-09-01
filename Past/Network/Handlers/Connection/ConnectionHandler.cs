@@ -63,6 +63,7 @@ namespace Past.Network.Handlers.Connection
         public static void HandleServerSelectionMessage(LoginClient client, ServerSelectionMessage message)
         {
             client.Send(new SelectedServerDataMessage(message.serverId, "127.0.0.1", 5555, true, client.Ticket));
+            TransitionHelper.AddPlayerAccount(client.Account, client.Ticket);
             client.Disconnect();
         }
 

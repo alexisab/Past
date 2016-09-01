@@ -13,15 +13,13 @@ namespace Past.Network.Handlers
             var methods = 
                 Assembly.GetExecutingAssembly().GetTypes()
                 .SelectMany(t => t.GetMethods())
-                .Where(m => m.Name.StartsWith("Handle") && m.GetParameters().Length == 2 && 
-                (typeof(NetworkMessage).IsAssignableFrom(m.GetParameters().ElementAt(1).ParameterType) && 
-                m.GetParameters().ElementAt(0).ParameterType == typeof(C)));
+                .Where(m => m.Name.StartsWith("Handle") && m.GetParameters().Length == 2 &&
+                (typeof(NetworkMessage).IsAssignableFrom(m.GetParameters().ElementAt(1).ParameterType) && m.GetParameters().ElementAt(0).ParameterType == typeof(C)));
 
             foreach (var method in methods)
             {
                 //todo: make check to packetType, client type..
                 var packet_type = method.GetParameters()[1].ParameterType; //packet type!
-                Console.WriteLine(packet_type);
                 var t = typeof(Messages<>).MakeGenericType(typeof(C), packet_type);
                 t.GetMethod("Register").Invoke(null, new object[] { method });
             }
@@ -43,7 +41,6 @@ namespace Past.Network.Handlers
             {
                 if (message != null) //?
                 {
-                    Console.WriteLine(typeof(T));
                     var h = Messages<T>.Handler;
                     if (h != null)
                         h(client, message);

@@ -7,8 +7,20 @@ namespace Past.Network.Handlers.Game.Approach
     {
         public static void HandleAuthenticationTicketMessage(GameClient client, AuthenticationTicketMessage message)
         {
-            client.Send(new AuthenticationTicketAcceptedMessage());
-            //ConsoleUtils.Write(ConsoleUtils.type.DEBUG, "Ticket {0} ...", message.ticket);
+            if (message.ticket != "")
+            {
+                var account = TransitionHelper.ReturnAccount(message.ticket);
+                if (account != null)
+                {
+                    client.Account = account;
+                    client.Account.Characters = Database.Character.ReturnCharacters(client.Account.Id);
+                    client.Send(new AuthenticationTicketAcceptedMessage());
+                }
+                else
+                    client.Send(new AuthenticationTicketRefusedMessage());
+            }
+            else
+                client.Send(new AuthenticationTicketRefusedMessage());
         }
     }
 }

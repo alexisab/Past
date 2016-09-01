@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 
 namespace Past.Database
 {
@@ -13,6 +14,7 @@ namespace Past.Database
         public string SecretQuestion { get; set; }
         public string SecretAnswer { get; set; }
         public DateTime BannedUntil { get; set; }
+        public List<Character> Characters = new List<Character>();
 
         public static Account ReturnAccount(string login)
         {
@@ -35,3 +37,4 @@ namespace Past.Database
         }
     }
 }
+
