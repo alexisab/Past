@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50709
 File Encoding         : 65001
 
-Date: 2016-09-01 08:53:40
+Date: 2016-09-01 22:50:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,12 +21,12 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `accounts`;
 CREATE TABLE `accounts` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Login` mediumtext NOT NULL,
-  `Password` mediumtext NOT NULL,
-  `Nickname` mediumtext,
+  `Login` mediumtext CHARACTER SET utf8 NOT NULL,
+  `Password` mediumtext CHARACTER SET utf8 NOT NULL,
+  `Nickname` mediumtext CHARACTER SET utf8,
   `HasRights` tinyint(4) DEFAULT NULL,
-  `SecretQuestion` mediumtext,
-  `SecretAnswer` mediumtext,
+  `SecretQuestion` mediumtext CHARACTER SET utf8,
+  `SecretAnswer` mediumtext CHARACTER SET utf8,
   `BannedUntil` datetime DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
@@ -34,7 +34,8 @@ CREATE TABLE `accounts` (
 -- ----------------------------
 -- Records of accounts
 -- ----------------------------
-INSERT INTO `accounts` VALUES ('1', 'Test', '098f6bcd4621d373cade4e832627b4f6', 'Admin', '1', 'Delete ?', 'Yes', null);
+INSERT INTO `accounts` VALUES ('1', 'Test', '098f6bcd4621d373cade4e832627b4f6', 'mdr', '1', 'Delete ?', 'Yes', '0001-01-01 00:00:00');
+INSERT INTO `accounts` VALUES ('2', 'Test2', '098f6bcd4621d373cade4e832627b4f6', 'salam', '1', 'Delete ?', 'Yes', null);
 
 -- ----------------------------
 -- Table structure for breeds
@@ -77,9 +78,11 @@ DROP TABLE IF EXISTS `characters`;
 CREATE TABLE `characters` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `OwnerId` int(11) NOT NULL,
-  `Name` mediumtext COLLATE latin1_bin NOT NULL,
+  `Name` mediumtext CHARACTER SET utf8 NOT NULL,
+  `Level` tinyint(3) NOT NULL,
+  `Experience` bigint(20) NOT NULL,
   `Breed` tinyint(4) NOT NULL,
-  `EntityLook` mediumtext COLLATE latin1_bin,
+  `EntityLookString` mediumtext CHARACTER SET utf8,
   `Sex` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
@@ -87,8 +90,226 @@ CREATE TABLE `characters` (
 -- ----------------------------
 -- Records of characters
 -- ----------------------------
-INSERT INTO `characters` VALUES ('1', '1', 0x41646D696E, '1', 0x7B317C31307C7C3132357D, '0');
-INSERT INTO `characters` VALUES ('2', '1', 0x54657374, '1', 0x7B317C31312C34397C313D31363736393334302C323D31363735333433342C333D353939323438322C343D363030333533302C353D31363736393334307C3132357D, '1');
+INSERT INTO `characters` VALUES ('1', '1', 'Admin', '1', '0', '1', '{1|10||125}', '0');
+INSERT INTO `characters` VALUES ('2', '1', 'Test', '1', '0', '1', '{1|11,1135,1155|1=16769340,2=16753434,3=5992482,4=6003530,5=16769340|125}', '1');
+
+-- ----------------------------
+-- Table structure for experiences
+-- ----------------------------
+DROP TABLE IF EXISTS `experiences`;
+CREATE TABLE `experiences` (
+  `Level` tinyint(3) unsigned NOT NULL,
+  `Character` bigint(11) NOT NULL,
+  `Guild` bigint(20) NOT NULL,
+  `Job` bigint(11) NOT NULL,
+  `Mount` bigint(11) NOT NULL,
+  `Alignment` bigint(11) NOT NULL,
+  PRIMARY KEY (`Level`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of experiences
+-- ----------------------------
+INSERT INTO `experiences` VALUES ('1', '0', '0', '0', '0', '0');
+INSERT INTO `experiences` VALUES ('2', '110', '1100', '50', '600', '500');
+INSERT INTO `experiences` VALUES ('3', '650', '6500', '140', '1750', '1500');
+INSERT INTO `experiences` VALUES ('4', '1500', '15000', '271', '2750', '3000');
+INSERT INTO `experiences` VALUES ('5', '2800', '28000', '441', '4000', '5000');
+INSERT INTO `experiences` VALUES ('6', '4800', '48000', '653', '5500', '7500');
+INSERT INTO `experiences` VALUES ('7', '7300', '73000', '905', '7250', '10000');
+INSERT INTO `experiences` VALUES ('8', '10500', '105000', '1199', '9250', '12500');
+INSERT INTO `experiences` VALUES ('9', '14500', '145000', '1543', '11500', '15000');
+INSERT INTO `experiences` VALUES ('10', '19200', '192000', '1911', '14000', '17500');
+INSERT INTO `experiences` VALUES ('11', '25200', '252000', '2330', '16750', '-1');
+INSERT INTO `experiences` VALUES ('12', '32600', '326000', '2792', '19750', '-1');
+INSERT INTO `experiences` VALUES ('13', '41000', '410000', '3297', '23000', '-1');
+INSERT INTO `experiences` VALUES ('14', '50500', '505000', '3840', '26500', '-1');
+INSERT INTO `experiences` VALUES ('15', '61000', '610000', '4439', '30250', '-1');
+INSERT INTO `experiences` VALUES ('16', '75000', '750000', '5078', '34250', '-1');
+INSERT INTO `experiences` VALUES ('17', '91000', '910000', '5762', '38500', '-1');
+INSERT INTO `experiences` VALUES ('18', '115000', '1150000', '6493', '43000', '-1');
+INSERT INTO `experiences` VALUES ('19', '142000', '1420000', '7280', '47750', '-1');
+INSERT INTO `experiences` VALUES ('20', '171000', '1710000', '8097', '52750', '-1');
+INSERT INTO `experiences` VALUES ('21', '202000', '2020000', '8980', '58000', '-1');
+INSERT INTO `experiences` VALUES ('22', '235000', '2350000', '9898', '63500', '-1');
+INSERT INTO `experiences` VALUES ('23', '270000', '2700000', '10875', '69250', '-1');
+INSERT INTO `experiences` VALUES ('24', '310000', '3100000', '11903', '75250', '-1');
+INSERT INTO `experiences` VALUES ('25', '353000', '3530000', '12985', '81500', '-1');
+INSERT INTO `experiences` VALUES ('26', '398500', '3985000', '14122', '88000', '-1');
+INSERT INTO `experiences` VALUES ('27', '448000', '4480000', '15315', '94750', '-1');
+INSERT INTO `experiences` VALUES ('28', '503000', '5030000', '16564', '101750', '-1');
+INSERT INTO `experiences` VALUES ('29', '561000', '5610000', '17873', '109000', '-1');
+INSERT INTO `experiences` VALUES ('30', '621600', '6216000', '19242', '116500', '-1');
+INSERT INTO `experiences` VALUES ('31', '687000', '6870000', '20672', '124250', '-1');
+INSERT INTO `experiences` VALUES ('32', '755000', '7550000', '22166', '132250', '-1');
+INSERT INTO `experiences` VALUES ('33', '829000', '8290000', '23726', '140500', '-1');
+INSERT INTO `experiences` VALUES ('34', '910000', '9100000', '25353', '149000', '-1');
+INSERT INTO `experiences` VALUES ('35', '1000000', '10000000', '27048', '157750', '-1');
+INSERT INTO `experiences` VALUES ('36', '1100000', '11000000', '28815', '166750', '-1');
+INSERT INTO `experiences` VALUES ('37', '1240000', '12400000', '30656', '176000', '-1');
+INSERT INTO `experiences` VALUES ('38', '1400000', '14000000', '32572', '185500', '-1');
+INSERT INTO `experiences` VALUES ('39', '1580000', '15800000', '34566', '195250', '-1');
+INSERT INTO `experiences` VALUES ('40', '1780000', '17800000', '36641', '205250', '-1');
+INSERT INTO `experiences` VALUES ('41', '2000000', '20000000', '38800', '215500', '-1');
+INSERT INTO `experiences` VALUES ('42', '2250000', '22500000', '41044', '226000', '-1');
+INSERT INTO `experiences` VALUES ('43', '2530000', '25300000', '43378', '236750', '-1');
+INSERT INTO `experiences` VALUES ('44', '2850000', '28500000', '45804', '247750', '-1');
+INSERT INTO `experiences` VALUES ('45', '3200000', '32000000', '48325', '249000', '-1');
+INSERT INTO `experiences` VALUES ('46', '3570000', '35700000', '50946', '270500', '-1');
+INSERT INTO `experiences` VALUES ('47', '3960000', '39600000', '53669', '282250', '-1');
+INSERT INTO `experiences` VALUES ('48', '4400000', '44000000', '56498', '294250', '-1');
+INSERT INTO `experiences` VALUES ('49', '4860000', '48600000', '59437', '306500', '-1');
+INSERT INTO `experiences` VALUES ('50', '5350000', '53500000', '62491', '319000', '-1');
+INSERT INTO `experiences` VALUES ('51', '5860000', '58600000', '65664', '331750', '-1');
+INSERT INTO `experiences` VALUES ('52', '6390000', '63900000', '68960', '344750', '-1');
+INSERT INTO `experiences` VALUES ('53', '6950000', '69500000', '72385', '358000', '-1');
+INSERT INTO `experiences` VALUES ('54', '7530000', '75300000', '75943', '371500', '-1');
+INSERT INTO `experiences` VALUES ('55', '8130000', '81300000', '79640', '385250', '-1');
+INSERT INTO `experiences` VALUES ('56', '8765100', '87651000', '83482', '399250', '-1');
+INSERT INTO `experiences` VALUES ('57', '9420000', '94200000', '87475', '413500', '-1');
+INSERT INTO `experiences` VALUES ('58', '10150000', '101500000', '91624', '428000', '-1');
+INSERT INTO `experiences` VALUES ('59', '10894000', '108940000', '95937', '442750', '-1');
+INSERT INTO `experiences` VALUES ('60', '11650000', '116500000', '100421', '457750', '-1');
+INSERT INTO `experiences` VALUES ('61', '12450000', '124500000', '105082', '473000', '-1');
+INSERT INTO `experiences` VALUES ('62', '13280000', '132800000', '109930', '488500', '-1');
+INSERT INTO `experiences` VALUES ('63', '14130000', '141300000', '114971', '504250', '-1');
+INSERT INTO `experiences` VALUES ('64', '15170000', '151700000', '120215', '520250', '-1');
+INSERT INTO `experiences` VALUES ('65', '16251000', '162510000', '125671', '536500', '-1');
+INSERT INTO `experiences` VALUES ('66', '17377000', '173770000', '131348', '553000', '-1');
+INSERT INTO `experiences` VALUES ('67', '18553000', '185530000', '137256', '569750', '-1');
+INSERT INTO `experiences` VALUES ('68', '19778000', '197780000', '143407', '586750', '-1');
+INSERT INTO `experiences` VALUES ('69', '21055000', '210550000', '149811', '604000', '-1');
+INSERT INTO `experiences` VALUES ('70', '22385000', '223850000', '156481', '621500', '-1');
+INSERT INTO `experiences` VALUES ('71', '23529000', '235290000', '163429', '639250', '-1');
+INSERT INTO `experiences` VALUES ('72', '25209000', '252090000', '170669', '657250', '-1');
+INSERT INTO `experiences` VALUES ('73', '26707000', '267070000', '178214', '675500', '-1');
+INSERT INTO `experiences` VALUES ('74', '28264000', '282640000', '186080', '694000', '-1');
+INSERT INTO `experiences` VALUES ('75', '29882000', '298820000', '194283', '712750', '-1');
+INSERT INTO `experiences` VALUES ('76', '31563000', '315630000', '202839', '731750', '-1');
+INSERT INTO `experiences` VALUES ('77', '33307000', '333070000', '211765', '751000', '-1');
+INSERT INTO `experiences` VALUES ('78', '35118000', '351180000', '221082', '770500', '-1');
+INSERT INTO `experiences` VALUES ('79', '36997000', '369970000', '230808', '790250', '-1');
+INSERT INTO `experiences` VALUES ('80', '38945000', '389450000', '240964', '810250', '-1');
+INSERT INTO `experiences` VALUES ('81', '40965000', '409650000', '251574', '830500', '-1');
+INSERT INTO `experiences` VALUES ('82', '43059000', '430590000', '262660', '851000', '-1');
+INSERT INTO `experiences` VALUES ('83', '45229000', '452290000', '274248', '871750', '-1');
+INSERT INTO `experiences` VALUES ('84', '47476000', '474760000', '286364', '892750', '-1');
+INSERT INTO `experiences` VALUES ('85', '49803000', '498030000', '299037', '914000', '-1');
+INSERT INTO `experiences` VALUES ('86', '52211000', '522110000', '312297', '935500', '-1');
+INSERT INTO `experiences` VALUES ('87', '54704000', '547040000', '326175', '957250', '-1');
+INSERT INTO `experiences` VALUES ('88', '57284000', '572840000', '340705', '979250', '-1');
+INSERT INTO `experiences` VALUES ('89', '59952000', '599520000', '355924', '1001500', '-1');
+INSERT INTO `experiences` VALUES ('90', '62712000', '627120000', '371870', '1024000', '-1');
+INSERT INTO `experiences` VALUES ('91', '65565000', '655650000', '388582', '1046750', '-1');
+INSERT INTO `experiences` VALUES ('92', '68514000', '685140000', '406106', '1069750', '-1');
+INSERT INTO `experiences` VALUES ('93', '71561000', '715610000', '424486', '1093000', '-1');
+INSERT INTO `experiences` VALUES ('94', '74710000', '747100000', '443772', '1116500', '-1');
+INSERT INTO `experiences` VALUES ('95', '77963000', '779630000', '464016', '1140250', '-1');
+INSERT INTO `experiences` VALUES ('96', '81323000', '813230000', '485274', '1164250', '-1');
+INSERT INTO `experiences` VALUES ('97', '84792000', '847920000', '507604', '1188500', '-1');
+INSERT INTO `experiences` VALUES ('98', '88374000', '883740000', '531071', '1213000', '-1');
+INSERT INTO `experiences` VALUES ('99', '92071000', '920710000', '555541', '1237750', '-1');
+INSERT INTO `experiences` VALUES ('100', '95886000', '958860000', '581687', '1262750', '-1');
+INSERT INTO `experiences` VALUES ('101', '99823000', '998230000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('102', '103885000', '1038850000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('103', '108075000', '1080750000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('104', '112396000', '1123960000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('105', '116853000', '1168530000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('106', '121447000', '1214470000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('107', '126184000', '1261840000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('108', '131066000', '1310660000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('109', '136098000', '1360980000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('110', '141283000', '1412830000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('111', '146626000', '1466260000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('112', '152130000', '1521300000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('113', '157800000', '1578000000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('114', '163640000', '1636400000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('115', '169655000', '1696550000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('116', '175848000', '1758480000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('117', '182225000', '1822250000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('118', '188791000', '1887910000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('119', '195550000', '1955500000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('120', '202507000', '2025070000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('121', '209667000', '2096670000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('122', '217037000', '2170370000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('123', '224620000', '2246200000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('124', '232424000', '2324240000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('125', '240452000', '2404520000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('126', '248712000', '2487120000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('127', '257209000', '2572090000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('128', '265949000', '2659490000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('129', '274939000', '2749390000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('130', '284186000', '2841860000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('131', '293694000', '2936940000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('132', '303473000', '3034730000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('133', '313527000', '3135270000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('134', '323866000', '3238660000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('135', '334495000', '3344950000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('136', '345423000', '3454230000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('137', '356657000', '3566570000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('138', '368206000', '3682060000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('139', '380076000', '3800760000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('140', '392278000', '3922780000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('141', '404818000', '4048180000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('142', '417706000', '4177060000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('143', '430952000', '4309520000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('144', '444564000', '4445640000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('145', '458551000', '4585510000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('146', '472924000', '4729240000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('147', '487693000', '4876930000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('148', '502867000', '5028670000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('149', '518458000', '5184580000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('150', '534476000', '5344760000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('151', '502867000', '5028670000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('152', '567839000', '5678390000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('153', '585206000', '5852060000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('154', '603047000', '6030470000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('155', '621374000', '6213740000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('156', '640199000', '6401990000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('157', '659536000', '6595360000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('158', '679398000', '6793980000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('159', '699798000', '6997980000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('160', '720751000', '7207510000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('161', '742772000', '7427720000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('162', '764374000', '7643740000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('163', '787074000', '7870740000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('164', '810387000', '8103870000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('165', '834329000', '8343290000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('166', '858917000', '8589170000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('167', '884167000', '8841670000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('168', '910098000', '9100980000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('169', '936727000', '9367270000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('170', '964073000', '9640730000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('171', '992154000', '9921540000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('172', '1020991000', '10209910000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('173', '1050603000', '10506030000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('174', '1081010000', '10810100000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('175', '1112235000', '11122350000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('176', '1144298000', '11442980000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('177', '1177222000', '11772220000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('178', '1211030000', '12110300000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('179', '1245745000', '12457450000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('180', '1281393000', '12813930000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('181', '1317997000', '13179970000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('182', '1355584000', '13555840000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('183', '1404179000', '14041790000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('184', '1463811000', '14638110000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('185', '1534506000', '15345060000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('186', '1616294000', '16162940000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('187', '1709205000', '17092050000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('188', '1813267000', '18132670000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('189', '1928513000', '19285130000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('190', '2054975000', '20549750000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('191', '2192686000', '21926860000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('192', '2341679000', '23416790000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('193', '2501990000', '25019900000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('194', '2673655000', '26736550000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('195', '2856710000', '28567100000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('196', '3051194000', '30511940000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('197', '3257146000', '32571460000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('198', '3474606000', '34746060000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('199', '3703616000', '37036160000', '-1', '-1', '-1');
+INSERT INTO `experiences` VALUES ('200', '7407232000', '74072320000', '-1', '-1', '-1');
 
 -- ----------------------------
 -- Table structure for maps

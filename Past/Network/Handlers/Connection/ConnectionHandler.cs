@@ -6,6 +6,7 @@ using Past.Protocol.Types;
 using Past.Utils;
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Past.Network.Handlers.Connection
 {
@@ -69,7 +70,44 @@ namespace Past.Network.Handlers.Connection
 
         public static void HandleNicknameChoiceRequestMessage(LoginClient client, NicknameChoiceRequestMessage message)
         {
-            
+            string nickname = message.nickname;
+            if (!Regex.IsMatch(nickname, "^[a-zA-Z\\-]{3,29}$", RegexOptions.Compiled))
+            {
+                client.Send(new NicknameRefusedMessage((sbyte)NicknameErrorEnum.INVALID_NICK));
+            }
+            else
+            {
+                if (nickname == client.Account.Login)
+                {
+                    client.Send(new NicknameRefusedMessage((sbyte)NicknameErrorEnum.SAME_AS_LOGIN));
+                }
+                else
+                {
+                    if (client.Account.Login.Contains(nickname))
+                    {
+                        client.Send(new NicknameRefusedMessage((sbyte)NicknameErrorEnum.TOO_SIMILAR_TO_LOGIN));
+                    }
+                    else
+                    {
+                        if (Account.NicknameExist(nickname))
+                        {
+                            client.Send(new NicknameRefusedMessage((sbyte)NicknameErrorEnum.ALREADY_USED));
+                        }
+                        else
+                        {
+                            client.Account.Nickname = nickname;
+                            Account.Update(client.Account);
+                            client.Send(new NicknameAcceptedMessage());
+                            Console.WriteLine("{0} {1}", client.Account.Login, client.Account.Nickname);
+                            client.Send(new IdentificationSuccessMessage(client.Account.HasRights, false, client.Account.Nickname, 0, client.Account.SecretQuestion, 42195168000000));
+                            client.Send(new ServersListMessage(new GameServerInformations[]
+                            {
+                                new GameServerInformations(111, 3, 0, true, 0),
+                            }));
+                        }
+                    }
+                }
+            }
         }
     }
 }

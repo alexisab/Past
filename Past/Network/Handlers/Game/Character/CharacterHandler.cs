@@ -26,11 +26,10 @@ namespace Past.Network.Handlers.Game.Character
 
         public static void HandleCharacterSelectionMessage(GameClient client, CharacterSelectionMessage message)
         {
-            var character = client.Account.Characters.Where(x => x.Id == message.id).First();
+            var character = client.Account.Characters.First(x => x.Id == message.id);
             client.Send(new CharacterSelectedSuccessMessage(new CharacterBaseInformations(character.Id, character.Name, 1, character.Look, character.Breed, character.Sex)));
             client.Send(new TextInformationMessage((sbyte)TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 89, new string[0]));
         }
-
 
         public static void HandleCharacterCreationRequestMessage(GameClient client, CharacterCreationRequestMessage message)
         {

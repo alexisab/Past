@@ -28,7 +28,7 @@ namespace Past.Database
                         Id = int.Parse(reader["Id"].ToString()),
                         Name = reader["Name"].ToString(),
                         Breed = sbyte.Parse(reader["Breed"].ToString()),
-                        EntityLookString = reader["EntityLook"].ToString(),
+                        EntityLookString = reader["EntityLookString"].ToString(),
                         Sex = Convert.ToBoolean(reader["Sex"])
                     });
                 }
@@ -37,11 +37,11 @@ namespace Past.Database
             }
         }
 
-        public static EntityLook ReturnCharacterLook(Character character)
+        public static EntityLook ReturnCharacterLook(Character character) //TODO SubEntity
         {
             var look_string = character.EntityLookString.Replace("{", "").Replace("}", "").Split('|');
             short bonesId = short.Parse(look_string[0]);
-
+            
             short[] skins;
             if (look_string[1].Contains(","))
             {
