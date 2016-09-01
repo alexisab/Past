@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50709
 File Encoding         : 65001
 
-Date: 2016-08-31 08:05:56
+Date: 2016-09-01 03:29:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `accounts`;
 CREATE TABLE `accounts` (
-  `Id` int(11) NOT NULL,
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Login` mediumtext NOT NULL,
   `Password` mediumtext NOT NULL,
   `Nickname` mediumtext,
@@ -29,7 +29,7 @@ CREATE TABLE `accounts` (
   `SecretAnswer` mediumtext,
   `BannedUntil` datetime DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of accounts
@@ -69,6 +69,25 @@ INSERT INTO `breeds` VALUES ('9', '{1|90||140}', '{1|91||135}', '0,1|50,2|150,3|
 INSERT INTO `breeds` VALUES ('10', '{1|100||150}', '{1|101||145}', '0,1|50,2|250,3|300,4|400,5', '0,1|100,2|200,3|300,4|400,5', '0,1|100,2|200,3|300,4|400,5', '0,1|20,2|40,3|60,4|80,5', '0,1', '0,3', '193,183,200,198,195,182,192,197,189,181,199,191,186,196,190,194,185,184,188,187,1910');
 INSERT INTO `breeds` VALUES ('11', '{1|110||145}', '{1|111||140}', '0,3|100,4|150,5', '0,3|100,4|150,5', '0,3|100,4|150,5', '0,3|100,4|150,5', '0,1,2', '0,3', '431,432,434,444,449,436,437,439,433,443,440,442,441,445,438,446,447,448,435,450,1911');
 INSERT INTO `breeds` VALUES ('12', '{1|120||160}', '{1|121||145}', '0,1|50,2|200,3', '0,1|50,2|200,3', '0,1|50,2|200,3', '0,1|50,2|200,3', '0,1', '0,3', '686,692,687,689,690,691,688,693,694,695,696,697,698,699,700,701,702,703,704,705,1912');
+
+-- ----------------------------
+-- Table structure for characters
+-- ----------------------------
+DROP TABLE IF EXISTS `characters`;
+CREATE TABLE `characters` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `OwnerId` int(11) NOT NULL,
+  `Name` mediumtext COLLATE latin1_bin NOT NULL,
+  `Breed` tinyint(4) NOT NULL,
+  `Sex` tinyint(1) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+
+-- ----------------------------
+-- Records of characters
+-- ----------------------------
+INSERT INTO `characters` VALUES ('1', '1', 0x41646D696E, '1', '0');
+INSERT INTO `characters` VALUES ('2', '1', 0x54657374, '1', '1');
 
 -- ----------------------------
 -- Table structure for maps
