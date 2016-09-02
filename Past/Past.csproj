@@ -73,6 +73,7 @@
     <Compile Include="Network\Handlers\Connection\ConnectionHandler.cs" />
     <Compile Include="Network\Handlers\Game\Approach\ApproachHandler.cs" />
     <Compile Include="Network\Handlers\Game\Character\CharacterHandler.cs" />
+    <Compile Include="Network\Handlers\Game\Context\ContextHandler.cs" />
     <Compile Include="Network\Handlers\MessageHandlerManager.cs" />
     <Compile Include="Network\Login\LoginClient.cs" />
     <Compile Include="Network\Login\LoginServer.cs" />

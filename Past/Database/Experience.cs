@@ -9,7 +9,7 @@ namespace Past.Database
         public byte Level { get; set; }
         public long CharacterXp { get; set; }
         public long GuildXp { get; set; }
-        public long AlignementXp { get; set; }
+        public long AlignmentXp { get; set; }
         private static List<Experience> ExperienceFloor = new List<Experience>();
 
         public static void LoadExperienceFloor()
@@ -24,7 +24,7 @@ namespace Past.Database
                         Level = byte.Parse(reader["Level"].ToString()),
                         CharacterXp = long.Parse(reader["Character"].ToString()),
                         GuildXp = long.Parse(reader["Guild"].ToString()),
-                        AlignementXp = long.Parse(reader["Alignement"].ToString())
+                        AlignmentXp = long.Parse(reader["Alignment"].ToString())
                     });
                 }
                 reader.Close();

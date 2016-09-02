@@ -12,10 +12,12 @@ namespace Past.Network.Game
     {
         private Client Game { get; set; }
         public Account Account { get; set; }
+        public string Ip { get; set; }
 
         public GameClient(Client client)
         {
             Game = client;
+            Ip = client.Ip;
             Game_OnClientSocketConnected();
             Game.OnClientSocketClosed += Game_OnClientSocketClosed;
             Game.OnClientReceivedData += Game_OnClientReceivedData;
