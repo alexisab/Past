@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\Account.cs" />
+    <Compile Include="Database\Breed.cs" />
     <Compile Include="Database\Character.cs" />
     <Compile Include="Database\DatabaseManager.cs" />
     <Compile Include="Database\Experience.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Network\Handlers\Game\Approach\ApproachHandler.cs" />
     <Compile Include="Network\Handlers\Game\Character\CharacterHandler.cs" />
     <Compile Include="Network\Handlers\Game\Context\ContextHandler.cs" />
+    <Compile Include="Network\Handlers\Game\Context\Roleplay\ContextRoleplayHandler.cs" />
     <Compile Include="Network\Handlers\MessageHandlerManager.cs" />
     <Compile Include="Network\Login\LoginClient.cs" />
     <Compile Include="Network\Login\LoginServer.cs" />

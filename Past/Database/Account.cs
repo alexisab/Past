@@ -15,10 +15,12 @@ namespace Past.Database
         public string SecretAnswer { get; set; }
         public DateTime BannedUntil { get; set; }
         public List<Character> Characters = new List<Character>();
+        public DateTime? LastConnection { get; set; }
+        public string LastIp { get; set; }
 
         public static Account ReturnAccount(string login)
         {
-            MySqlCommand command = new MySqlCommand("SELECT * FROM accounts WHERE Login = '" + login + "'", DatabaseManager.Connection);
+            MySqlCommand command = new MySqlCommand("SELECT * FROM accounts WHERE Login = '" + login + "' LIMIT 1;", DatabaseManager.Connection);
             using (MySqlDataReader reader = command.ExecuteReader())
             {
                 if (!reader.Read())
@@ -32,6 +34,8 @@ namespace Past.Database
                 account.SecretQuestion = reader["SecretQuestion"].ToString();
                 account.SecretAnswer = reader["SecretAnswer"].ToString();
                 account.BannedUntil = reader["BannedUntil"] as DateTime? ?? DateTime.MinValue;
+                account.LastConnection = reader["LastConnection"] as DateTime?;
+                account.LastIp = reader["LastIp"].ToString();
                 reader.Close();
                 return account;
             }
@@ -39,7 +43,7 @@ namespace Past.Database
         
         public static void Update(Account account)
         {
-            MySqlCommand command = new MySqlCommand("UPDATE accounts SET Id = @Id, Login = @Login, Password = @Password, Nickname = @Nickname, HasRights = @HasRights, SecretQuestion = @SecretQuestion, SecretAnswer = @SecretAnswer, BannedUntil = @BannedUntil WHERE Id = @Id", DatabaseManager.Connection);
+            MySqlCommand command = new MySqlCommand("UPDATE accounts SET Id = @Id, Login = @Login, Password = @Password, Nickname = @Nickname, HasRights = @HasRights, SecretQuestion = @SecretQuestion, SecretAnswer = @SecretAnswer, BannedUntil = @BannedUntil, LastConnection = @LastConnection, LastIp = @LastIp WHERE Id = @Id", DatabaseManager.Connection);
             command.Parameters.Add(new MySqlParameter("@Id", account.Id));
             command.Parameters.Add(new MySqlParameter("@Login", account.Login));
             command.Parameters.Add(new MySqlParameter("@Password", account.Password));
@@ -48,6 +52,8 @@ namespace Past.Database
             command.Parameters.Add(new MySqlParameter("@SecretQuestion", account.SecretQuestion));
             command.Parameters.Add(new MySqlParameter("@SecretAnswer", account.SecretAnswer));
             command.Parameters.Add(new MySqlParameter("@BannedUntil", account.BannedUntil));
+            command.Parameters.Add(new MySqlParameter("@LastConnection", account.LastConnection));
+            command.Parameters.Add(new MySqlParameter("@LastIp", account.LastIp));
             command.ExecuteNonQuery();
         }
 

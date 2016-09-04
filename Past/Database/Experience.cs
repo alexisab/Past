@@ -40,5 +40,12 @@ namespace Past.Database
         {
             return ExperienceFloor.FirstOrDefault(x => x.Level == level + 1);
         }
+
+        public static byte GetCharacterGrade(ushort honor)
+        {
+            if (honor >= 17500)
+                return 10;
+            return (byte)(ExperienceFloor.First(x => x.AlignmentXp > honor).Level - 1);
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace Past.Network.Game
     {
         private Client Game { get; set; }
         public Account Account { get; set; }
+        public Character Character { get; set; }
         public string Ip { get; set; }
 
         public GameClient(Client client)
@@ -39,6 +40,7 @@ namespace Past.Network.Game
         {
             GameServer.Clients.Remove(this);
             Account = null;
+            Character = null;
             Game.Close();
         }
 

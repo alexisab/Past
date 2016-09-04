@@ -1,5 +1,6 @@
 ﻿using Past.Network.Game;
 using Past.Protocol.Messages;
+using System.Linq;
 
 namespace Past.Network.Handlers.Game.Approach
 {
@@ -7,13 +8,14 @@ namespace Past.Network.Handlers.Game.Approach
     {
         public static void HandleAuthenticationTicketMessage(GameClient client, AuthenticationTicketMessage message)
         {
-            if (message.ticket != "")
+            if (message.ticket != string.Empty)
             {
                 var account = TransitionHelper.ReturnAccount(message.ticket);
                 if (account != null)
                 {
                     client.Account = account;
-                    client.Account.Characters = Database.Character.ReturnCharacters(client.Account.Id);
+                    if (GameServer.Clients.Count(x => x.Account.Login == account.Login) > 1)
+                        GameServer.Clients.First(x => x.Account.Login == account.Login).Disconnect();
                     client.Send(new AuthenticationTicketAcceptedMessage());
                 }
                 else

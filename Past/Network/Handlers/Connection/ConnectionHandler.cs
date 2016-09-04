@@ -45,13 +45,13 @@ namespace Past.Network.Handlers.Connection
                     return;
                 }
                 if (LoginServer.Clients.Count(x => x.Account.Login == account.Login) > 1)
-                {
                     LoginServer.Clients.First(x => x.Account.Login == account.Login).Disconnect();
-                }
+
+                client.Account.Characters = Character.ReturnCharacters(account.Id);
                 client.Send(new IdentificationSuccessMessage(account.HasRights, false, account.Nickname, 0, account.SecretQuestion, 42195168000000));
                 client.Send(new ServersListMessage(new GameServerInformations[]
                 {
-                    new GameServerInformations(111, 3, 0, true, 0),
+                    new GameServerInformations(111, 3, 0, true, (sbyte)client.Account.Characters.Count()),
                 }));
             }
         }
@@ -98,11 +98,10 @@ namespace Past.Network.Handlers.Connection
                             client.Account.Nickname = nickname;
                             Account.Update(client.Account);
                             client.Send(new NicknameAcceptedMessage());
-                            Console.WriteLine("{0} {1}", client.Account.Login, client.Account.Nickname);
                             client.Send(new IdentificationSuccessMessage(client.Account.HasRights, false, client.Account.Nickname, 0, client.Account.SecretQuestion, 42195168000000));
                             client.Send(new ServersListMessage(new GameServerInformations[]
                             {
-                                new GameServerInformations(111, 3, 0, true, 0),
+                                new GameServerInformations(111, 3, 0, true, (sbyte)client.Account.Characters.Count),
                             }));
                         }
                     }

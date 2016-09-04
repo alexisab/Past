@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50709
 File Encoding         : 65001
 
-Date: 2016-09-02 00:56:43
+Date: 2016-09-04 23:34:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,14 +28,16 @@ CREATE TABLE `accounts` (
   `SecretQuestion` mediumtext CHARACTER SET utf8,
   `SecretAnswer` mediumtext CHARACTER SET utf8,
   `BannedUntil` datetime DEFAULT NULL,
+  `LastConnection` datetime DEFAULT NULL,
+  `LastIp` mediumtext CHARACTER SET utf8,
   PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of accounts
 -- ----------------------------
-INSERT INTO `accounts` VALUES ('1', 'Test', '098f6bcd4621d373cade4e832627b4f6', 'mdr', '1', 'Delete ?', 'Yes', '0001-01-01 00:00:00');
-INSERT INTO `accounts` VALUES ('2', 'Test2', '098f6bcd4621d373cade4e832627b4f6', 'salam', '1', 'Delete ?', 'Yes', null);
+INSERT INTO `accounts` VALUES ('1', 'Test', '098f6bcd4621d373cade4e832627b4f6', 'mdr', '1', 'Delete ?', 'Yes', '0001-01-01 00:00:00', '2016-09-04 23:32:36', '127.0.0.1');
+INSERT INTO `accounts` VALUES ('2', 'Test2', '098f6bcd4621d373cade4e832627b4f6', 'salam', '1', 'Delete ?', 'Yes', null, null, null);
 
 -- ----------------------------
 -- Table structure for breeds
@@ -82,16 +84,24 @@ CREATE TABLE `characters` (
   `Level` tinyint(3) unsigned NOT NULL,
   `Experience` bigint(20) NOT NULL,
   `Breed` tinyint(4) NOT NULL,
-  `EntityLookString` mediumtext CHARACTER SET utf8,
+  `EntityLookString` mediumtext CHARACTER SET utf8 NOT NULL,
   `Sex` tinyint(1) NOT NULL,
+  `StatsPoints` smallint(6) DEFAULT NULL,
+  `SpellsPoints` smallint(6) DEFAULT NULL,
+  `AlignementSide` tinyint(3) DEFAULT '0',
+  `Honor` smallint(5) unsigned DEFAULT '0',
+  `Dishonor` smallint(5) unsigned DEFAULT '0',
+  `PvPEnabled` tinyint(1) DEFAULT '0',
+  `Kamas` int(11) DEFAULT NULL,
+  `LastUsage` datetime DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 
 -- ----------------------------
 -- Records of characters
 -- ----------------------------
-INSERT INTO `characters` VALUES ('1', '1', 'Admin', '200', '0', '1', '{1|10||125}', '0');
-INSERT INTO `characters` VALUES ('2', '1', 'Test', '1', '0', '1', '{1|11,1135,1155|1=16769340,2=16753434,3=5992482,4=6003530,5=16769340|125}', '1');
+INSERT INTO `characters` VALUES ('1', '1', 'Admin', '200', '7407232000', '1', '{1|10||125}', '0', '200', '200', '3', '15137', '0', '0', '1337', '2016-09-04 23:28:44');
+INSERT INTO `characters` VALUES ('2', '1', 'Test', '1', '0', '1', '{1|11,1135,1155|1=16769340,2=16753434,3=5992482,4=6003530,5=16769340|125}', '1', '0', '0', '1', '699', '0', '1', '0', '2016-09-04 23:32:36');
 
 -- ----------------------------
 -- Table structure for experiences
@@ -99,11 +109,11 @@ INSERT INTO `characters` VALUES ('2', '1', 'Test', '1', '0', '1', '{1|11,1135,11
 DROP TABLE IF EXISTS `experiences`;
 CREATE TABLE `experiences` (
   `Level` tinyint(3) unsigned NOT NULL,
-  `Character` bigint(11) NOT NULL,
+  `Character` bigint(20) NOT NULL,
   `Guild` bigint(20) NOT NULL,
-  `Job` bigint(11) NOT NULL,
-  `Mount` bigint(11) NOT NULL,
-  `Alignment` bigint(11) NOT NULL,
+  `Job` bigint(20) NOT NULL,
+  `Mount` bigint(20) NOT NULL,
+  `Alignment` bigint(20) NOT NULL,
   PRIMARY KEY (`Level`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
