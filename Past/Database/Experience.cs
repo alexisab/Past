@@ -45,7 +45,7 @@ namespace Past.Database
         {
             if (honor >= 17500)
                 return 10;
-            return (byte)(ExperienceFloor.First(x => x.AlignmentXp > honor).Level - 1);
+            return (byte)(ExperienceFloor.FirstOrDefault(x => x.AlignmentXp > honor).Level - 1);
         }
     }
 }

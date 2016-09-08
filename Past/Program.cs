@@ -14,15 +14,17 @@ namespace Past
             ConsoleUtils.InitializeConsole();
             Config.ReadConfig();
 
-            LoginServer.Start();
-            GameServer.Start();
-
             MessageReceiver.InitializeMessages();
             MessageHandlerManager<LoginClient>.InitializeHandlers();
             MessageHandlerManager<GameClient>.InitializeHandlers();
 
             Database.DatabaseManager.Connect();
             Database.Experience.LoadExperienceFloor();
+            Database.Breed.LoadBreeds();
+            Database.Map.LoadMaps();
+
+            LoginServer.Start();
+            GameServer.Start();
 
             while (true)
             {

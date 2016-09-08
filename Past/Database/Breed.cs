@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using Past.Protocol.Enums;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Past.Database
 {
@@ -27,6 +28,11 @@ namespace Past.Database
                 }
                 reader.Close();
             }
+        }
+
+        public static string ReturnBaseLook(BreedEnum breed, bool sex)
+        {
+            return sex == false ? Breeds.FirstOrDefault(x => x.Id == breed).MaleLook : Breeds.FirstOrDefault(x => x.Id == breed).FemaleLook;
         }
 
         public static int ReturnStartMap(BreedEnum breed) //CellId 242 Direction 1

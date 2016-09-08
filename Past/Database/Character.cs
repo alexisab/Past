@@ -18,6 +18,10 @@ namespace Past.Database
         public string EntityLookString { get; set; }
         public bool Sex { get; set; }
         public EntityLook Look { get { return ReturnCharacterLook(this); } }
+        public int MapId { get; set; }
+        public short CellId { get; set; }
+        public DirectionsEnum Direction { get; set; }
+        public Map Map { get { return Map.Maps[MapId]; } }
         public AlignmentSideEnum AlignementSide;
         public ushort Honor { get; set; }
         public ushort Dishonor { get; set; }
@@ -45,11 +49,14 @@ namespace Past.Database
                         Breed = sbyte.Parse(reader["Breed"].ToString()),
                         EntityLookString = reader["EntityLookString"].ToString(),
                         Sex = Convert.ToBoolean(reader["Sex"]),
-                        Kamas = int.Parse(reader["Kamas"].ToString()),
+                        MapId = int.Parse(reader["MapId"].ToString()),
+                        CellId = short.Parse(reader["CellId"].ToString()),
+                        Direction = (DirectionsEnum)byte.Parse(reader["Direction"].ToString()),
                         AlignementSide = (AlignmentSideEnum)byte.Parse(reader["AlignementSide"].ToString()),
                         Honor = ushort.Parse(reader["Honor"].ToString()),
                         Dishonor = ushort.Parse(reader["Dishonor"].ToString()),
                         PvPEnabled = Convert.ToBoolean(reader["PvPEnabled"]),
+                        Kamas = int.Parse(reader["Kamas"].ToString()),
                         StatsPoints = short.Parse(reader["StatsPoints"].ToString()),
                         SpellsPoints = short.Parse(reader["SpellsPoints"].ToString()),
                         LastUsage = reader["LastUsage"] as DateTime?
@@ -62,7 +69,7 @@ namespace Past.Database
 
         public static void Update(Character character)
         {
-            MySqlCommand command = new MySqlCommand("UPDATE characters SET Id = @Id, OwnerId = @OwnerId, Name = @Name, Level = @Level, Experience = @Experience, Breed = @Breed, EntityLookString = @EntityLookString, Sex = @Sex, Kamas = @Kamas, StatsPoints = @StatsPoints, StatsPoints = @SpellsPoints, LastUsage = @LastUsage WHERE Id = @Id", DatabaseManager.Connection);
+            MySqlCommand command = new MySqlCommand("UPDATE characters SET Id = @Id, OwnerId = @OwnerId, Name = @Name, Level = @Level, Experience = @Experience, Breed = @Breed, EntityLookString = @EntityLookString, Sex = @Sex, MapId = @MapId, CellId = @CellId, Direction = @Direction, AlignementSide = @AlignementSide, Honor = @Honor, Dishonor = @Dishonor, PvPEnabled = @PvPEnabled, Kamas = @Kamas, StatsPoints = @StatsPoints, StatsPoints = @SpellsPoints, LastUsage = @LastUsage WHERE Id = @Id", DatabaseManager.Connection);
             command.Parameters.Add(new MySqlParameter("@Id", character.Id));
             command.Parameters.Add(new MySqlParameter("@OwnerId", character.OwnerId));
             command.Parameters.Add(new MySqlParameter("@Name", character.Name));
@@ -71,9 +78,31 @@ namespace Past.Database
             command.Parameters.Add(new MySqlParameter("@Breed", character.Breed));
             command.Parameters.Add(new MySqlParameter("@EntityLookString", character.EntityLookString));
             command.Parameters.Add(new MySqlParameter("@Sex", character.Sex));
+            command.Parameters.Add(new MySqlParameter("@MapId", character.MapId));
+            command.Parameters.Add(new MySqlParameter("@CellId", character.CellId));
+            command.Parameters.Add(new MySqlParameter("@Direction", character.Direction));
+            command.Parameters.Add(new MySqlParameter("@AlignementSide", character.AlignementSide));
+            command.Parameters.Add(new MySqlParameter("@Honor", character.Honor));
+            command.Parameters.Add(new MySqlParameter("@Dishonor", character.Dishonor));
+            command.Parameters.Add(new MySqlParameter("@PvPEnabled", character.PvPEnabled));
             command.Parameters.Add(new MySqlParameter("@Kamas", character.Kamas));
             command.Parameters.Add(new MySqlParameter("@StatsPoints", character.StatsPoints));
             command.Parameters.Add(new MySqlParameter("@SpellsPoints", character.SpellsPoints));
+            command.Parameters.Add(new MySqlParameter("@LastUsage", character.LastUsage));
+            command.ExecuteNonQuery();
+        }
+
+        public static void Create(Character character)
+        {
+            MySqlCommand command = new MySqlCommand("INSERT INTO characters SET OwnerId = @OwnerId, Name = @Name, Breed = @Breed, EntityLookString = @EntityLookString, Sex = @Sex, MapId = @MapId, CellId = @CellId, Direction = @Direction, LastUsage = @LastUsage", DatabaseManager.Connection);
+            command.Parameters.Add(new MySqlParameter("@OwnerId", character.OwnerId));
+            command.Parameters.Add(new MySqlParameter("@Name", character.Name));
+            command.Parameters.Add(new MySqlParameter("@Breed", character.Breed));
+            command.Parameters.Add(new MySqlParameter("@EntityLookString", character.EntityLookString));
+            command.Parameters.Add(new MySqlParameter("@Sex", character.Sex));
+            command.Parameters.Add(new MySqlParameter("@MapId", character.MapId));
+            command.Parameters.Add(new MySqlParameter("@CellId", character.CellId));
+            command.Parameters.Add(new MySqlParameter("@Direction", character.Direction));
             command.Parameters.Add(new MySqlParameter("@LastUsage", character.LastUsage));
             command.ExecuteNonQuery();
         }
@@ -100,7 +129,12 @@ namespace Past.Database
                 var colors_string = look_string[2].Split(',');
                 colors = new int[colors_string.Length];
                 for (int i = 0; i < colors_string.Length; i++)
-                    colors[i] = (i & 255) << 24 | int.Parse(colors_string[i].Remove(0, 2)) & 16777215;
+                {
+                    var color = int.Parse(colors_string[i].Remove(0, 2));
+                    if (color == -1) { }
+                    else
+                        colors[i] = (i + 1 & 255) << 24 | color & 16777215;
+                }
             }
             else
                 colors = new int[0];

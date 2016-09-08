@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50709
 File Encoding         : 65001
 
-Date: 2016-09-04 23:34:19
+Date: 2016-09-08 03:54:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,7 +36,7 @@ CREATE TABLE `accounts` (
 -- ----------------------------
 -- Records of accounts
 -- ----------------------------
-INSERT INTO `accounts` VALUES ('1', 'Test', '098f6bcd4621d373cade4e832627b4f6', 'mdr', '1', 'Delete ?', 'Yes', '0001-01-01 00:00:00', '2016-09-04 23:32:36', '127.0.0.1');
+INSERT INTO `accounts` VALUES ('1', 'Test', '098f6bcd4621d373cade4e832627b4f6', 'mdr', '1', 'Delete ?', 'Yes', '0001-01-01 00:00:00', '2016-09-07 21:53:16', '127.0.0.1');
 INSERT INTO `accounts` VALUES ('2', 'Test2', '098f6bcd4621d373cade4e832627b4f6', 'salam', '1', 'Delete ?', 'Yes', null, null, null);
 
 -- ----------------------------
@@ -81,27 +81,30 @@ CREATE TABLE `characters` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `OwnerId` int(11) NOT NULL,
   `Name` mediumtext CHARACTER SET utf8 NOT NULL,
-  `Level` tinyint(3) unsigned NOT NULL,
-  `Experience` bigint(20) NOT NULL,
-  `Breed` tinyint(4) NOT NULL,
+  `Level` tinyint(3) unsigned NOT NULL DEFAULT '1',
+  `Experience` bigint(20) NOT NULL DEFAULT '0',
+  `Breed` tinyint(3) NOT NULL,
   `EntityLookString` mediumtext CHARACTER SET utf8 NOT NULL,
   `Sex` tinyint(1) NOT NULL,
-  `StatsPoints` smallint(6) DEFAULT NULL,
-  `SpellsPoints` smallint(6) DEFAULT NULL,
-  `AlignementSide` tinyint(3) DEFAULT '0',
+  `MapId` int(11) NOT NULL,
+  `CellId` smallint(6) NOT NULL,
+  `Direction` tinyint(3) NOT NULL,
+  `AlignementSide` tinyint(3) NOT NULL DEFAULT '0',
   `Honor` smallint(5) unsigned DEFAULT '0',
   `Dishonor` smallint(5) unsigned DEFAULT '0',
   `PvPEnabled` tinyint(1) DEFAULT '0',
-  `Kamas` int(11) DEFAULT NULL,
+  `Kamas` int(11) DEFAULT '0',
+  `StatsPoints` smallint(6) DEFAULT '0',
+  `SpellsPoints` smallint(6) DEFAULT '0',
   `LastUsage` datetime DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 
 -- ----------------------------
 -- Records of characters
 -- ----------------------------
-INSERT INTO `characters` VALUES ('1', '1', 'Admin', '200', '7407232000', '1', '{1|10||125}', '0', '200', '200', '3', '15137', '0', '0', '1337', '2016-09-04 23:28:44');
-INSERT INTO `characters` VALUES ('2', '1', 'Test', '1', '0', '1', '{1|11,1135,1155|1=16769340,2=16753434,3=5992482,4=6003530,5=16769340|125}', '1', '0', '0', '1', '699', '0', '1', '0', '2016-09-04 23:32:36');
+INSERT INTO `characters` VALUES ('1', '1', 'Admin', '200', '7407232000', '1', '{1|10|1=-1,2=16711688,3=-1,4=16711688|125}', '0', '21893123', '242', '1', '3', '15137', '0', '0', '1337', '200', '200', '2016-09-07 21:49:00');
+INSERT INTO `characters` VALUES ('2', '1', 'AdminF', '1', '0', '1', '{1|11,1135,1155|1=10190374,2=1264977,3=16728906,4=3580252,5=8722543|125}', '1', '21893123', '242', '1', '0', '0', '0', '0', '0', '0', '0', '2016-09-07 21:53:16');
 
 -- ----------------------------
 -- Table structure for experiences
