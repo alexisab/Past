@@ -5,7 +5,6 @@ using Past.Protocol.Messages;
 using Past.Protocol.Types;
 using Past.Utils;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Past.Network.Handlers.Game.Character
@@ -53,11 +52,11 @@ namespace Past.Network.Handlers.Game.Character
                 character.StatsPoints,
                 character.SpellsPoints,
                 new ActorExtendedAlignmentInformations((sbyte)character.AlignementSide, 0, (sbyte)Experience.GetCharacterGrade(character.Honor), 0, character.Honor, character.Dishonor, character.PvPEnabled),
-                55,
-                55,
+                50 + (character.Level * 5),
+                50 + (character.Level * 5),
                 10000,
                 10000,
-                6,
+                character.Level >= 100 ? (short)7 : (short)6,
                 3,
                 new CharacterBaseCharacteristic(0, 0, 0, 0),
                 new CharacterBaseCharacteristic(0, 0, 0, 0),
@@ -125,36 +124,42 @@ namespace Past.Network.Handlers.Game.Character
 
         public static void HandleCharacterCreationRequestMessage(GameClient client, CharacterCreationRequestMessage message) //TODO Clean and add check
         {
-            //client.Send(new CharacterCreationResultMessage(1)); //error
-            Database.Character character = new Database.Character();
-            character.OwnerId = client.Account.Id;
-            character.Name = message.name;
-            character.Breed = message.breed;
-            
-            string breed_look = Breed.ReturnBaseLook((BreedEnum)message.breed, message.sex);
-
-            if (message.colors.Distinct().Count() != 1) //Checking if the colors are set or not
-                character.EntityLookString = breed_look.Insert(breed_look.IndexOf("||") + 1, String.Format("1={0},2={1},3={2},4={3},5={4}", message.colors[0], message.colors[1], message.colors[2], message.colors[3], message.colors[4]));
-            else
-                character.EntityLookString = breed_look;
-
-            character.Sex = message.sex;
-            character.MapId = Breed.ReturnStartMap((BreedEnum)message.breed);
-            character.CellId = 242;
-            character.Direction = DirectionsEnum.DIRECTION_SOUTH_EAST;
-            character.LastUsage = DateTime.Now;
-
-            Database.Character.Create(character);
-            client.Account.Characters = Database.Character.ReturnCharacters(client.Account.Id);
-
-            client.Send(new CharacterCreationResultMessage(0));
-
-            var array = new CharacterBaseInformations[client.Account.Characters.Count];
-            for (int i = 0; i < client.Account.Characters.Count; i++)
+            if (client.Account.Characters.Count >= 5)
             {
-                array[i] = new CharacterBaseInformations(client.Account.Characters[i].Id, client.Account.Characters[i].Name, client.Account.Characters[i].Level, client.Account.Characters[i].Look, client.Account.Characters[i].Breed, client.Account.Characters[i].Sex);
+                client.Send(new CharacterCreationResultMessage((sbyte)CharacterCreationResultEnum.ERR_TOO_MANY_CHARACTERS));
             }
-            client.Send(new CharactersListMessage(false, true, array));
+            else
+            {
+                Database.Character character = new Database.Character();
+                character.OwnerId = client.Account.Id;
+                character.Name = message.name;
+                character.Breed = message.breed;
+
+                string breed_look = Breed.ReturnBaseLook((BreedEnum)message.breed, message.sex);
+
+                if (message.colors.Distinct().Count() != 1) //Checking if the colors are set or not
+                    character.EntityLookString = breed_look.Insert(breed_look.IndexOf("||") + 1, String.Format("1={0},2={1},3={2},4={3},5={4}", message.colors[0], message.colors[1], message.colors[2], message.colors[3], message.colors[4]));
+                else
+                    character.EntityLookString = breed_look;
+
+                character.Sex = message.sex;
+                character.MapId = Breed.ReturnStartMap((BreedEnum)message.breed);
+                character.CellId = 242;
+                character.Direction = DirectionsEnum.DIRECTION_SOUTH_EAST;
+                character.LastUsage = DateTime.Now;
+
+                Database.Character.Create(character);
+                client.Account.Characters = Database.Character.ReturnCharacters(client.Account.Id);
+
+                client.Send(new CharacterCreationResultMessage((sbyte)CharacterCreationResultEnum.OK));
+
+                var array = new CharacterBaseInformations[client.Account.Characters.Count];
+                for (int i = 0; i < client.Account.Characters.Count; i++)
+                {
+                    array[i] = new CharacterBaseInformations(client.Account.Characters[i].Id, client.Account.Characters[i].Name, client.Account.Characters[i].Level, client.Account.Characters[i].Look, client.Account.Characters[i].Breed, client.Account.Characters[i].Sex);
+                }
+                client.Send(new CharactersListMessage(false, true, array));
+            }
         }
 
         public static void HandleCharacterNameSuggestionRequestMessage(GameClient client, CharacterNameSuggestionRequestMessage message)

@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 
 namespace Past.Database
@@ -37,6 +38,32 @@ namespace Past.Database
                 }
                 reader.Close();
             }
+        }
+
+        /// 0 = Continent Amaknien
+        /// 1 = Debug
+        /// 2 = Test
+        /// 3 = Zone de départ
+        public static int GetMapIdFromCoord(int worldId, int x, int y)
+        {
+            var worldIdMax = 2 << 12;
+            var mapCoordMax = 2 << 8;
+            if (x > mapCoordMax || y > mapCoordMax || worldId > worldIdMax)
+            {
+                return -1;
+            }
+            var newWorldId = worldId & 4095;
+            var newX = Math.Abs(x) & 255;
+            if (x < 0)
+            {
+                newX = newX | 256;
+            }
+            var newY = Math.Abs(y) & 255;
+            if (y < 0)
+            {
+                newY = newY | 256;
+            }
+            return newWorldId << 18 | (newX << 9 | newY);
         }
     }
 }

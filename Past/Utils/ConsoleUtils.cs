@@ -20,7 +20,7 @@ namespace Past.Utils
 
         public static void InitializeConsole()
         {
-            Console.Title = "#PAST 0.0.9";
+            Console.Title = "#PAST 0.1.0";
             Console.ForegroundColor = ConsoleColor.Green;
             for (int i = 0; i < logo.Length; i++)
             {
@@ -62,7 +62,6 @@ namespace Past.Utils
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.Write("[{0}]", type);
                     break;
-
             }
             Console.SetCursorPosition(10, Console.CursorTop);
             Console.ForegroundColor = ConsoleColor.White;

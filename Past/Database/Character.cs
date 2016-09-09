@@ -69,7 +69,7 @@ namespace Past.Database
 
         public static void Update(Character character)
         {
-            MySqlCommand command = new MySqlCommand("UPDATE characters SET Id = @Id, OwnerId = @OwnerId, Name = @Name, Level = @Level, Experience = @Experience, Breed = @Breed, EntityLookString = @EntityLookString, Sex = @Sex, MapId = @MapId, CellId = @CellId, Direction = @Direction, AlignementSide = @AlignementSide, Honor = @Honor, Dishonor = @Dishonor, PvPEnabled = @PvPEnabled, Kamas = @Kamas, StatsPoints = @StatsPoints, StatsPoints = @SpellsPoints, LastUsage = @LastUsage WHERE Id = @Id", DatabaseManager.Connection);
+            MySqlCommand command = new MySqlCommand("UPDATE characters SET Id = @Id, OwnerId = @OwnerId, Name = @Name, Level = @Level, Experience = @Experience, Breed = @Breed, EntityLookString = @EntityLookString, Sex = @Sex, MapId = @MapId, CellId = @CellId, Direction = @Direction, AlignementSide = @AlignementSide, Honor = @Honor, Dishonor = @Dishonor, PvPEnabled = @PvPEnabled, Kamas = @Kamas, StatsPoints = @StatsPoints, SpellsPoints = @SpellsPoints, LastUsage = @LastUsage WHERE Id = @Id", DatabaseManager.Connection);
             command.Parameters.Add(new MySqlParameter("@Id", character.Id));
             command.Parameters.Add(new MySqlParameter("@OwnerId", character.OwnerId));
             command.Parameters.Add(new MySqlParameter("@Name", character.Name));
