@@ -10,13 +10,6 @@ Emulator for Dofus 2.0.0 in C#
     ![Image](http://puu.sh/qWTzE/b9813ac409.jpg)
 </details>
 
-# Credits
-* Dr.Brook
-* Genesis
-* Unknown
-* Fallen
-* [Cadernis](https://cadernis.fr/index.php)
-
 # Installation & Configuration
 Download the game & the emulator:
 - [Client](https://mega.nz/#!L4wSWTBI!QMR2QK2BvwJ3Xj9VdgVQ3EFbBfHtwf9vxsPONx3A8tg)
@@ -25,3 +18,10 @@ Download the game & the emulator:
 1. Edit the Config.ini and apply the sql to your database
 2. Export the Ankama_Connection.rar in the ui folder of Dofus
 3. Finish by editing the config.xml of Dofus
+
+# Credits
+* Dr.Brook
+* Genesis
+* Unknown
+* Fallen
+* [Cadernis](https://cadernis.fr/index.php)
