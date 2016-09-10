@@ -75,6 +75,7 @@
     <Compile Include="Network\Handlers\Authorized\AuthorizedHandler.cs" />
     <Compile Include="Network\Handlers\Connection\ConnectionHandler.cs" />
     <Compile Include="Network\Handlers\Game\Approach\ApproachHandler.cs" />
+    <Compile Include="Network\Handlers\Game\Basic\BasicHandler.cs" />
     <Compile Include="Network\Handlers\Game\Character\CharacterHandler.cs" />
     <Compile Include="Network\Handlers\Game\Context\ContextHandler.cs" />
     <Compile Include="Network\Handlers\Game\Context\Roleplay\ContextRoleplayHandler.cs" />

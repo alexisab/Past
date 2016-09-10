@@ -1,4 +1,5 @@
 ﻿using Past.Network.Game;
+using Past.Network.Handlers.Game.Basic;
 using Past.Protocol.Enums;
 using Past.Protocol.Messages;
 
@@ -21,7 +22,7 @@ namespace Past.Network.Handlers.Game.Context
 
         public static void HandleGameMapMovementConfirmMessage(GameClient client, GameMapMovementConfirmMessage message)
         {
-            client.Send(new BasicNoOperationMessage());
+            BasicHandler.SendBasicNoOperationMessage(client);
         }
     }
 }

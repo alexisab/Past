@@ -11,7 +11,7 @@ namespace Past.Network.Login
 
         public static void Start()
         {
-            Login = new Server(Config.GetValue("LOGIN", "Address"), int.Parse(Config.GetValue("LOGIN", "Port")));
+            Login = new Server(Config.Login_Address, Config.Login_Port);
             Login.OnServerStarted += Login_OnServerStarted;
             Login.OnServerAcceptedSocket += Login_OnServerAcceptedSocket;
             Login.OnServerFailedToStart += Login_OnServerFailedToStart;

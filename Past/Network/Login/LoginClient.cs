@@ -24,7 +24,7 @@ namespace Past.Network.Login
 
         private void Login_OnClientSocketConnected()
         {
-            Ticket = Utils.Functions.RandomString(32, true);
+            Ticket = Functions.RandomString(32, true);
             Send(new ProtocolRequired(1165, 1165));
             Send(new HelloConnectMessage(Ticket));
         }
@@ -32,7 +32,7 @@ namespace Past.Network.Login
         private void Login_OnClientSocketClosed()
         {
             Disconnect();
-            ConsoleUtils.Write(ConsoleUtils.type.INFO, "Client disconnected from LoginServer ...");
+            ConsoleUtils.Write(ConsoleUtils.type.INFO, "Client {0}:{1} disconnected from LoginServer ...", Login.Ip, Login.Port);
         }
 
         public void Disconnect()
@@ -46,12 +46,12 @@ namespace Past.Network.Login
         {
             using(BigEndianReader reader = new BigEndianReader(data))
             {
-                //ConsoleUtils.Write(ConsoleUtils.type.DEBUG, "Header {0} Id {1} TypeLen {2} Length {3} \n Content {4} ...", header, id, typeLen, length, Functions.ByteArrayToString(data));*/
                 MessagePart messagePart = new MessagePart(false);
                 if (messagePart.Build(reader))
                 {
                     dynamic message = MessageReceiver.BuildMessage((uint)messagePart.MessageId, reader);
-                    ConsoleUtils.Write(ConsoleUtils.type.RECEIV, "{0} Id {1} Length {2} ...", message, messagePart.MessageId, messagePart.Length);
+                    if (Config.Debug)
+                        ConsoleUtils.Write(ConsoleUtils.type.RECEIV, "{0} Id {1} Length {2} ...", message, messagePart.MessageId, messagePart.Length);
                     MessageHandlerManager<LoginClient>.InvokeHandler(this, message);
                 }
             }   
@@ -66,7 +66,8 @@ namespace Past.Network.Login
                     message.Pack(writer);
                     Login.Send(writer.Data);
                 }
-                ConsoleUtils.Write(ConsoleUtils.type.SEND, "{0} to client {1}:{2} ...", message, Login.Ip, Login.Port);
+                if (Config.Debug)
+                    ConsoleUtils.Write(ConsoleUtils.type.SEND, "{0} to client {1}:{2} ...", message, Login.Ip, Login.Port);
             }
             catch (Exception ex)
             {

@@ -14,7 +14,7 @@ namespace Past.Database
         public string Name { get; set; }
         public byte Level { get; set; }
         public long Experience { get; set; }
-        public sbyte Breed { get; set; }
+        public BreedEnum Breed { get; set; }
         public string EntityLookString { get; set; }
         public bool Sex { get; set; }
         public EntityLook Look { get { return ReturnCharacterLook(this); } }
@@ -31,6 +31,29 @@ namespace Past.Database
         public short SpellsPoints { get; set; }
         public DateTime? LastUsage { get; set; }
 
+        public Character(int id, int ownerId, string name, byte level, long experience, BreedEnum breed, string entityLookString, bool sex, int mapId, short cellId, DirectionsEnum direction, AlignmentSideEnum alignementSide, ushort honor, ushort dishonor, bool pvpEnabled, int kamas, short statsPoints, short spellsPoints, DateTime? lastUsage)
+        {
+            Id = id;
+            OwnerId = ownerId;
+            Name = name;
+            Level = level;
+            Experience = experience;
+            Breed = breed;
+            EntityLookString = entityLookString;
+            Sex = sex;
+            MapId = mapId;
+            CellId = cellId;
+            Direction = direction;
+            AlignementSide = alignementSide;
+            Honor = honor;
+            Dishonor = dishonor;
+            PvPEnabled = pvpEnabled;
+            Kamas = kamas;
+            StatsPoints = statsPoints;
+            SpellsPoints = spellsPoints;
+            LastUsage = lastUsage;
+        }
+
         public static List<Character> ReturnCharacters(int ownerId)
         {
             List<Character> characters = new List<Character>();
@@ -39,28 +62,26 @@ namespace Past.Database
             {
                 while (reader.Read())
                 {
-                    characters.Add(new Character()
-                    {
-                        Id = int.Parse(reader["Id"].ToString()),
-                        OwnerId = int.Parse(reader["OwnerId"].ToString()),
-                        Name = reader["Name"].ToString(),
-                        Level = byte.Parse(reader["Level"].ToString()),
-                        Experience = long.Parse(reader["Experience"].ToString()),
-                        Breed = sbyte.Parse(reader["Breed"].ToString()),
-                        EntityLookString = reader["EntityLookString"].ToString(),
-                        Sex = Convert.ToBoolean(reader["Sex"]),
-                        MapId = int.Parse(reader["MapId"].ToString()),
-                        CellId = short.Parse(reader["CellId"].ToString()),
-                        Direction = (DirectionsEnum)byte.Parse(reader["Direction"].ToString()),
-                        AlignementSide = (AlignmentSideEnum)byte.Parse(reader["AlignementSide"].ToString()),
-                        Honor = ushort.Parse(reader["Honor"].ToString()),
-                        Dishonor = ushort.Parse(reader["Dishonor"].ToString()),
-                        PvPEnabled = Convert.ToBoolean(reader["PvPEnabled"]),
-                        Kamas = int.Parse(reader["Kamas"].ToString()),
-                        StatsPoints = short.Parse(reader["StatsPoints"].ToString()),
-                        SpellsPoints = short.Parse(reader["SpellsPoints"].ToString()),
-                        LastUsage = reader["LastUsage"] as DateTime?
-                    });
+                    characters.Add(new Character(
+                        int.Parse(reader["Id"].ToString()),
+                        int.Parse(reader["OwnerId"].ToString()),
+                        reader["Name"].ToString(),
+                        byte.Parse(reader["Level"].ToString()),
+                        long.Parse(reader["Experience"].ToString()),
+                        (BreedEnum)byte.Parse(reader["Breed"].ToString()),
+                        reader["EntityLookString"].ToString(),
+                        bool.Parse(reader["Sex"].ToString()),
+                        int.Parse(reader["MapId"].ToString()),
+                        short.Parse(reader["CellId"].ToString()),
+                        (DirectionsEnum)byte.Parse(reader["Direction"].ToString()),
+                        (AlignmentSideEnum)byte.Parse(reader["AlignementSide"].ToString()),
+                        ushort.Parse(reader["Honor"].ToString()),
+                        ushort.Parse(reader["Dishonor"].ToString()),
+                        bool.Parse(reader["PvPEnabled"].ToString()),
+                        int.Parse(reader["Kamas"].ToString()),
+                        short.Parse(reader["StatsPoints"].ToString()),
+                        short.Parse(reader["SpellsPoints"].ToString()),
+                        reader["LastUsage"] as DateTime?));
                 }
                 reader.Close();
                 return characters.OrderByDescending(x => x.LastUsage).ToList();

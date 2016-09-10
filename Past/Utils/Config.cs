@@ -6,8 +6,19 @@ namespace Past.Utils
 {
     public class Config
     {
-        public static Dictionary<string, Dictionary<string, string>> Elements = new Dictionary<string, Dictionary<string, string>>();
-        public static Dictionary<string, string> ConfigEntries;
+        public static string Login_Address { get { return GetValue("LOGIN", "Address"); } }
+        public static int Login_Port { get { return int.Parse(GetValue("LOGIN", "Port")); } }
+        public static string Game_Address { get { return GetValue("GAME", "Address"); } }
+        public static int Game_Port { get { return int.Parse(GetValue("GAME", "Port")); } }
+        public static string Host { get { return GetValue("SQL", "Host"); } }
+        public static string Database { get { return GetValue("SQL", "Database"); } }
+        public static string Username { get { return GetValue("SQL", "Username"); } }
+        public static string Password { get { return GetValue("SQL", "Password"); } }
+        public static bool Debug { get { return bool.Parse(GetValue("OTHERS", "Debug")); } }
+        public static string LoginMessage { get { return GetValue("OTHERS", "LoginMessage"); } }
+
+        private static Dictionary<string, Dictionary<string, string>> Elements = new Dictionary<string, Dictionary<string, string>>();
+        private static Dictionary<string, string> ConfigEntries;
         #region default ini file
         private static string DefaultConfig = @"[LOGIN]
 Address = 127.0.0.1 		; Address for the login server

@@ -16,14 +16,7 @@ namespace Past.Network.Handlers.Game.Character
             if (client.Account.Characters.Count < 0)
                 client.Send(new CharactersListMessage(false, true, new CharacterBaseInformations[0]));
             else
-            {
-                var array = new CharacterBaseInformations[client.Account.Characters.Count];
-                for (int i = 0; i < client.Account.Characters.Count; i++)
-                {
-                    array[i] = new CharacterBaseInformations(client.Account.Characters[i].Id, client.Account.Characters[i].Name, client.Account.Characters[i].Level, client.Account.Characters[i].Look, client.Account.Characters[i].Breed, client.Account.Characters[i].Sex);
-                }
-                client.Send(new CharactersListMessage(false, false, array));
-            }
+                SendCharactersListMessage(client);
         }
 
         public static void HandleCharacterSelectionMessage(GameClient client, CharacterSelectionMessage message)
@@ -35,7 +28,7 @@ namespace Past.Network.Handlers.Game.Character
 
             client.Character = character;
 
-            client.Send(new CharacterSelectedSuccessMessage(new CharacterBaseInformations(character.Id, character.Name, character.Level, character.Look, character.Breed, character.Sex)));
+            client.Send(new CharacterSelectedSuccessMessage(new CharacterBaseInformations(character.Id, character.Name, character.Level, character.Look, (sbyte)character.Breed, character.Sex)));
             client.Send(new NotificationListMessage(new int[0]));
             client.Send(new EmoteListMessage(new sbyte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 19, 21, 22, 23, 24 }));
             client.Send(new EnabledChannelsMessage(new sbyte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }, new sbyte[0]));
@@ -130,10 +123,12 @@ namespace Past.Network.Handlers.Game.Character
             }
             else
             {
-                Database.Character character = new Database.Character();
+                Database.Character character = new Database.Character(0, 1, "Testing", 200, 0, Protocol.Enums.BreedEnum.Cra, "", true, 1, 242, Protocol.Enums.DirectionsEnum.DIRECTION_EAST, Protocol.Enums.AlignmentSideEnum.ALIGNMENT_NEUTRAL, 0, 0, false, 0, 0, 0, DateTime.Now);
+                Database.Character.Create(character);
+                /*Database.Character character = new Database.Character();
                 character.OwnerId = client.Account.Id;
                 character.Name = message.name;
-                character.Breed = message.breed;
+                character.Breed = (BreedEnum)message.breed;
 
                 string breed_look = Breed.ReturnBaseLook((BreedEnum)message.breed, message.sex);
 
@@ -153,18 +148,23 @@ namespace Past.Network.Handlers.Game.Character
 
                 client.Send(new CharacterCreationResultMessage((sbyte)CharacterCreationResultEnum.OK));
 
-                var array = new CharacterBaseInformations[client.Account.Characters.Count];
-                for (int i = 0; i < client.Account.Characters.Count; i++)
-                {
-                    array[i] = new CharacterBaseInformations(client.Account.Characters[i].Id, client.Account.Characters[i].Name, client.Account.Characters[i].Level, client.Account.Characters[i].Look, client.Account.Characters[i].Breed, client.Account.Characters[i].Sex);
-                }
-                client.Send(new CharactersListMessage(false, true, array));
+                SendCharactersListMessage(client);*/
             }
         }
 
         public static void HandleCharacterNameSuggestionRequestMessage(GameClient client, CharacterNameSuggestionRequestMessage message)
         {
             client.Send(new CharacterNameSuggestionSuccessMessage(Functions.RandomName()));
+        }
+
+        public static void SendCharactersListMessage(GameClient client)
+        {
+            CharacterBaseInformations[] characterBaseInformations = new CharacterBaseInformations[client.Account.Characters.Count];
+            for (int i = 0; i < client.Account.Characters.Count; i++)
+            {
+                characterBaseInformations[i] = new CharacterBaseInformations(client.Account.Characters[i].Id, client.Account.Characters[i].Name, client.Account.Characters[i].Level, client.Account.Characters[i].Look, (sbyte)client.Account.Characters[i].Breed, client.Account.Characters[i].Sex);
+            }
+            client.Send(new CharactersListMessage(false, false, characterBaseInformations));
         }
     }
 }

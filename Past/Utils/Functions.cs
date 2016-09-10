@@ -43,7 +43,7 @@ namespace Past.Utils
             return char.ToUpper(str[0]) + str.Substring(1);
         }
 
-        public static string GetMd5Hash(string input)
+        public static string ReturnMd5Hash(string input)
         {
             byte[] data = new MD5CryptoServiceProvider().ComputeHash(Encoding.UTF8.GetBytes(input));
             StringBuilder sBuilder = new StringBuilder();
@@ -56,7 +56,12 @@ namespace Past.Utils
 
         public static string CipherString(string hashedPassword, string ticket)
         {
-            return GetMd5Hash(hashedPassword + ticket);
+            return ReturnMd5Hash(hashedPassword + ticket);
+        }
+
+        public static int ReturnUnixTimeStamp(DateTime date)
+        {
+            return (int)(date.Subtract(new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime()).TotalSeconds);
         }
     }
 }

@@ -52,7 +52,8 @@ namespace Past.Network.Game
                 if (messagePart.Build(reader))
                 {
                     dynamic message = MessageReceiver.BuildMessage((uint)messagePart.MessageId, reader);
-                    ConsoleUtils.Write(ConsoleUtils.type.RECEIV, "{0} Id {1} Length {2} ...", message, messagePart.MessageId, messagePart.Length);
+                    if (Config.Debug)
+                        ConsoleUtils.Write(ConsoleUtils.type.RECEIV, "{0} Id {1} Length {2} ...", message, messagePart.MessageId, messagePart.Length);
                     MessageHandlerManager<GameClient>.InvokeHandler(this, message);
                 }
             }
@@ -67,7 +68,8 @@ namespace Past.Network.Game
                     message.Pack(writer);
                     Game.Send(writer.Data);
                 }
-                ConsoleUtils.Write(ConsoleUtils.type.SEND, "{0} to client {1}:{2} ...", message, Game.Ip, Game.Port);
+                if (Config.Debug)
+                    ConsoleUtils.Write(ConsoleUtils.type.SEND, "{0} to client {1}:{2} ...", message, Game.Ip, Game.Port);
             }
             catch (Exception ex)
             {

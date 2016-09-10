@@ -12,7 +12,7 @@ namespace Past.Database
             try
             {
                 Connection = new MySqlConnection();
-                Connection.ConnectionString = string.Format("server={0};uid={1};pwd={2};database={3};", Config.GetValue("SQL", "Host"), Config.GetValue("SQL", "Username"), Config.GetValue("SQL", "Password"), Config.GetValue("SQL", "Database"));
+                Connection.ConnectionString = string.Format("server={0};uid={1};pwd={2};database={3};", Config.Host, Config.Username, Config.Password, Config.Database);
                 Connection.Open();
             }
             catch (MySqlException ex)
