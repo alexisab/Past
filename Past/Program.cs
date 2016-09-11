@@ -4,6 +4,7 @@ using Past.Network.Login;
 using Past.Protocol;
 using Past.Utils;
 using System;
+using System.Security.Cryptography;
 
 namespace Past
 {

@@ -164,5 +164,12 @@ namespace Past.Database
 
             return new EntityLook(bonesId, skins, colors, size, new SubEntity[0]);
         }
+
+        public static bool NameExist(string name)
+        {
+            MySqlCommand command = new MySqlCommand("SELECT EXISTS (SELECT 1 FROM characters WHERE Name = @Name)", DatabaseManager.Connection);
+            command.Parameters.AddWithValue("Name", name);
+            return Convert.ToBoolean(command.ExecuteScalar());
+        }
     }
 }

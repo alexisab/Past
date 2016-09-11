@@ -59,6 +59,11 @@ namespace Past.Utils
             return ReturnMd5Hash(hashedPassword + ticket);
         }
 
+        public static string CipherSecretAnswer(string characterId, string answer)
+        {
+            return ReturnMd5Hash(characterId + "~" + answer);
+        }
+
         public static int ReturnUnixTimeStamp(DateTime date)
         {
             return (int)(date.Subtract(new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime()).TotalSeconds);

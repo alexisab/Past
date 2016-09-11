@@ -10,6 +10,13 @@ namespace Past.Database
         public BreedEnum Id { get; set; }
         public string MaleLook { get; set; }
         public string FemaleLook { get; set; }
+        public string StatsPointsForStrength { get; set; }
+        public string StatsPointsForIntelligence { get; set; }
+        public string StatsPointsForChance { get; set; }
+        public string StatsPointsForAgility { get; set; }
+        public string StatsPointsForVitality { get; set; }
+        public string StatsPointsForWisdom { get; set; }
+        public string BreedSpellsId { get; set; }
         private static List<Breed> Breeds = new List<Breed>();
 
         public static void LoadBreeds()
@@ -23,11 +30,19 @@ namespace Past.Database
                     {
                         Id = (BreedEnum)byte.Parse(reader["Id"].ToString()),
                         MaleLook = reader["MaleLook"].ToString(),
-                        FemaleLook = reader["FemaleLook"].ToString()
+                        FemaleLook = reader["FemaleLook"].ToString(),
+                        StatsPointsForStrength = reader["StatsPointsForStrength"].ToString(),
+                        StatsPointsForIntelligence = reader["StatsPointsForIntelligence"].ToString(),
+                        StatsPointsForChance = reader["StatsPointsForChance"].ToString(),
+                        StatsPointsForAgility = reader["StatsPointsForAgility"].ToString(),
+                        StatsPointsForVitality = reader["StatsPointsForVitality"].ToString(),
+                        StatsPointsForWisdom = reader["StatsPointsForWisdom"].ToString(),
+                        BreedSpellsId = reader["BreedSpellsId"].ToString()
                     });
                 }
                 reader.Close();
             }
+           
         }
 
         public static string ReturnBaseLook(BreedEnum breed, bool sex)

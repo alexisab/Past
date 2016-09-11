@@ -16,7 +16,7 @@ namespace Past.Network.Handlers.Game.Character
             if (client.Account.Characters.Count < 0)
                 client.Send(new CharactersListMessage(false, true, new CharacterBaseInformations[0]));
             else
-                SendCharactersListMessage(client);
+                SendCharactersListMessage(client, false);
         }
 
         public static void HandleCharacterSelectionMessage(GameClient client, CharacterSelectionMessage message)
@@ -45,8 +45,8 @@ namespace Past.Network.Handlers.Game.Character
                 character.StatsPoints,
                 character.SpellsPoints,
                 new ActorExtendedAlignmentInformations((sbyte)character.AlignementSide, 0, (sbyte)Experience.GetCharacterGrade(character.Honor), 0, character.Honor, character.Dishonor, character.PvPEnabled),
-                50 + (character.Level * 5),
-                50 + (character.Level * 5),
+                45 + (character.Level * 5),
+                45 + (character.Level * 5),
                 10000,
                 10000,
                 character.Level >= 100 ? (short)7 : (short)6,
@@ -115,7 +115,7 @@ namespace Past.Network.Handlers.Game.Character
             Database.Character.Update(character);
         }
 
-        public static void HandleCharacterCreationRequestMessage(GameClient client, CharacterCreationRequestMessage message) //TODO Clean and add check
+        public static void HandleCharacterCreationRequestMessage(GameClient client, CharacterCreationRequestMessage message)
         {
             if (client.Account.Characters.Count >= 5)
             {
@@ -123,33 +123,28 @@ namespace Past.Network.Handlers.Game.Character
             }
             else
             {
-                Database.Character character = new Database.Character(0, 1, "Testing", 200, 0, Protocol.Enums.BreedEnum.Cra, "", true, 1, 242, Protocol.Enums.DirectionsEnum.DIRECTION_EAST, Protocol.Enums.AlignmentSideEnum.ALIGNMENT_NEUTRAL, 0, 0, false, 0, 0, 0, DateTime.Now);
-                Database.Character.Create(character);
-                /*Database.Character character = new Database.Character();
-                character.OwnerId = client.Account.Id;
-                character.Name = message.name;
-                character.Breed = (BreedEnum)message.breed;
-
-                string breed_look = Breed.ReturnBaseLook((BreedEnum)message.breed, message.sex);
-
-                if (message.colors.Distinct().Count() != 1) //Checking if the colors are set or not
-                    character.EntityLookString = breed_look.Insert(breed_look.IndexOf("||") + 1, String.Format("1={0},2={1},3={2},4={3},5={4}", message.colors[0], message.colors[1], message.colors[2], message.colors[3], message.colors[4]));
+                if (Database.Character.NameExist(message.name))
+                {
+                    client.Send(new CharacterCreationResultMessage((sbyte)CharacterCreationResultEnum.ERR_NAME_ALREADY_EXISTS));
+                }
                 else
-                    character.EntityLookString = breed_look;
-
-                character.Sex = message.sex;
-                character.MapId = Breed.ReturnStartMap((BreedEnum)message.breed);
-                character.CellId = 242;
-                character.Direction = DirectionsEnum.DIRECTION_SOUTH_EAST;
-                character.LastUsage = DateTime.Now;
-
-                Database.Character.Create(character);
-                client.Account.Characters = Database.Character.ReturnCharacters(client.Account.Id);
-
-                client.Send(new CharacterCreationResultMessage((sbyte)CharacterCreationResultEnum.OK));
-
-                SendCharactersListMessage(client);*/
+                {
+                    string breed_look = Breed.ReturnBaseLook((BreedEnum)message.breed, message.sex);
+                    Database.Character character = new Database.Character(-1, client.Account.Id, message.name, 1, 0, (BreedEnum)message.breed, message.colors.Distinct().Count() != 1 ? breed_look.Insert(breed_look.IndexOf("||") + 1, String.Format("1={0},2={1},3={2},4={3},5={4}", message.colors[0], message.colors[1], message.colors[2], message.colors[3], message.colors[4])) : breed_look, message.sex, Breed.ReturnStartMap((BreedEnum)message.breed), 242, DirectionsEnum.DIRECTION_SOUTH_EAST, AlignmentSideEnum.ALIGNMENT_NEUTRAL, 0, 0, false, 0, 0, 0, DateTime.Now);
+                    Database.Character.Create(character);
+                    client.Account.Characters = Database.Character.ReturnCharacters(client.Account.Id);
+                    client.Send(new CharacterCreationResultMessage((sbyte)CharacterCreationResultEnum.OK));
+                    SendCharactersListMessage(client, true);
+                }
             }
+        }
+
+        public static void HandleCharacterDeletionRequestMessage(GameClient client, CharacterDeletionRequestMessage message)
+        {
+            if (Functions.CipherSecretAnswer(message.characterId.ToString(), client.Account.SecretAnswer) != message.secretAnswerHash)
+                client.Send(new CharacterDeletionErrorMessage((sbyte)CharacterDeletionErrorEnum.DEL_ERR_BAD_SECRET_ANSWER));
+            else
+                ConsoleUtils.Write(ConsoleUtils.type.DEBUG, "TODO");
         }
 
         public static void HandleCharacterNameSuggestionRequestMessage(GameClient client, CharacterNameSuggestionRequestMessage message)
@@ -157,14 +152,14 @@ namespace Past.Network.Handlers.Game.Character
             client.Send(new CharacterNameSuggestionSuccessMessage(Functions.RandomName()));
         }
 
-        public static void SendCharactersListMessage(GameClient client)
+        public static void SendCharactersListMessage(GameClient client, bool tutorial)
         {
             CharacterBaseInformations[] characterBaseInformations = new CharacterBaseInformations[client.Account.Characters.Count];
             for (int i = 0; i < client.Account.Characters.Count; i++)
             {
                 characterBaseInformations[i] = new CharacterBaseInformations(client.Account.Characters[i].Id, client.Account.Characters[i].Name, client.Account.Characters[i].Level, client.Account.Characters[i].Look, (sbyte)client.Account.Characters[i].Breed, client.Account.Characters[i].Sex);
             }
-            client.Send(new CharactersListMessage(false, false, characterBaseInformations));
+            client.Send(new CharactersListMessage(false, tutorial, characterBaseInformations));
         }
     }
 }
