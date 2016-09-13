@@ -128,6 +128,13 @@ namespace Past.Database
             command.ExecuteNonQuery();
         }
 
+        public static void Delete(Character character)
+        {
+            MySqlCommand command = new MySqlCommand("DELETE FROM characters WHERE Id = @Id", DatabaseManager.Connection);
+            command.Parameters.Add(new MySqlParameter("@Id", character.Id));
+            command.ExecuteNonQuery();
+        }
+
         public static EntityLook ReturnCharacterLook(Character character) //TODO SubEntity & BonesId
         {
             var look_string = character.EntityLookString.Replace("{", "").Replace("}", "").Split('|');

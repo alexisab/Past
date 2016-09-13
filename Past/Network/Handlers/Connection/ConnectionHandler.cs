@@ -31,7 +31,7 @@ namespace Past.Network.Handlers.Connection
                 client.Send(new IdentificationFailedMessage((sbyte)IdentificationFailureReasonEnum.BANNED));
                 return;
             }
-            if (Functions.CipherString(account.Password, client.Ticket) != message.password)
+            if (Functions.CipherPassword(account.Password, client.Ticket) != message.password)
             {
                 client.Send(new IdentificationFailedMessage((sbyte)IdentificationFailureReasonEnum.WRONG_CREDENTIALS));
                 return;

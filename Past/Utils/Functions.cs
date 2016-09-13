@@ -54,13 +54,14 @@ namespace Past.Utils
             return sBuilder.ToString();
         }
 
-        public static string CipherString(string hashedPassword, string ticket)
+        public static string CipherPassword(string hashedPassword, string ticket)
         {
             return ReturnMd5Hash(hashedPassword + ticket);
         }
 
-        public static string CipherSecretAnswer(string characterId, string answer)
+        public static string CipherSecretAnswer(int characterId, string answer)
         {
+            //ReturnMd5Hash("1~Delete ?")
             return ReturnMd5Hash(characterId + "~" + answer);
         }
 
