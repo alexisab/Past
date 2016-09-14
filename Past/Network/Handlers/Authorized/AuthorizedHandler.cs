@@ -1,8 +1,5 @@
 ﻿using Past.Network.Game;
-using Past.Protocol.Enums;
 using Past.Protocol.Messages;
-using Past.Utils;
-using System;
 
 namespace Past.Network.Handlers.Authorized
 {
@@ -10,7 +7,11 @@ namespace Past.Network.Handlers.Authorized
     {
         public static void HandleAdminQuietCommandMessage(GameClient client, AdminQuietCommandMessage message)
         {
-            client.Send(new ChatServerMessage((sbyte)ChatActivableChannelsEnum.CHANNEL_ADMIN, message.content, Functions.ReturnUnixTimeStamp(DateTime.Now), "", client.Character.Id, client.Character.Name));
+            if (message.content.Contains("move"))
+            {
+                var pos = message.content.Remove(0, 7).Split(',');
+                client.Send(new CurrentMapMessage(Database.Map.GetMapIdFromCoord(0, int.Parse(pos[0]), int.Parse(pos[1]))));
+            }
         }
     }
 }

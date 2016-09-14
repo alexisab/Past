@@ -11,7 +11,6 @@ namespace Past.Network.Handlers.Game.Context
         {
             client.Send(new GameContextDestroyMessage());
             client.Send(new GameContextCreateMessage((sbyte)GameContextEnum.ROLE_PLAY));
-
             client.Send(new CurrentMapMessage(client.Character.Map.Id));
         }
 
