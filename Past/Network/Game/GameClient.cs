@@ -31,15 +31,16 @@ namespace Past.Network.Game
 
         private void Game_OnClientSocketClosed()
         {
-            GameServer.Clients.Remove(this);
-            Game.Close();
-            ConsoleUtils.Write(ConsoleUtils.type.INFO, "Client disconnected from GameServer ...");
+            Disconnect();
+            ConsoleUtils.Write(ConsoleUtils.type.INFO, "Client {0}:{1} disconnected from GameServer ...", Game.Ip, Game.Port);
         }
 
         public void Disconnect()
         {
             GameServer.Clients.Remove(this);
             Account = null;
+            if (Character != null)
+                Character.Map.Engine.RemoveClient(this);
             Character = null;
             Game.Close();
         }

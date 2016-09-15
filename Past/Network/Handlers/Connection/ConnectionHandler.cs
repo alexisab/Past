@@ -56,9 +56,9 @@ namespace Past.Network.Handlers.Connection
             }
         }
 
-        public static void HandleIdentificationMessageWithServerIdMessage(LoginClient client, IdentificationMessageWithServerIdMessage message)
+        public static void HandleIdentificationMessageWithServerIdMessage(LoginClient client, IdentificationMessageWithServerIdMessage message) //TODO
         {
-
+            client.Disconnect();
         }
 
         public static void HandleServerSelectionMessage(LoginClient client, ServerSelectionMessage message)

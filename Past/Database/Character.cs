@@ -1,9 +1,9 @@
 ﻿using MySql.Data.MySqlClient;
+using Past.Protocol.Enums;
 using Past.Protocol.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Past.Protocol.Enums;
 
 namespace Past.Database
 {
@@ -21,6 +21,7 @@ namespace Past.Database
         public int MapId { get; set; }
         public short CellId { get; set; }
         public DirectionsEnum Direction { get; set; }
+        public EntityDispositionInformations Disposition { get { return new EntityDispositionInformations(CellId, (sbyte)Direction); } }
         public Map Map { get { return Map.Maps[MapId]; } }
         public AlignmentSideEnum AlignementSide;
         public ushort Honor { get; set; }
@@ -30,6 +31,7 @@ namespace Past.Database
         public short StatsPoints { get; set; }
         public short SpellsPoints { get; set; }
         public DateTime? LastUsage { get; set; }
+        public GameRolePlayCharacterInformations CharacterInformations { get { return ReturnGameRolePlayCharacterInformations(this); } }
 
         public Character(int id, int ownerId, string name, byte level, long experience, BreedEnum breed, string entityLookString, bool sex, int mapId, short cellId, DirectionsEnum direction, AlignmentSideEnum alignementSide, ushort honor, ushort dishonor, bool pvpEnabled, int kamas, short statsPoints, short spellsPoints, DateTime? lastUsage)
         {
@@ -170,6 +172,11 @@ namespace Past.Database
             short[] size = new short[] { short.Parse(look_string[3]) };
 
             return new EntityLook(bonesId, skins, colors, size, new SubEntity[0]);
+        }
+
+        public static GameRolePlayCharacterInformations ReturnGameRolePlayCharacterInformations(Character character)
+        {
+            return new GameRolePlayCharacterInformations(character.Id, character.Look, character.Disposition, character.Name, new HumanInformations(new EntityLook[0], 0, 0, new ActorRestrictionsInformations(false, false, false, false, false, false, false, false, true, false, false, false, false, true, true, true, false, false, false, false, false), 0), character.PvPEnabled == true ? new ActorAlignmentInformations((sbyte)character.AlignementSide, 0, (sbyte)Database.Experience.GetCharacterGrade(character.Honor), 0) : new ActorAlignmentInformations(0, 0, 0, 0));
         }
 
         public static bool NameExist(string name)

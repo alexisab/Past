@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Past.GameEngine;
 using System;
 using System.Collections.Generic;
 
@@ -14,6 +15,7 @@ namespace Past.Database
         public int BottomNeighbourId { get; set; }
         public int LeftNeighbourId { get; set; }
         public int RightNeighbourId { get; set; }
+        public MapEngine Engine { get; set; }
         public static readonly Dictionary<int, Map> Maps = new Dictionary<int, Map>();
 
         public static void LoadMaps()
@@ -37,6 +39,8 @@ namespace Past.Database
                     });
                 }
                 reader.Close();
+                foreach (var map in Maps.Values)
+                    map.Engine = new MapEngine(map);
             }
         }
 
