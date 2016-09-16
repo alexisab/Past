@@ -18,10 +18,9 @@ namespace Past.Network.Handlers.Game.Context
 
         public static void HandleGameMapMovementRequestMessage(GameClient client, GameMapMovementRequestMessage message)
         {
-            client.Character.Map.CurrentMap.Send(new GameMapMovementMessage(client.Character.Id, message.keyMovements));
             client.Character.CellId = (short)(message.keyMovements.Last() & 4095);
             client.Character.Direction = (DirectionsEnum)(message.keyMovements.Last() >> 12);
-            System.Console.WriteLine("character Cell : {0}, message Cell {1}", client.Character.CellId, (short)(message.keyMovements.Last() & 4095));
+            client.Character.Map.CurrentMap.Send(new GameMapMovementMessage(client.Character.Id, message.keyMovements));
         }
 
         public static void HandleGameMapMovementConfirmMessage(GameClient client, GameMapMovementConfirmMessage message)

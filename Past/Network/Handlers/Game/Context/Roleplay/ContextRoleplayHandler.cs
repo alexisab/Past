@@ -24,6 +24,7 @@ namespace Past.Network.Handlers.Game.Context.Roleplay
             if (client.Character.Map.RightNeighbourId == message.mapId)
                 cell -= 13;
             client.Character.CellId = cell;
+            client.Character.MapId = message.mapId;
             client.Character.Map.CurrentMap.RemoveClient(client);
             client.Send(new CurrentMapMessage(message.mapId));
         }
