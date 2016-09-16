@@ -15,6 +15,16 @@ namespace Past.Network.Handlers.Game.Context.Roleplay
 
         public static void HandleChangeMapMessage(GameClient client, ChangeMapMessage message)
         {
+            if (client.Character.Map.TopNeighbourId == message.mapId)
+                client.Character.CellId += 532;
+            else if (client.Character.Map.BottomNeighbourId == message.mapId)
+                client.Character.CellId -= 532;
+            else if (client.Character.Map.LeftNeighbourId == message.mapId)
+                client.Character.CellId += 13;
+            else if (client.Character.Map.RightNeighbourId == message.mapId)
+                client.Character.CellId -= 13;
+
+            client.Character.Map.Engine.RemoveClient(client);
             client.Send(new CurrentMapMessage(message.mapId));
         }
     }

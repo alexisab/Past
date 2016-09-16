@@ -2,6 +2,7 @@
 using Past.Network.Handlers.Game.Basic;
 using Past.Protocol.Enums;
 using Past.Protocol.Messages;
+using System.Linq;
 
 namespace Past.Network.Handlers.Game.Context
 {
@@ -17,8 +18,9 @@ namespace Past.Network.Handlers.Game.Context
 
         public static void HandleGameMapMovementRequestMessage(GameClient client, GameMapMovementRequestMessage message)
         {
-            //client.Send(new GameMapMovementMessage(client.Character.Id, message.keyMovements));
             client.Character.Map.Engine.Send(new GameMapMovementMessage(client.Character.Id, message.keyMovements));
+            client.Character.CellId = (short)(message.keyMovements.Last() & 4095);
+            client.Character.Direction = (DirectionsEnum)(message.keyMovements.Last() >> 12);
         }
 
         public static void HandleGameMapMovementConfirmMessage(GameClient client, GameMapMovementConfirmMessage message)
