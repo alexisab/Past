@@ -27,5 +27,14 @@ namespace Past.Network.Handlers.Game.Context
         {
             BasicHandler.SendBasicNoOperationMessage(client);
         }
+
+        public static void HandleGameMapChangeOrientationRequestMessage(GameClient client, GameMapChangeOrientationRequestMessage message)
+        {
+            if (message.direction >= 0 && message.direction <= 7)
+            {
+                client.Character.Direction = (DirectionsEnum)message.direction;
+                client.Character.Map.CurrentMap.Send(new GameMapChangeOrientationMessage(client.Character.Id, message.direction));
+            }
+        }
     }
 }
