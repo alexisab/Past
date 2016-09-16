@@ -1,5 +1,4 @@
-﻿using Past.Database;
-using Past.Network.Game;
+﻿using Past.Network.Game;
 using Past.Protocol.Messages;
 using Past.Protocol.Types;
 
@@ -15,15 +14,16 @@ namespace Past.Network.Handlers.Game.Context.Roleplay
 
         public static void HandleChangeMapMessage(GameClient client, ChangeMapMessage message)
         {
+            short cell = client.Character.CellId;
             if (client.Character.Map.TopNeighbourId == message.mapId)
-                client.Character.CellId += 532;
-            else if (client.Character.Map.BottomNeighbourId == message.mapId)
-                client.Character.CellId -= 532;
-            else if (client.Character.Map.LeftNeighbourId == message.mapId)
-                client.Character.CellId += 13;
-            else if (client.Character.Map.RightNeighbourId == message.mapId)
-                client.Character.CellId -= 13;
-
+                cell += 532;
+            if (client.Character.Map.BottomNeighbourId == message.mapId)
+                cell -= 532;
+            if (client.Character.Map.LeftNeighbourId == message.mapId)
+                cell += 13;
+            if (client.Character.Map.RightNeighbourId == message.mapId)
+                cell -= 13;
+            client.Character.CellId = cell;
             client.Character.Map.CurrentMap.RemoveClient(client);
             client.Send(new CurrentMapMessage(message.mapId));
         }
