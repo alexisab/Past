@@ -7,12 +7,12 @@ using System.Collections.Generic;
 
 namespace Past.GameEngine
 {
-    public class MapEngine
+    public class CurrentMap
     {
         public Map Map { get; set; }
         public List<GameClient> Clients;
 
-        public MapEngine(Map map)
+        public CurrentMap(Map map)
         {
             Map = map;
             Clients = new List<GameClient>();

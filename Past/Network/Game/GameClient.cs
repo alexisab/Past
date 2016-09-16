@@ -40,7 +40,7 @@ namespace Past.Network.Game
             GameServer.Clients.Remove(this);
             Account = null;
             if (Character != null)
-                Character.Map.Engine.RemoveClient(this);
+                Character.Map.CurrentMap.RemoveClient(this);
             Character = null;
             Game.Close();
         }
