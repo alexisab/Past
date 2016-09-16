@@ -78,6 +78,7 @@
     <Compile Include="Network\Handlers\Game\Approach\ApproachHandler.cs" />
     <Compile Include="Network\Handlers\Game\Basic\BasicHandler.cs" />
     <Compile Include="Network\Handlers\Game\Character\CharacterHandler.cs" />
+    <Compile Include="Network\Handlers\Game\Chat\ChatHandler.cs" />
     <Compile Include="Network\Handlers\Game\Context\ContextHandler.cs" />
     <Compile Include="Network\Handlers\Game\Context\Roleplay\ContextRoleplayHandler.cs" />
     <Compile Include="Network\Handlers\MessageHandlerManager.cs" />

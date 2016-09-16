@@ -28,5 +28,10 @@ namespace Past.Network.Handlers.Game.Context.Roleplay
             client.Character.Map.CurrentMap.RemoveClient(client);
             client.Send(new CurrentMapMessage(message.mapId));
         }
+
+        public static void HandleEmotePlayRequestMessage(GameClient client, EmotePlayRequestMessage message)
+        {
+            client.Character.Map.CurrentMap.Send(new EmotePlayMessage(message.emoteId, 0, client.Character.Id));
+        }
     }
 }
