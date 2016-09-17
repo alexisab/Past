@@ -1,5 +1,6 @@
 ﻿using Past.Database;
 using Past.Network.Game;
+using Past.Network.Handlers.Game.Basic;
 using Past.Protocol.Enums;
 using Past.Protocol.Messages;
 using Past.Protocol.Types;
@@ -17,6 +18,11 @@ namespace Past.Network.Handlers.Game.Character
                 client.Send(new CharactersListMessage(false, true, new CharacterBaseInformations[0]));
             else
                 SendCharactersListMessage(client, false);
+        }
+
+        public static void HandleCharacterFirstSelectionMessage(GameClient client, CharacterFirstSelectionMessage message) //TODO Tutorial
+        {
+            BasicHandler.SendBasicNoOperationMessage(client);
         }
 
         public static void HandleCharacterSelectionMessage(GameClient client, CharacterSelectionMessage message)
@@ -136,9 +142,9 @@ namespace Past.Network.Handlers.Game.Character
                     string breed_look = Breed.ReturnBaseLook((BreedEnum)message.breed, message.sex);
                     Database.Character character = new Database.Character(-1, client.Account.Id, message.name, 1, 0, (BreedEnum)message.breed, message.colors.Distinct().Count() != 1 ? breed_look.Insert(breed_look.IndexOf("||") + 1, String.Format("1={0},2={1},3={2},4={3},5={4}", message.colors[0], message.colors[1], message.colors[2], message.colors[3], message.colors[4])) : breed_look, message.sex, Breed.ReturnStartMap((BreedEnum)message.breed), 242, DirectionsEnum.DIRECTION_SOUTH_EAST, AlignmentSideEnum.ALIGNMENT_NEUTRAL, 0, 0, false, 0, 0, 0, DateTime.Now);
                     Database.Character.Create(character);
-                    client.Account.Characters.Add(character);
+                    client.Account.Characters = Database.Character.ReturnCharacters(client.Account.Id);
                     client.Send(new CharacterCreationResultMessage((sbyte)CharacterCreationResultEnum.OK));
-                    SendCharactersListMessage(client, true);
+                    SendCharactersListMessage(client, false);
                 }
             }
         }
