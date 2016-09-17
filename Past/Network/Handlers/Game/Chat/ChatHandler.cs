@@ -10,12 +10,14 @@ namespace Past.Network.Handlers.Game.Chat
 
         public static void HandleChatClientMultiMessage(GameClient client, ChatClientMultiMessage message)
         {
-            client.Character.Map.CurrentMap.Send(new ChatServerMessage(message.channel, message.content, Functions.ReturnUnixTimeStamp(DateTime.Now), "", client.Character.Id, client.Character.Name));
+            if (message.channel >= 0 && message.channel <= 11)
+                client.Character.Map.CurrentMap.Send(new ChatServerMessage(message.channel, message.content, Functions.ReturnUnixTimeStamp(DateTime.Now), "", client.Character.Id, client.Character.Name));
         }
 
         public static void HandleChatSmileyRequestMessage(GameClient client, ChatSmileyRequestMessage message)
         {
-            client.Character.Map.CurrentMap.Send(new ChatSmileyMessage(client.Character.Id, message.smileyId));
+            if (message.smileyId >= 0 && message.smileyId <= 24)
+                client.Character.Map.CurrentMap.Send(new ChatSmileyMessage(client.Character.Id, message.smileyId));
         }
     }
 }
