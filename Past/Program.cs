@@ -22,6 +22,7 @@ namespace Past
             Database.Experience.LoadExperienceFloor();
             Database.Breed.LoadBreeds();
             Database.Map.LoadMaps();
+            Database.MapInteractive.LoadMapInteractives();
 
             LoginServer.Start();
             GameServer.Start();

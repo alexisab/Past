@@ -10,7 +10,10 @@ namespace Past.Network.Handlers.Authorized
             if (message.content.Contains("move"))
             {
                 var pos = message.content.Remove(0, 7).Split(',');
-                client.Send(new CurrentMapMessage(Database.Map.GetMapIdFromCoord(0, int.Parse(pos[0]), int.Parse(pos[1]))));
+                int mapId = Database.Map.GetMapIdFromCoord(0, int.Parse(pos[0]), int.Parse(pos[1]));
+                client.Character.MapId = mapId;
+                client.Character.Map.CurrentMap.RemoveClient(client);
+                client.Send(new CurrentMapMessage(mapId));
             }
         }
     }

@@ -69,6 +69,7 @@
     <Compile Include="Database\DatabaseManager.cs" />
     <Compile Include="Database\Experience.cs" />
     <Compile Include="Database\Map.cs" />
+    <Compile Include="Database\MapInteractive.cs" />
     <Compile Include="GameEngine\CurrentMap.cs" />
     <Compile Include="Network\Client.cs" />
     <Compile Include="Network\Game\GameClient.cs" />
