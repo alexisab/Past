@@ -1,6 +1,7 @@
 ﻿using Past.Network.Game;
 using Past.Protocol.Messages;
 using Past.Protocol.Types;
+using System.Linq;
 
 namespace Past.Network.Handlers.Game.Context.Roleplay
 {
@@ -32,6 +33,16 @@ namespace Past.Network.Handlers.Game.Context.Roleplay
         public static void HandleEmotePlayRequestMessage(GameClient client, EmotePlayRequestMessage message)
         {
             client.Character.Map.CurrentMap.Send(new EmotePlayMessage(message.emoteId, 0, client.Character.Id));
+        }
+
+        public static void HandleGameRolePlayPlayerFightRequestMessage(GameClient client, GameRolePlayPlayerFightRequestMessage message)
+        {
+            var targetClient = client.Character.Map.CurrentMap.Clients.FirstOrDefault(x => x.Character.Id == message.targetId);
+            if (targetClient != null && targetClient != client)
+            {
+                client.Send(new GameRolePlayPlayerFightFriendlyRequestedMessage(client.Character.Id, client.Character.Id, targetClient.Character.Id));
+                targetClient.Send(new GameRolePlayPlayerFightFriendlyRequestedMessage(client.Character.Id, client.Character.Id, targetClient.Character.Id));
+            }
         }
     }
 }
