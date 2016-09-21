@@ -25,4 +25,5 @@ Download the game & the emulator:
 * Genesis
 * Unknown
 * Fallen
+* Silyseveur
 * [Cadernis](https://cadernis.fr/index.php)
