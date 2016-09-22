@@ -18,7 +18,7 @@ Download the game & the emulator:
 
 1. Edit the Config.ini and apply the sql to your database
 2. Export the Ankama_Connection.rar in the ui folder of Dofus
-3. Finish by editing the config.xml of Dofus
+3. Finish by editing the config.xml of Dofus, put the eventMode on true and change ip / port
 
 # Credits
 * Dr.Brook
