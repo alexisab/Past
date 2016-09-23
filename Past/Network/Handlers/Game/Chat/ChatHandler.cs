@@ -1,4 +1,5 @@
-﻿using Past.Network.Game;
+﻿using Past.GameEngine;
+using Past.Network.Game;
 using Past.Protocol.Enums;
 using Past.Protocol.Messages;
 using Past.Utils;
@@ -12,7 +13,10 @@ namespace Past.Network.Handlers.Game.Chat
 
         public static void HandleChatClientMultiMessage(GameClient client, ChatClientMultiMessage message)
         {
-            SendChatServerMessage(client, message.channel, message.content, client.Character.Id, client.Character.Name);
+            if (message.content.StartsWith("."))
+                AdminCommandManager.ParseAdminCommand(client, message.content);
+            else
+                SendChatServerMessage(client, message.channel, message.content, client.Character.Id, client.Character.Name);
         }
 
         public static void HandleChatSmileyRequestMessage(GameClient client, ChatSmileyRequestMessage message)
