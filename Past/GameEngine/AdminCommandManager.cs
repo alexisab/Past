@@ -28,12 +28,30 @@ namespace Past.GameEngine
                     break;
                 case ".go":
                     var mapId = int.Parse(command[1]);
-                    client.Character.MapId = mapId;
-                    client.Character.Map.CurrentMap.RemoveClient(client);
-                    client.Send(new CurrentMapMessage(mapId));
+                    if (Map.Maps.ContainsKey(mapId))
+                    {
+                        client.Character.MapId = mapId;
+                        client.Character.Map.CurrentMap.RemoveClient(client);
+                        client.Send(new CurrentMapMessage(mapId));
+                    }
+                    else
+                    {
+                        client.Send(new TextInformationMessage((sbyte)TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new string[] { "Error", "Can't found the map " + mapId + " !" }));
+                    }
                     break;
-                case ".test":
-                    
+                case ".goname":
+                    var targetClient = GameServer.Clients.FirstOrDefault(x => x.Character.Name == command[1]);
+                    if (targetClient != null && targetClient != client)
+                    {
+                        client.Character.MapId = targetClient.Character.Map.Id;
+                        client.Character.CellId = targetClient.Character.CellId;
+                        client.Character.Map.CurrentMap.RemoveClient(client);
+                        client.Send(new CurrentMapMessage(targetClient.Character.Map.Id));
+                    }
+                    else
+                    {
+                        client.Send(new TextInformationMessage((sbyte)TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new string[] { "Error", "Can't found the character " + command[1] + " !" }));
+                    }
                     break;
                 default:
                     client.Send(new TextInformationMessage((sbyte)TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new string[] { "Error", "Command not found !" }));

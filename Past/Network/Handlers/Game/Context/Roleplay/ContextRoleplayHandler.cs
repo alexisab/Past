@@ -44,5 +44,10 @@ namespace Past.Network.Handlers.Game.Context.Roleplay
                 targetClient.Send(new GameRolePlayPlayerFightFriendlyRequestedMessage(client.Character.Id, client.Character.Id, targetClient.Character.Id));
             }
         }
+
+        public static void HandleGameRolePlayPlayerFightFriendlyAnswerMessage(GameClient client, GameRolePlayPlayerFightFriendlyAnswerMessage message)
+        {
+
+        }
     }
 }
