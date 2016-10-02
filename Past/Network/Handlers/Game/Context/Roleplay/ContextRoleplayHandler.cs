@@ -47,6 +47,15 @@ namespace Past.Network.Handlers.Game.Context.Roleplay
 
         public static void HandleGameRolePlayPlayerFightFriendlyAnswerMessage(GameClient client, GameRolePlayPlayerFightFriendlyAnswerMessage message)
         {
+            client.Send(new GameContextDestroyMessage());
+            client.Send(new GameContextCreateMessage(2));
+
+            client.Send(new GameFightJoinMessage(true, true, false, false, 30000, 1));
+
+            client.Send(new GameFightStartingMessage(1));
+
+            client.Send(new GameFightPlacementPossiblePositionsMessage(new short[] { client.Character.CellId }, new short[] { client.Character.CellId }, 2));
+            client.Send(new GameFightShowFighterMessage(new GameFightFighterInformations(client.Character.Id, client.Character.Look, client.Character.Disposition, 1, true, new GameFightMinimalStats(50, 6, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))));
 
         }
     }
