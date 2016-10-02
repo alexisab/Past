@@ -73,7 +73,7 @@ namespace Past.Login.Network
             }
             catch (Exception ex)
             {
-                ConsoleUtils.Write(ConsoleUtils.Type.ERROR, ex.ToString());
+                ConsoleUtils.Write(ConsoleUtils.Type.ERROR, $"{ex}");
             }
         }
     }

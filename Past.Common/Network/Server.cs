@@ -44,7 +44,7 @@ namespace Past.Common.Network
             }
             else
             {
-                ConsoleUtils.Write(ConsoleUtils.Type.ERROR, "Server is already running on {0}:{1} ...", Address, Port);
+                ConsoleUtils.Write(ConsoleUtils.Type.ERROR, $"Server is already running on {Address}:{Port} ...");
             }
         }
 

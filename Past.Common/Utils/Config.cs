@@ -11,13 +11,15 @@ namespace Past.Common.Utils
         public static int LoginServer_Port { get { return int.Parse(GetValue("LOGIN", "Port")); } }
         public static string GameServer_Address { get { return GetValue("GAME", "Address"); } }
         public static int GameServer_Port { get { return int.Parse(GetValue("GAME", "Port")); } }
-        public static string Database_Host { get { return GetValue("SQL", "Host"); } }
-        public static string Database_Name { get { return GetValue("SQL", "Database"); } }
-        public static string Database_Username { get { return GetValue("SQL", "Username"); } }
-        public static string Database_Password { get { return GetValue("SQL", "Password"); } }
+        public static string LoginDatabase_Host { get { return GetValue("LOGIN_DATABASE", "Host"); } }
+        public static string LoginDatabase_Name { get { return GetValue("LOGIN_DATABASE", "Name"); } }
+        public static string LoginDatabase_Username { get { return GetValue("LOGIN_DATABASE", "Username"); } }
+        public static string LoginDatabase_Password { get { return GetValue("LOGIN_DATABASE", "Password"); } }
+        public static string GameDatabase_Host { get { return GetValue("GAME_DATABASE", "Host"); } }
+        public static string GameDatabase_Name { get { return GetValue("GAME_DATABASE", "Name"); } }
+        public static string GameDatabase_Username { get { return GetValue("GAME_DATABASE", "Username"); } }
+        public static string GameDatabase_Password { get { return GetValue("GAME_DATABASE", "Password"); } }
         public static bool Debug { get { return bool.Parse(GetValue("OTHERS", "Debug")); } }
-        public static string LoginMessage { get { return GetValue("OTHERS", "LoginMessage"); } }
-
         private static Dictionary<string, Dictionary<string, string>> Elements = new Dictionary<string, Dictionary<string, string>>();
         private static Dictionary<string, string> ConfigEntries;
         #region default ini file
@@ -29,9 +31,15 @@ Port = 443              ; Port for the login server
 Address = 127.0.0.1     ; Address for the game server
 Port = 5555				; Port for the game server
 
-[SQL]
+[LOGIN_DATABASE]
 Host = localhost
-Database = past
+Name = past_login
+Username = root
+Password =
+
+[GAME_DATABASE]
+Host = localhost
+Name = past_game
 Username = root
 Password =
 

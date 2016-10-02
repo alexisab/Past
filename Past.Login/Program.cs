@@ -1,4 +1,5 @@
-﻿using Past.Common.Utils;
+﻿using Past.Common.Database;
+using Past.Common.Utils;
 using Past.Protocol;
 using System;
 
@@ -10,22 +11,18 @@ namespace Past.Login
         {
             ConsoleUtils.InitializeConsole("Login");
             Config.ReadConfig();
-
+            
             MessageReceiver.InitializeMessages();
             MessageHandlerManager<Network.Client>.InitializeHandlers();
 
+            DatabaseManager.Connect(Config.LoginDatabase_Host, Config.LoginDatabase_Username, Config.LoginDatabase_Password, Config.LoginDatabase_Name);
+
             Network.Server.Start();
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             while (true)
             {
                 Console.ReadLine();
             }
-        }
-
-        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            ConsoleUtils.Write(ConsoleUtils.Type.ERROR, e.ToString());
         }
     }
 }

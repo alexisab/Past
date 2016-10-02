@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\Cataclys-past-2.0.0-02dd5f094956\Past\bin\Debug\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\DatabaseManager.cs" />
     <Compile Include="Network\Client.cs" />
     <Compile Include="Network\Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,6 +58,7 @@
       <Name>Past.Protocol</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
