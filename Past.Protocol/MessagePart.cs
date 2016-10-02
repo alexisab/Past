@@ -35,7 +35,7 @@ namespace Past.Protocol
             private set;
         }
 
-        public int? MessageId
+        public int? Id
         {
             get
             {

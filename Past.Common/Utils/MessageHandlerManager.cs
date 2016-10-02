@@ -10,7 +10,7 @@ namespace Past.Common.Utils
     {
         public static void InitializeHandlers()
         {
-            IEnumerable<MethodInfo> methods = Assembly.GetExecutingAssembly().GetTypes().SelectMany(t => t.GetMethods()).Where(m => m.Name.StartsWith("Handle") && m.GetParameters().Length == 2 && (typeof(NetworkMessage).IsAssignableFrom(m.GetParameters().ElementAt(1).ParameterType) && m.GetParameters().ElementAt(0).ParameterType == typeof(C)));
+            IEnumerable<MethodInfo> methods = Assembly.GetEntryAssembly().GetTypes().SelectMany(t => t.GetMethods()).Where(m => m.Name.StartsWith("Handle") && m.GetParameters().Length == 2 && (typeof(NetworkMessage).IsAssignableFrom(m.GetParameters().ElementAt(1).ParameterType) && m.GetParameters().ElementAt(0).ParameterType == typeof(C)));
             foreach (var method in methods)
             {
                 Type packet_type = method.GetParameters()[1].ParameterType;
@@ -42,12 +42,12 @@ namespace Past.Common.Utils
                     }
                     else
                     {
-                        ConsoleUtils.Write(ConsoleUtils.Type.WARNING, "Received unknown packet : {0} ...", message);
+                        ConsoleUtils.Write(ConsoleUtils.Type.WARNING, $"Received unknown packet : {message} ...");
                     }
                 }
                 else
                 {
-                    ConsoleUtils.Write(ConsoleUtils.Type.WARNING, "Received empty packet : {0} ...", message);
+                    ConsoleUtils.Write(ConsoleUtils.Type.WARNING, $"Received empty packet : {message} ...");
                 }
             }
             catch (Exception ex)

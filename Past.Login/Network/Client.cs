@@ -30,7 +30,7 @@ namespace Past.Login.Network
         private void LoginClient_OnClientSocketClosed()
         {
             Disconnect();
-            ConsoleUtils.Write(ConsoleUtils.Type.INFO, "Client {0}:{1} disconnected from Login server ...", LoginClient.Ip, LoginClient.Port);
+            ConsoleUtils.Write(ConsoleUtils.Type.INFO, $"Client {LoginClient.Ip}:{LoginClient.Port} disconnected from Login server ...");
         }
 
         public void Disconnect()
@@ -47,10 +47,10 @@ namespace Past.Login.Network
                 MessagePart messagePart = new MessagePart(false);
                 if (messagePart.Build(reader))
                 {
-                    dynamic message = MessageReceiver.BuildMessage((uint)messagePart.MessageId, reader);
+                    dynamic message = MessageReceiver.BuildMessage((uint)messagePart.Id, reader);
                     if (Config.Debug)
                     {
-                        ConsoleUtils.Write(ConsoleUtils.Type.RECEIV, "{0} Id {1} Length {2} ...", message, messagePart.MessageId, messagePart.Length);
+                        ConsoleUtils.Write(ConsoleUtils.Type.RECEIV, $"{message} Id {messagePart.Id} Length {messagePart.Length} ...");
                     }
                     MessageHandlerManager<Client>.InvokeHandler(this, message);
                 }
@@ -68,7 +68,7 @@ namespace Past.Login.Network
                 }
                 if (Config.Debug)
                 {
-                    ConsoleUtils.Write(ConsoleUtils.Type.SEND, "{0} to client {1}:{2} ...", message, LoginClient.Ip, LoginClient.Port);
+                    ConsoleUtils.Write(ConsoleUtils.Type.SEND, $"{message} to client {LoginClient.Ip}:{LoginClient.Port} ...");
                 }
             }
             catch (Exception ex)

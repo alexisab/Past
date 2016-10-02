@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Timers;
 
 namespace Past.Common.Utils
 {
@@ -19,8 +21,9 @@ namespace Past.Common.Utils
             "                                   "
         };
 
-        public static void InitializeConsole()
+        public static void InitializeConsole(string service)
         {
+            Console.Title = $"#Past | {service} Server | Uptime : {(DateTime.Now - Process.GetCurrentProcess().StartTime).ToString(@"dd\.hh\:mm\:ss")}";
             Console.ForegroundColor = ConsoleColor.Green;
             for (int i = 0; i < logo.Length; i++)
             {
@@ -28,6 +31,9 @@ namespace Past.Common.Utils
                 Console.WriteLine(text.PadLeft((int)(Console.BufferWidth + text.Length) / 2));
             }
             Console.ForegroundColor = ConsoleColor.White;
+            Timer timer = new Timer(1000);
+            timer.Elapsed += (sender, e) => { Console.Title = $"#Past | {service} Server | Uptime : {(DateTime.Now - Process.GetCurrentProcess().StartTime).ToString(@"dd\.hh\:mm\:ss")}"; };
+            timer.Start();
         }
 
         public static void Write(Type type, string text, params object[] args)
@@ -38,31 +44,31 @@ namespace Past.Common.Utils
                 {
                     case Type.INFO:
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write("[{0}]", type);
+                        Console.Write($"[{type}]");
                         break;
                     case Type.WARNING:
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write("[{0}]", type);
+                        Console.Write($"[{type}]");
                         break;
                     case Type.ERROR:
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write("[{0}]", type);
+                        Console.Write($"[{type}]");
                         break;
                     case Type.DONE:
                         Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write("[{0}]", type);
+                        Console.Write($"[{type}]");
                         break;
                     case Type.DEBUG:
                         Console.ForegroundColor = ConsoleColor.Magenta;
-                        Console.Write("[{0}]", type);
+                        Console.Write($"[{type}]");
                         break;
                     case Type.RECEIV:
                         Console.ForegroundColor = ConsoleColor.DarkCyan;
-                        Console.Write("[{0}]", type);
+                        Console.Write($"[{type}]");
                         break;
                     case Type.SEND:
                         Console.ForegroundColor = ConsoleColor.Cyan;
-                        Console.Write("[{0}]", type);
+                        Console.Write($"[{type}]");
                         break;
                 }
                 Console.SetCursorPosition(10, Console.CursorTop);
