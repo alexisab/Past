@@ -1,5 +1,5 @@
 # Past
-![Version](https://img.shields.io/badge/Version-0.1.1-red.svg) ![Build Status](https://img.shields.io/badge/build-passing-red.svg)
+![Version](https://img.shields.io/badge/Version-0.1.1-red.svg) ![Build Status](https://img.shields.io/badge/Build-passing-red.svg)
 
 Emulator for Dofus 2.0.0 in C#
 
