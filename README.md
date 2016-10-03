@@ -7,8 +7,7 @@ Emulator for Dofus 2.0.0 in C#
   <summary>Screen</summary>
     ![Image](http://puu.sh/pe8UH/bdf43aadbb.jpg)
     ![Image](http://puu.sh/pM8rN/ff3fdbcddf.jpg)
-    ![Image](http://puu.sh/qWTzE/b9813ac409.jpg)
-	![Image](http://puu.sh/rdBi4/c6563f6df0.jpg)
+    ![Image](http://puu.sh/rdBi4/c6563f6df0.jpg)
 </details>
 
 # Installation & Configuration
