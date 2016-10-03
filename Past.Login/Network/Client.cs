@@ -1,4 +1,5 @@
-﻿using Past.Common.Utils;
+﻿using Past.Common.Database.Record;
+using Past.Common.Utils;
 using Past.Protocol;
 using Past.Protocol.IO;
 using Past.Protocol.Messages;
@@ -10,7 +11,7 @@ namespace Past.Login.Network
     {
         private Common.Network.Client LoginClient { get; set; }
         public string Ticket { get; set; }
-        //public Account Account { get; set; }
+        public AccountRecord Account { get; set; }
 
         public Client(Common.Network.Client client)
         {
@@ -36,7 +37,7 @@ namespace Past.Login.Network
         public void Disconnect()
         {
             Server.Clients.Remove(this);
-            //Account = null;
+            Account = null;
             LoginClient.Close();
         }
 

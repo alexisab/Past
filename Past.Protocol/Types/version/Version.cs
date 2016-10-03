@@ -46,5 +46,10 @@ namespace Past.Protocol.Types
             if (buildType < 0)
                 throw new Exception("Forbidden value on buildType = " + buildType + ", it doesn't respect the following condition : buildType < 0");
         }
+
+        public override string ToString()
+        {
+            return $"{major}.{minor}.{revision}.{buildType}";
+        }
     }
 }
