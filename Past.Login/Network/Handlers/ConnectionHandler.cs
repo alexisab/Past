@@ -3,6 +3,7 @@ using Past.Common.Utils;
 using Past.Login.Database;
 using Past.Protocol.Enums;
 using Past.Protocol.Messages;
+using Past.Protocol.Types;
 using System;
 using System.Linq;
 
@@ -32,6 +33,10 @@ namespace Past.Login.Network.Handlers
                     Server.Clients.FirstOrDefault(x => x.Account == account).Disconnect();
                 }
                 client.Send(new IdentificationSuccessMessage(account.HasRights, false, account.Nickname, 0, account.SecretQuestion, 42195168000000));
+                client.Send(new ServersListMessage(new GameServerInformations[]
+                {
+                    new GameServerInformations(111, (sbyte)ServerStatusEnum.ONLINE, 0, true, (sbyte)client.Account.Characters.Count()),
+                }));
             }
         }
     }

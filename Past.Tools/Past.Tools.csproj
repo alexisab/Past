@@ -73,6 +73,8 @@
     <Compile Include="Dlm\Fixture.cs" />
     <Compile Include="Dlm\Layer.cs" />
     <Compile Include="Dlm\Map.cs" />
+    <Compile Include="Ele\Elements.cs" />
+    <Compile Include="Ele\ElementsReader.cs" />
     <Compile Include="ParseProtocolEnums.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

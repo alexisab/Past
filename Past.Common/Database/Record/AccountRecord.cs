@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 
 namespace Past.Common.Database.Record
 {
@@ -13,7 +14,7 @@ namespace Past.Common.Database.Record
         public string SecretQuestion { get; set; }
         public string SecretAnswer { get; set; }
         public DateTime? BannedUntil { get; set; }
-        //public List<Character> Characters = new List<Character>();
+        public List<CharacterRecord> Characters = new List<CharacterRecord>();
         public DateTime? LastConnection { get; set; }
         public string LastIp { get; set; }
 
