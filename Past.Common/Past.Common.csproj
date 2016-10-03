@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\DatabaseManager.cs" />
+    <Compile Include="Database\Record\AccountRecord.cs" />
     <Compile Include="Network\Client.cs" />
     <Compile Include="Network\Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

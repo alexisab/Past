@@ -41,5 +41,14 @@ namespace Past.Common.Database
                 }
             }
         }
+
+        public static MySqlDataReader ExecuteQuery(string query)
+        {
+            lock (Object)
+            {
+                MySqlCommand command = new MySqlCommand($"{query}", Connection);
+                return command.ExecuteReader();
+            }
+        }
     }
 }

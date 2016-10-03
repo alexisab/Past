@@ -1,5 +1,6 @@
 ﻿using Past.Common.Database;
 using Past.Common.Utils;
+using Past.Login.Database;
 using Past.Protocol;
 using System;
 
