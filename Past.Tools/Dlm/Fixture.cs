@@ -34,7 +34,7 @@ namespace Past.Tools.Dlm
 
         public override string ToString()
         {
-            return string.Format("FixtureId : {0} Offset : {1} Rotation : {2} ScaleX : {3} ScaleY : {4} RedMultiplier : {5} GreenMultiplier : {6} BlueMultiplier : {7} Hue : {8} Alpha : {9}", FixtureId, Offset, Rotation, ScaleX, ScaleY, RedMultiplier, GreenMultiplier, BlueMultiplier, Hue, Alpha);
+            return $"FixtureId : {FixtureId} Offset : {Offset} Rotation : {Rotation} ScaleX : {ScaleX} ScaleY : {ScaleY} RedMultiplier : {RedMultiplier} GreenMultiplier : {GreenMultiplier} BlueMultiplier : {BlueMultiplier} Hue : {Hue} Alpha : {Alpha}";
         }
     }
 }

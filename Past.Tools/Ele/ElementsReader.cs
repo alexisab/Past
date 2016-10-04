@@ -20,6 +20,7 @@ namespace Past.Tools.Ele
                 try
                 {
                     MemoryStream output = new MemoryStream();
+
                     Uncompress(eleFile, output);
                     ba = output.ToArray();
                 }

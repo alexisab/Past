@@ -75,6 +75,14 @@
     <Compile Include="Dlm\Map.cs" />
     <Compile Include="Ele\Elements.cs" />
     <Compile Include="Ele\ElementsReader.cs" />
+    <Compile Include="Ele\GraphicalElementData.cs" />
+    <Compile Include="Ele\GraphicalElementFactory.cs" />
+    <Compile Include="Ele\GraphicalElementTypes.cs" />
+    <Compile Include="Ele\Subtypes\AnimatedGraphicalElementData.cs" />
+    <Compile Include="Ele\Subtypes\BoundingBoxGraphicalElementData.cs" />
+    <Compile Include="Ele\Subtypes\EntityGraphicalElementData.cs" />
+    <Compile Include="Ele\Subtypes\NormalGraphicalElementData.cs" />
+    <Compile Include="Ele\Subtypes\ParticlesGraphicalElementData.cs" />
     <Compile Include="ParseProtocolEnums.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

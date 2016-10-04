@@ -50,7 +50,7 @@
 
         public override string ToString()
         {
-            return "[r: " + Red + ", g: " + Green + ", b: " + Blue + "]";
+            return $"[r: {Red}, g: {Green}, b: {Blue }";
         }
     }
 }
