@@ -10,7 +10,7 @@ namespace Past.Tools.Ele
             switch (elementType)
             {
                 case (int)GraphicalElementTypes.NORMAL:
-                    return (new NormalGraphicalElementData(elementId, elementType));
+                    return new NormalGraphicalElementData(elementId, elementType);
                 case (int)GraphicalElementTypes.BOUNDING_BOX:
                     return new BoundingBoxGraphicalElementData(elementId, elementType);
                 case (int)GraphicalElementTypes.ANIMATED:
