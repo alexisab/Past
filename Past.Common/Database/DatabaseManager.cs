@@ -6,17 +6,28 @@ namespace Past.Common.Database
     public class DatabaseManager
     {
         public static readonly object Object = new object();
-        private static MySqlConnection Connection { get; set; }
+        public static MySqlConnection LoginConnection { get; set; }
+        public static MySqlConnection GameConnection { get; set; }
 
-        public static void Connect(string host, string username, string password, string databaseName)
+        public static void Connect(bool login, string host, string username, string password, string databaseName)
         {
             lock (Object)
             {
                 try
                 {
-                    Connection = new MySqlConnection();
-                    Connection.ConnectionString = $"server={host};uid={username};pwd={password};database={databaseName}";
-                    Connection.Open();
+                    string connectionString = $"server={host};uid={username};pwd={password};database={databaseName}";
+                    if (login)
+                    {
+                        LoginConnection = new MySqlConnection();
+                        LoginConnection.ConnectionString = connectionString;
+                        LoginConnection.Open();
+                    }
+                    else
+                    {
+                        GameConnection = new MySqlConnection();
+                        GameConnection.ConnectionString = connectionString;
+                        GameConnection.Open();
+                    }
                     ConsoleUtils.Write(ConsoleUtils.Type.INFO, $"Successfully connected to database {databaseName} ...");
                 }
                 catch (MySqlException ex)
@@ -26,14 +37,22 @@ namespace Past.Common.Database
             }
         }
 
-        public static void Close()
+        public static void Close(bool login)
         {
             lock (Object)
             {
                 try
                 {
-                    Connection = null;
-                    Connection.Close();
+                    if (login)
+                    {
+                        LoginConnection = null;
+                        LoginConnection.Close();
+                    }
+                    else
+                    {
+                        GameConnection = null;
+                        GameConnection.Close();
+                    }
                 }
                 catch (MySqlException ex)
                 {
@@ -42,11 +61,11 @@ namespace Past.Common.Database
             }
         }
 
-        public static MySqlDataReader ExecuteQuery(string query)
+        public static MySqlDataReader ExecuteQuery(MySqlConnection connection, string query)
         {
             lock (Object)
             {
-                MySqlCommand command = new MySqlCommand($"{query}", Connection);
+                MySqlCommand command = new MySqlCommand($"{query}", connection);
                 return command.ExecuteReader();
             }
         }

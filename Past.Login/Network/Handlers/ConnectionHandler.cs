@@ -35,7 +35,7 @@ namespace Past.Login.Network.Handlers
                 client.Send(new IdentificationSuccessMessage(account.HasRights, false, account.Nickname, 0, account.SecretQuestion, 42195168000000));
                 client.Send(new ServersListMessage(new GameServerInformations[]
                 {
-                    new GameServerInformations(111, (sbyte)ServerStatusEnum.ONLINE, 0, true, (sbyte)client.Account.Characters.Count()),
+                    new GameServerInformations(111, (sbyte)ServerStatusEnum.ONLINE, 0, true, 0),
                 }));
             }
         }

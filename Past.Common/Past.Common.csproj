@@ -52,7 +52,6 @@
     <Compile Include="Utils\Config.cs" />
     <Compile Include="Utils\ConsoleUtils.cs" />
     <Compile Include="Utils\Functions.cs" />
-    <Compile Include="Utils\GameServerManager.cs" />
     <Compile Include="Utils\MessageHandlerManager.cs" />
   </ItemGroup>
   <ItemGroup>

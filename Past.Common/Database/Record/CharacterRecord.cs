@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using Past.Protocol.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace Past.Common.Database.Record
 {
@@ -33,13 +34,13 @@ namespace Past.Common.Database.Record
             Name = (string)reader["Name"];
             Level = (byte)reader["Level"];
             Experience = (long)reader["Experience"];
-            Breed = (BreedEnum)reader["Breed"];
+            Breed = (BreedEnum)(sbyte)reader["Breed"];
             EntityLookString = (string)reader["EntityLookString"];
             Sex = (bool)reader["Sex"];
             MapId = (int)reader["MapId"];
             CellId = (short)reader["CellId"];
-            Direction = (DirectionsEnum)reader["Direction"];
-            AlignementSide = (AlignmentSideEnum)reader["AlignementSide"];
+            Direction = (DirectionsEnum)(sbyte)reader["Direction"];
+            AlignementSide = (AlignmentSideEnum)(sbyte)reader["AlignementSide"];
             Honor = (ushort)reader["Honor"];
             Dishonor = (ushort)reader["Dishonor"];
             PvPEnabled = (bool)reader["PvPEnabled"];

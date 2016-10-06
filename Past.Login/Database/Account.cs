@@ -11,7 +11,7 @@ namespace Past.Login.Database
             lock (DatabaseManager.Object)
             {
                 AccountRecord account = null;
-                MySqlDataReader reader = DatabaseManager.ExecuteQuery($"SELECT * FROM accounts WHERE Login = '{login}' LIMIT 1");
+                MySqlDataReader reader = DatabaseManager.ExecuteQuery(DatabaseManager.LoginConnection, $"SELECT * FROM accounts WHERE Login = '{login}' LIMIT 1");
                 if (reader.Read())
                 {
                     account = new AccountRecord(reader);
