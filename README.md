@@ -1,5 +1,5 @@
 # Past
-![Version](https://img.shields.io/badge/Version-0.1.1-red.svg) ![Build Status](https://img.shields.io/badge/Build-passing-red.svg)
+![Version](https://img.shields.io/badge/Version-0.1.2-red.svg) ![Build Status](https://img.shields.io/badge/Build-passing-red.svg)
 
 Emulator for Dofus 2.0.0 in C#
 
@@ -25,6 +25,5 @@ Download the game & the emulator:
 * Unknown
 * Fallen
 * Silyseveur
-* Origin
-* [greatmeas] (https://github.com/greatmaes)
+* [Greatmeas] (https://github.com/greatmaes)
 * [Cadernis](https://cadernis.fr/index.php)

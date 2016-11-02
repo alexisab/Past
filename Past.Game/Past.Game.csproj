@@ -47,8 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Database\Character.cs" />
+    <Compile Include="Engine\Character.cs" />
+    <Compile Include="Engine\Pathfinder.cs" />
     <Compile Include="Network\Client.cs" />
+    <Compile Include="Network\Handlers\Approach\ApproachHandler.cs" />
+    <Compile Include="Network\Handlers\Basic\BasicHandler.cs" />
+    <Compile Include="Network\Handlers\Character\CharacterHandler.cs" />
     <Compile Include="Network\Server.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,9 +60,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Network\Handlers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Past.Common\Past.Common.csproj">
       <Project>{D868E97F-C3CD-4AA8-971A-79D4C84551AB}</Project>

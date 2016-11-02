@@ -16,6 +16,11 @@ namespace Past.Common.Network
         public event ClientReceivedData OnClientReceivedData;
         public event ClientFailedToConnect OnClientFailedToConnect;
 
+        public Client()
+        {
+            Buffer = new byte[1024];
+        }
+
         public Client(Socket socket)
         {
             Socket = socket;

@@ -32,9 +32,6 @@ namespace Past.Tools.Dlm
             };
         }
 
-        public override string ToString()
-        {
-            return $"FixtureId : {FixtureId} Offset : {Offset} Rotation : {Rotation} ScaleX : {ScaleX} ScaleY : {ScaleY} RedMultiplier : {RedMultiplier} GreenMultiplier : {GreenMultiplier} BlueMultiplier : {BlueMultiplier} Hue : {Hue} Alpha : {Alpha}";
-        }
+        public override string ToString() => $"FixtureId : {FixtureId} Offset : {Offset} Rotation : {Rotation} ScaleX : {ScaleX} ScaleY : {ScaleY} RedMultiplier : {RedMultiplier} GreenMultiplier : {GreenMultiplier} BlueMultiplier : {BlueMultiplier} Hue : {Hue} Alpha : {Alpha}";
     }
 }

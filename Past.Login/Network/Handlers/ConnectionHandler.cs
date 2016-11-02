@@ -1,6 +1,5 @@
 ﻿using Past.Common.Database.Record;
 using Past.Common.Utils;
-using Past.Login.Database;
 using Past.Protocol.Enums;
 using Past.Protocol.Messages;
 using Past.Protocol.Types;
@@ -17,7 +16,7 @@ namespace Past.Login.Network.Handlers
             {
                 client.Send(new IdentificationFailedForBadVersionMessage((sbyte)IdentificationFailureReasonEnum.BAD_VERSION, new Protocol.Types.Version(2, 0, 0, 0)));
             }
-            AccountRecord account = Account.ReturnAccount(message.login);
+            AccountRecord account = AccountRecord.ReturnAccount(message.login);
             if (account == null || Functions.CipherPassword(account.Password, client.Ticket) != message.password)
             {
                 client.Send(new IdentificationFailedMessage((sbyte)IdentificationFailureReasonEnum.WRONG_CREDENTIALS));
@@ -32,12 +31,21 @@ namespace Past.Login.Network.Handlers
                 {
                     Server.Clients.FirstOrDefault(x => x.Account == account).Disconnect();
                 }
+                client.Account = account;
                 client.Send(new IdentificationSuccessMessage(account.HasRights, false, account.Nickname, 0, account.SecretQuestion, 42195168000000));
                 client.Send(new ServersListMessage(new GameServerInformations[]
                 {
-                    new GameServerInformations(111, (sbyte)ServerStatusEnum.ONLINE, 0, true, 0),
+                    new GameServerInformations(111, (sbyte)ServerStatusEnum.ONLINE, 0, true, (sbyte)CharacterRecord.ReturnCharacters(account.Id).Count())
                 }));
             }
+        }
+
+        public static void HandleServerSelectionMessage(Client client, ServerSelectionMessage message)
+        {
+            client.Account.Ticket = client.Ticket;
+            client.Account.Update();
+            client.Send(new SelectedServerDataMessage(message.serverId, "127.0.0.1", 5555, true, client.Ticket));
+            client.Disconnect();
         }
     }
 }

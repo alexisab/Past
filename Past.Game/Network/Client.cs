@@ -1,5 +1,6 @@
 ﻿using Past.Common.Database.Record;
 using Past.Common.Utils;
+using Past.Game.Engine;
 using Past.Protocol;
 using Past.Protocol.IO;
 using Past.Protocol.Messages;
@@ -11,11 +12,13 @@ namespace Past.Game.Network
     {
         private Common.Network.Client GameClient { get; set; }
         public AccountRecord Account { get; set; }
-        public CharacterRecord Character { get; set; }
+        public Character Character { get; set; }
+        public string Ip { get; private set; }
 
         public Client(Common.Network.Client client)
         {
             GameClient = client;
+            Ip = client.Ip;
             GameClient_OnClientSocketConnected();
             GameClient.OnClientSocketClosed += GameClient_OnClientSocketClosed;
             GameClient.OnClientReceivedData += GameClient_OnClientReceivedData;
@@ -35,13 +38,15 @@ namespace Past.Game.Network
         public void Disconnect()
         {
             Server.Clients.Remove(this);
+            Account.Update();
+            Character.Save();
             Account = null;
+            Character = null;
             /*if (Character != null)
             {
                 Character.Map.CurrentMap.RemoveClient(this);
                 Database.Character.Update(Character);
             }*/
-            Character = null;
             GameClient.Close();
         }
 

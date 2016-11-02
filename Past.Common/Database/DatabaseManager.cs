@@ -6,8 +6,7 @@ namespace Past.Common.Database
     public class DatabaseManager
     {
         public static readonly object Object = new object();
-        public static MySqlConnection LoginConnection { get; set; }
-        public static MySqlConnection GameConnection { get; set; }
+        private static MySqlConnection Connection { get; set; }
 
         public static void Connect(bool login, string host, string username, string password, string databaseName)
         {
@@ -16,18 +15,9 @@ namespace Past.Common.Database
                 try
                 {
                     string connectionString = $"server={host};uid={username};pwd={password};database={databaseName}";
-                    if (login)
-                    {
-                        LoginConnection = new MySqlConnection();
-                        LoginConnection.ConnectionString = connectionString;
-                        LoginConnection.Open();
-                    }
-                    else
-                    {
-                        GameConnection = new MySqlConnection();
-                        GameConnection.ConnectionString = connectionString;
-                        GameConnection.Open();
-                    }
+                    Connection = new MySqlConnection();
+                    Connection.ConnectionString = connectionString;
+                    Connection.Open();
                     ConsoleUtils.Write(ConsoleUtils.Type.INFO, $"Successfully connected to database {databaseName} ...");
                 }
                 catch (MySqlException ex)
@@ -43,16 +33,8 @@ namespace Past.Common.Database
             {
                 try
                 {
-                    if (login)
-                    {
-                        LoginConnection = null;
-                        LoginConnection.Close();
-                    }
-                    else
-                    {
-                        GameConnection = null;
-                        GameConnection.Close();
-                    }
+                    Connection = null;
+                    Connection.Close();
                 }
                 catch (MySqlException ex)
                 {
@@ -61,12 +43,27 @@ namespace Past.Common.Database
             }
         }
 
-        public static MySqlDataReader ExecuteQuery(MySqlConnection connection, string query)
+        public static MySqlDataReader ExecuteQuery(string query)
         {
             lock (Object)
             {
-                MySqlCommand command = new MySqlCommand($"{query}", connection);
-                return command.ExecuteReader();
+                return new MySqlCommand($"{query}", Connection).ExecuteReader();
+            }
+        }
+
+        public static int ExecuteNonQuery(string query)
+        {
+            lock (Object)
+            {
+                return new MySqlCommand($"{query}", Connection).ExecuteNonQuery();
+            }
+        }
+
+        public static object ExecuteScalar(string query)
+        {
+            lock (Object)
+            {
+                return new MySqlCommand($"{query}", Connection).ExecuteScalar();
             }
         }
     }

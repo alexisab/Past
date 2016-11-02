@@ -7,7 +7,7 @@ namespace Past.Common.Utils
     public class ConsoleUtils
     {
         private static readonly object Object = new object();
-        public enum Type { INFO, WARNING, ERROR, DONE, DEBUG, RECEIV, SEND };
+        public enum Type { INFO, WARNING, ERROR, DONE, DEBUG, RECEIV, SEND, PAST };
 
         public static string[] logo = new string[]
         {
@@ -68,6 +68,10 @@ namespace Past.Common.Utils
                         break;
                     case Type.SEND:
                         Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.Write($"[{type}]");
+                        break;
+                    case Type.PAST:
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
                         Console.Write($"[{type}]");
                         break;
                 }

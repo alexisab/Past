@@ -20,7 +20,7 @@ namespace Past.Login.Network
 
         private static void Login_OnServerFailedToStart(Exception ex)
         {
-            ConsoleUtils.Write(ConsoleUtils.Type.ERROR, ex.ToString());
+            ConsoleUtils.Write(ConsoleUtils.Type.ERROR, $"{ex}");
         }
 
         private static void Login_OnServerStarted()

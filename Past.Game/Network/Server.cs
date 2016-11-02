@@ -20,7 +20,7 @@ namespace Past.Game.Network
 
         private static void Game_OnServerFailedToStart(Exception ex)
         {
-            ConsoleUtils.Write(ConsoleUtils.Type.ERROR, ex.ToString());
+            ConsoleUtils.Write(ConsoleUtils.Type.ERROR, $"{ex}");
         }
 
         private static void Game_OnServerStarted()

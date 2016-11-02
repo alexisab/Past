@@ -48,9 +48,6 @@
             return cmr;
         }
 
-        public override string ToString()
-        {
-            return $"[r: {Red}, g: {Green}, b: {Blue }";
-        }
+        public override string ToString() => $"[r: {Red}, g: {Green}, b: {Blue }";
     }
 }
