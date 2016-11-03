@@ -39,7 +39,6 @@ namespace Past.Game.Network
         {
             Server.Clients.Remove(this);
             Account.Update();
-            Character.Save();
             Account = null;
             Character = null;
             /*if (Character != null)

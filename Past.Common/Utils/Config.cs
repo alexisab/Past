@@ -39,7 +39,7 @@ Debug = true            ; Display in the console message received and sent";
 
         public static void ReadConfig()
         {
-            string path = String.Format(@"{0}\Config.ini", Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName));
+            string path = String.Format($"{AppDomain.CurrentDomain.BaseDirectory}Config.ini");
             if (!File.Exists(path))
             {
                 File.WriteAllText(path, DefaultConfig);

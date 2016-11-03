@@ -25,10 +25,30 @@ namespace Past.Common.Database.Record
         public ushort Dishonor { get; set; }
         public bool PvPEnabled { get; set; }
         public int Kamas { get; set; }
+
+        #region base stats
+        public int Health { get; set; }
+        public short Energy { get; set; }
+        public byte AP { get; set; }
+        public byte MP { get; set; }
+        public int Strength { get; set; }
+        public int Vitality { get; set; }
+        public int Wisdom { get; set; }
+        public int Agility { get; set; }
+        public int Intelligence { get; set; }
+        #endregion
+
+        #region stats added with scroll
+        public int ScrollStrength { get; set; }
+        public int ScrollVitality { get; set; }
+        public int ScrollWisdom { get; set; }
+        public int ScrollAgility { get; set; }
+        public int ScrollIntelligence { get; set; }
+        #endregion
+
         public short StatsPoints { get; set; }
         public short SpellsPoints { get; set; }
         public DateTime? LastUsage { get; set; }
-        public EntityLook EntityLook { get { return ReturnEntityLook(this); } }
 
         public CharacterRecord(MySqlDataReader reader)
         {
@@ -43,6 +63,15 @@ namespace Past.Common.Database.Record
             MapId = (int)reader["MapId"];
             CellId = (short)reader["CellId"];
             Direction = (DirectionsEnum)(sbyte)reader["Direction"];
+            Health = (int)reader["Health"];
+            Energy = (short)reader["Energy"];
+            AP = (byte)reader["AP"];
+            MP = (byte)reader["MP"];
+            Strength = (int)reader["Strength"];
+            Vitality = (int)reader["Vitality"];
+            Wisdom = (int)reader["Wisdom"];
+            Agility = (int)reader["Agility"];
+            Intelligence = (int)reader["Intelligence"];
             AlignementSide = (AlignmentSideEnum)(sbyte)reader["AlignementSide"];
             Honor = (ushort)reader["Honor"];
             Dishonor = (ushort)reader["Dishonor"];
@@ -50,6 +79,11 @@ namespace Past.Common.Database.Record
             Kamas = (int)reader["Kamas"];
             StatsPoints = (short)reader["StatsPoints"];
             SpellsPoints = (short)reader["SpellsPoints"];
+            ScrollStrength = (int)reader["ScrollStrength"];
+            ScrollVitality = (int)reader["ScrollVitality"];
+            ScrollWisdom = (int)reader["ScrollWisdom"];
+            ScrollAgility = (int)reader["ScrollAgility"];
+            ScrollIntelligence = (int)reader["ScrollIntelligence"];
             LastUsage = reader["LastUsage"] as DateTime?;
         }
 
@@ -103,43 +137,6 @@ namespace Past.Common.Database.Record
         public int Delete()
         {
             return DatabaseManager.ExecuteNonQuery($"DELETE FROM characters WHERE Id = '{Id}'");
-        }
-
-        public static EntityLook ReturnEntityLook(CharacterRecord character) //TODO SubEntity & BonesId
-        {
-            string[] look_string = character.EntityLookString.Replace("{", "").Replace("}", "").Split('|');
-            short bonesId = short.Parse(look_string[0]);
-
-            short[] skins;
-            if (look_string[1].Contains(","))
-            {
-                var skins_string = look_string[1].Split(',');
-                skins = new short[skins_string.Length];
-                for (int i = 0; i < skins_string.Length; i++)
-                    skins[i] = short.Parse(skins_string[i]);
-            }
-            else
-                skins = new short[] { short.Parse(look_string[1]) };
-
-            int[] colors;
-            if (look_string[2].Contains(","))
-            {
-                string[] colors_string = look_string[2].Split(',');
-                colors = new int[colors_string.Length];
-                for (int i = 0; i < colors_string.Length; i++)
-                {
-                    int color = int.Parse(colors_string[i].Remove(0, 2));
-                    if (color == -1) { }
-                    else
-                        colors[i] = (i + 1 & 255) << 24 | color & 16777215;
-                }
-            }
-            else
-                colors = new int[0];
-
-            short[] size = new short[] { short.Parse(look_string[3]) };
-
-            return new EntityLook(bonesId, skins, colors, size, new SubEntity[0]);
         }
     }
 }

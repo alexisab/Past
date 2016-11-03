@@ -104,14 +104,14 @@ namespace Past.Game.Network.Handlers.Character
             CharacterBaseInformations[] characterBaseInformations = new CharacterBaseInformations[client.Account.Characters.Count];
             for (int i = 0; i < client.Account.Characters.Count; i++)
             {
-                characterBaseInformations[i] = new CharacterBaseInformations(client.Account.Characters[i].Id, client.Account.Characters[i].Name, client.Account.Characters[i].Level, client.Account.Characters[i].EntityLook, (sbyte)client.Account.Characters[i].Breed, client.Account.Characters[i].Sex);
+                characterBaseInformations[i] = new CharacterBaseInformations(client.Account.Characters[i].Id, client.Account.Characters[i].Name, client.Account.Characters[i].Level, Functions.BuildEntityLook(client.Account.Characters[i]), (sbyte)client.Account.Characters[i].Breed, client.Account.Characters[i].Sex);
             }
             client.Send(new CharactersListMessage(false, tutorial, characterBaseInformations));
         }
 
         public void SendCharacterStatsListMessage(Client client)
         {
-
+            client.Send(new CharacterStatsListMessage());
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using Past.Tools.Ele;
-using Past.Tools.Ele.Subtypes;
-using System;
+﻿using System;
+using System.IO;
+using System.Linq;
 
 namespace Past.Tools
 {
@@ -8,14 +8,16 @@ namespace Past.Tools
     {
         static void Main(string[] args)
         {
-            var ele = new ElementsReader().ReadEle(@"C:\Users\skeee\Desktop\Dofus 2 Online\content\maps\elements.ele");
-            foreach (var elements in ele.ElementsMap)
+            using (StreamWriter writer = new StreamWriter("mapsDatas"))
             {
-                if (elements.Value is NormalGraphicalElementData)
+                foreach (string file in Directory.GetFiles(@"C:\Users\skeee\Desktop\Dofus 2 Online\content\maps", "*", SearchOption.AllDirectories).Where(x => x.Contains("dlm")))
                 {
-                    var test = elements.Value as NormalGraphicalElementData;
-                    Console.WriteLine($"{test.Id}, {test.GfxId}");
+                    var map = new Dlm.DlmReader().ReadDLM(file);
+                    bool outdoor = map.MapType == 1 ? true : false;
+                    writer.WriteLine($"Maps.Add({map.Id}, new Map({outdoor}, {map.SubareaId}, {map.TopNeighbourId}, {map.BottomNeighbourId}, {map.LeftNeighbourId}, {map.RightNeighbourId}));");
                 }
+                Console.WriteLine("Done ...");
+                writer.Close();
             }
             while (true)
             {
