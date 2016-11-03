@@ -1,6 +1,10 @@
 ﻿using Past.Common.Data;
 using Past.Common.Database.Record;
 using Past.Common.Utils;
+using Past.Game.Engine;
+using Past.Game.Network.Handlers.Chat;
+using Past.Game.Network.Handlers.Context.Roleplay;
+using Past.Game.Network.Handlers.Inventory;
 using Past.Protocol.Enums;
 using Past.Protocol.Messages;
 using Past.Protocol.Types;
@@ -55,17 +59,17 @@ namespace Past.Game.Network.Handlers.Character
 
         public static void HandleCharacterDeletionRequestMessage(Client client, CharacterDeletionRequestMessage message)
         {
-            CharacterRecord character = client.Account.Characters.FirstOrDefault(x => x.Id == message.characterId);
-            if (character != null)
+            CharacterRecord characterRecord = client.Account.Characters.FirstOrDefault(character => character.Id == message.characterId);
+            if (characterRecord != null)
             {
-                if (character.Level >= 20 ? Functions.CipherSecretAnswer(message.characterId, client.Account.SecretAnswer) != message.secretAnswerHash : Functions.CipherSecretAnswer(message.characterId, "000000000000000000") != message.secretAnswerHash)
+                if (characterRecord.Level >= 20 ? Functions.CipherSecretAnswer(message.characterId, client.Account.SecretAnswer) != message.secretAnswerHash : Functions.CipherSecretAnswer(message.characterId, "000000000000000000") != message.secretAnswerHash)
                 {
                     client.Send(new CharacterDeletionErrorMessage((sbyte)CharacterDeletionErrorEnum.DEL_ERR_BAD_SECRET_ANSWER));
                 }
                 else
                 {
-                    character.Delete();
-                    client.Account.Characters.Remove(character);
+                    characterRecord.Delete();
+                    client.Account.Characters.Remove(characterRecord);
                     SendCharactersListMessage(client, false);
                 }
             }
@@ -77,12 +81,26 @@ namespace Past.Game.Network.Handlers.Character
 
         public static void HandleCharacterSelectionMessage(Client client, CharacterSelectionMessage message)
         {
-            CharacterRecord characterRecord = client.Account.Characters.FirstOrDefault(x => x.Id == message.id);
+            CharacterRecord characterRecord = client.Account.Characters.FirstOrDefault(character => character.Id == message.id);
             if (characterRecord != null)
             {
-                Engine.Character character = new Engine.Character(characterRecord, client);
+                CharacterEngine character = new CharacterEngine(characterRecord, client);
+                client.Character = character;
                 client.Send(new CharacterSelectedSuccessMessage(character.GetCharacterBaseInformations()));
 
+                RoleplayHandler.SendEmoteListMessage(client, new sbyte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 19, 21, 22, 23, 24 });
+                ChatHandler.SendEnabledChannelsMessage(client, new sbyte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 });
+                InventoryHandler.SendInventoryContentMessage(client, new ObjectItem[0], character.Kamas); //TODO Get the characters items
+                InventoryHandler.SendInventoryWeightMessage(client, 0, 1000)); //TODO Get pods and max pods
+
+                client.Send(new AlignmentRankUpdateMessage(1, false));
+                client.Send(new AlignmentSubAreasListMessage(new short[0], new short[0]));
+
+                SendCharacterStatsListMessage(client);
+                SendSetCharacterRestrictionsMessage(client);
+                SendLifePointsRegenBeginMessage(client, 10);
+
+                client.Send(new TextInformationMessage((sbyte)TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 89, new string[0]));
                 if (client.Account.LastConnection.HasValue && !string.IsNullOrEmpty(client.Account.LastIp))
                 {
                     client.Send(new TextInformationMessage((sbyte)TextInformationTypeEnum.TEXT_INFORMATION_MESSAGE, 152, new string[] { $"{client.Account.LastConnection.Value.Year}", $"{client.Account.LastConnection.Value.Month}", $"{client.Account.LastConnection.Value.Day}", $"{client.Account.LastConnection.Value.Hour}", $"{client.Account.LastConnection.Value.Minute}", client.Account.LastIp }));
@@ -109,9 +127,78 @@ namespace Past.Game.Network.Handlers.Character
             client.Send(new CharactersListMessage(false, tutorial, characterBaseInformations));
         }
 
-        public void SendCharacterStatsListMessage(Client client)
+        public static void SendCharacterStatsListMessage(Client client)
         {
-            client.Send(new CharacterStatsListMessage());
+            client.Send(new CharacterStatsListMessage(new CharacterCharacteristicsInformations(
+                client.Character.Experience,
+                client.Character.ExperienceLevelFloor,
+                client.Character.ExperienceNextLevelFloor,
+                client.Character.Kamas,
+                client.Character.StatsPoints,
+                client.Character.SpellsPoints,
+                client.Character.GetActorExtendedAlignmentInformations(),
+                client.Character.Health,
+                client.Character.Health,
+                client.Character.Energy,
+                10000,
+                client.Character.Level >= 100 ? (short)7 : (short)6,
+                3,
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                0,
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterBaseCharacteristic(0, 0, 0, 0),
+                new CharacterSpellModification[0])));
+        }
+
+        public static void SendSetCharacterRestrictionsMessage(Client client)
+        {
+            client.Send(new SetCharacterRestrictionsMessage(new ActorRestrictionsInformations(false, false, false, false, false, false, false, false, true, false, false, false, false, true, true, true, false, false, false, false, false)));
+        }
+
+        public static void SendLifePointsRegenBeginMessage(Client client, byte regenRate)
+        {
+            client.Send(new LifePointsRegenBeginMessage(regenRate));
         }
     }
 }

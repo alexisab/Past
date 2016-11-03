@@ -47,12 +47,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Engine\Character.cs" />
+    <Compile Include="Engine\CharacterEngine.cs" />
+    <Compile Include="Engine\MapEngine.cs" />
     <Compile Include="Engine\Pathfinder.cs" />
     <Compile Include="Network\Client.cs" />
     <Compile Include="Network\Handlers\Approach\ApproachHandler.cs" />
     <Compile Include="Network\Handlers\Basic\BasicHandler.cs" />
     <Compile Include="Network\Handlers\Character\CharacterHandler.cs" />
+    <Compile Include="Network\Handlers\Chat\ChatHandler.cs" />
+    <Compile Include="Network\Handlers\Context\Roleplay\RoleplayHandler.cs" />
+    <Compile Include="Network\Handlers\Inventory\InventoryHandler.cs" />
     <Compile Include="Network\Server.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

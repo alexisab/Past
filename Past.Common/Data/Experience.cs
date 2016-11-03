@@ -223,10 +223,22 @@ namespace Past.Common.Data
             Experiences.Add(200, new Experience(7407232000, 74072320000, -1, -1, -1));
         }
 
+        public static Experience GetExperienceLevelFloor(byte level)
+        {
+            return Experiences.FirstOrDefault(x => x.Key == level).Value;
+        }
+
+        public static Experience GetNextExperienceLevelFloor(byte level)
+        {
+            return Experiences.FirstOrDefault(x => x.Key == level + 1).Value;
+        }
+
         public static byte GetCharacterGrade(ushort honor)
         {
             if (honor >= 17500)
+            {
                 return 10;
+            }
             return (byte)(Experiences.FirstOrDefault(x => x.Value.AlignmentXp > honor).Key - 1);
         }
     }

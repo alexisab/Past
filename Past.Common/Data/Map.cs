@@ -4,6 +4,7 @@ namespace Past.Common.Data
 {
     public class Map
     {
+        public object Instance { get; set; }
         public bool Outdoor { get; set; }
         public int SubAreaId { get; set; }
         public int TopNeighbourId { get; set; }

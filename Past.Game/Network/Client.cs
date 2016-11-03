@@ -12,7 +12,7 @@ namespace Past.Game.Network
     {
         private Common.Network.Client GameClient { get; set; }
         public AccountRecord Account { get; set; }
-        public Character Character { get; set; }
+        public CharacterEngine Character { get; set; }
         public string Ip { get; private set; }
 
         public Client(Common.Network.Client client)
