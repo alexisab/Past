@@ -1,6 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
 using Past.Protocol.Enums;
-using Past.Protocol.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -14,7 +14,7 @@ namespace Past.Tools
                 {
                     var map = new Dlm.DlmReader().ReadDLM(file);
                     bool outdoor = map.MapType == 1 ? true : false;
-                    writer.WriteLine($"Maps.Add({map.Id}, new Map({outdoor}, {map.SubareaId}, {map.TopNeighbourId}, {map.BottomNeighbourId}, {map.LeftNeighbourId}, {map.RightNeighbourId}));");
+                    writer.WriteLine($"Maps.Add({map.Id}, new Map({map.Id}, {outdoor}, {map.SubareaId}, {map.TopNeighbourId}, {map.BottomNeighbourId}, {map.LeftNeighbourId}, {map.RightNeighbourId}));");
                 }
                 Console.WriteLine("Done ...");
                 writer.Close();

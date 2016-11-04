@@ -73,9 +73,9 @@ namespace Past.Common.Utils
             return (int)(date.Subtract(new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime()).TotalSeconds);
         }
 
-        public static EntityLook BuildEntityLook(CharacterRecord record) //TODO SubEntity & BonesId
+        public static EntityLook BuildEntityLook(string entityLook) //TODO SubEntity & BonesId
         {
-            string[] look_string = record.EntityLookString.Replace("{", "").Replace("}", "").Split('|');
+            string[] look_string = entityLook.Replace("{", "").Replace("}", "").Split('|');
             short bonesId = short.Parse(look_string[0]);
             short[] skins;
             if (look_string[1].Contains(","))
