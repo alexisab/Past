@@ -40,12 +40,12 @@ namespace Past.Game.Network
             Server.Clients.Remove(this);
             Account.Update();
             Account = null;
-            Character = null;
-            /*if (Character != null)
+            if (Character != null)
             {
-                Character.Map.CurrentMap.RemoveClient(this);
-                Database.Character.Update(Character);
-            }*/
+                Character.CurrentMap.RemoveClient(this);
+                Character.Save();
+            }
+            Character = null;
             GameClient.Close();
         }
 
