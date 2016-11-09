@@ -28,7 +28,7 @@ namespace Past.Game.Engine
         {
             foreach (Client Client in Clients)
             {
-                client.Send(new GameRolePlayShowActorMessage(Client.Character.GetGameRolePlayCharacterInformations()));
+                client.Send(new GameRolePlayShowActorMessage(Client.Character.GetGameRolePlayCharacterInformations));
             }
         }
 
@@ -40,7 +40,7 @@ namespace Past.Game.Engine
                 {
                     Clients.Add(client);
                     SendMapGameRolePlayShowActorMessage(client);
-                    Send(new GameRolePlayShowActorMessage(client.Character.GetGameRolePlayCharacterInformations()));
+                    Send(new GameRolePlayShowActorMessage(client.Character.GetGameRolePlayCharacterInformations));
                 }
             }
         }

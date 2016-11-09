@@ -206,8 +206,128 @@ namespace Past.Game.Engine
             }
         }
 
-        public int Health { get { return Record.Health; } set { Record.Health = value; } }
-        public short Energy { get { return Record.Energy; } set { Record.Energy = value; } }
+        public int Health //Current
+        {
+            get
+            {
+                return Record.Health;
+            }
+            set
+            {
+                Record.Health = value;
+            }
+        }
+
+        //public int BaseHealth => 50 + (Level * 5);
+        public int MaxHealth => 50 + (Level * 5) + Stats.Total(StatsEnum.VITALITY);
+
+        public short Energy
+        {
+            get
+            {
+                return Record.Energy;
+            }
+            set
+            {
+                Record.Energy = value;
+            }
+        }
+
+        public byte AP
+        {
+            get
+            {
+                return Record.AP;
+            }
+            set
+            {
+                Record.AP = value;
+            }
+        }
+
+        public byte MP
+        {
+            get
+            {
+                return Record.MP;
+            }
+            set
+            {
+                Record.MP = value;
+            }
+        }
+
+        public int Strength
+        {
+            get
+            {
+                return Record.Strength;
+            }
+            set
+            {
+                Record.Strength = value;
+            }
+        }
+
+        public int Vitality
+        {
+            get
+            {
+                return Record.Vitality;
+            }
+            set
+            {
+                Record.Vitality = value;
+            }
+        }
+
+        public int Wisdom
+        {
+            get
+            {
+                return Record.Wisdom;
+            }
+            set
+            {
+                Record.Wisdom = value;
+            }
+        }
+
+        public int Chance
+        {
+            get
+            {
+                return Record.Chance;
+            }
+            set
+            {
+                Record.Chance = value;
+            }
+        }
+
+        public int Agility
+        {
+            get
+            {
+                return Record.Agility;
+            }
+            set
+            {
+                Record.Agility = value;
+            }
+        }
+
+        public int Intelligence
+        {
+            get
+            {
+                return Record.Intelligence;
+            }
+            set
+            {
+                Record.Intelligence = value;
+            }
+        }
 
         public short StatsPoints
         {
@@ -233,6 +353,12 @@ namespace Past.Game.Engine
             }
         }
 
+        public StatsEngine Stats
+        {
+            get;
+            set;
+        }
+
         public DateTime? LastUsage
         {
             get
@@ -249,19 +375,22 @@ namespace Past.Game.Engine
         {
             Record = record;
             Client = client;
+            Stats = new StatsEngine(this);
         }
 
         public void Save()
         {
-            //Record.Update();
+            Record.Update();
         }
 
-        public GameRolePlayCharacterInformations GetGameRolePlayCharacterInformations() => new GameRolePlayCharacterInformations(Id, EntityLook, Disposition, Name, new HumanInformations(new EntityLook[0], 0, 0, new ActorRestrictionsInformations(false, false, false, false, false, false, false, false, true, false, false, false, false, true, true, true, false, false, false, false, false), 0), GetActorAlignmentInformations());
+        public GameRolePlayCharacterInformations GetGameRolePlayCharacterInformations => new GameRolePlayCharacterInformations(Id, EntityLook, Disposition, Name, new HumanInformations(new EntityLook[0], 0, 0, new ActorRestrictionsInformations(false, false, false, false, false, false, false, false, true, false, false, false, false, true, true, true, false, false, false, false, false), 0), GetActorAlignmentInformations);
 
-        public CharacterBaseInformations GetCharacterBaseInformations() => new CharacterBaseInformations(Id, Name, Level, EntityLook, (sbyte)Breed, Sex);
+        public CharacterBaseInformations GetCharacterBaseInformations => new CharacterBaseInformations(Id, Name, Level, EntityLook, (sbyte)Breed, Sex);
 
-        public ActorAlignmentInformations GetActorAlignmentInformations() => new ActorAlignmentInformations((sbyte)AlignmentSide, 0, AlignmentGrade, 0);
+        public ActorAlignmentInformations GetActorAlignmentInformations => new ActorAlignmentInformations((sbyte)AlignmentSide, 0, AlignmentGrade, 0);
 
-        public ActorExtendedAlignmentInformations GetActorExtendedAlignmentInformations() => new ActorExtendedAlignmentInformations((sbyte)AlignmentSide, 0, AlignmentGrade, 0, Honor, Dishonor, PvPEnabled);
+        public ActorExtendedAlignmentInformations GetActorExtendedAlignmentInformations => new ActorExtendedAlignmentInformations((sbyte)AlignmentSide, 0, AlignmentGrade, 0, Honor, Dishonor, PvPEnabled);
+
+        public CharacterCharacteristicsInformations GetCharacterCharacteristicsInformations => new CharacterCharacteristicsInformations(Experience, ExperienceLevelFloor, ExperienceNextLevelFloor, Kamas, StatsPoints, SpellsPoints, GetActorExtendedAlignmentInformations, Health, MaxHealth, Energy, 10000, AP, MP, Stats[StatsEnum.INITIATIVE], Stats[StatsEnum.PROSPECTING], Stats[StatsEnum.ACTION_POINTS], Stats[StatsEnum.MOVEMENT_POINTS], Stats[StatsEnum.STRENGTH], Stats[StatsEnum.VITALITY], Stats[StatsEnum.WISDOM], Stats[StatsEnum.CHANCE], Stats[StatsEnum.AGILITY], Stats[StatsEnum.INTELLIGENCE], Stats[StatsEnum.RANGE], Stats[StatsEnum.SUMMONABLE_CREATURES_BOOST], Stats[StatsEnum.REFLECT], Stats[StatsEnum.CRITICAL_HIT], 0, Stats[StatsEnum.CRITICAL_MISS], Stats[StatsEnum.HEAL_BONUS], Stats[StatsEnum.ALL_DAMAGES_BONUS], Stats[StatsEnum.WEAPON_DAMAGES_BONUS_PERCENT], Stats[StatsEnum.DAMAGES_BONUS_PERCENT], Stats[StatsEnum.TRAP_BONUS], Stats[StatsEnum.TRAP_BONUS_PERCENT], Stats[StatsEnum.PERMANENT_DAMAGE_PERCENT], Stats[StatsEnum.DODGE_PA_LOST_PROBABILITY], Stats[StatsEnum.DODGE_PM_LOST_PROBABILITY], Stats[StatsEnum.NEUTRAL_ELEMENT_REDUCTION], Stats[StatsEnum.EARTH_ELEMENT_RESIST_PERCENT], Stats[StatsEnum.WATER_ELEMENT_RESIST_PERCENT], Stats[StatsEnum.AIR_ELEMENT_RESIST_PERCENT], Stats[StatsEnum.FIRE_ELEMENT_RESIST_PERCENT], Stats[StatsEnum.NEUTRAL_ELEMENT_REDUCTION], Stats[StatsEnum.EARTH_ELEMENT_REDUCTION], Stats[StatsEnum.WATER_ELEMENT_REDUCTION], Stats[StatsEnum.AIR_ELEMENT_REDUCTION], Stats[StatsEnum.FIRE_ELEMENT_REDUCTION], Stats[StatsEnum.PVP_NEUTRAL_ELEMENT_RESIST_PERCENT], Stats[StatsEnum.PVP_EARTH_ELEMENT_RESIST_PERCENT], Stats[StatsEnum.PVP_WATER_ELEMENT_RESIST_PERCENT], Stats[StatsEnum.PVP_AIR_ELEMENT_RESIST_PERCENT], Stats[StatsEnum.PVP_FIRE_ELEMENT_RESIST_PERCENT], Stats[StatsEnum.PVP_NEUTRAL_ELEMENT_REDUCTION], Stats[StatsEnum.PVP_EARTH_ELEMENT_REDUCTION], Stats[StatsEnum.PVP_WATER_ELEMENT_REDUCTION], Stats[StatsEnum.PVP_AIR_ELEMENT_REDUCTION], Stats[StatsEnum.PVP_FIRE_ELEMENT_REDUCTION], new CharacterSpellModification[0]);
     }
 }

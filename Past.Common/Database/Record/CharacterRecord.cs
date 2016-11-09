@@ -33,16 +33,9 @@ namespace Past.Common.Database.Record
         public int Strength { get; set; }
         public int Vitality { get; set; }
         public int Wisdom { get; set; }
+        public int Chance { get; set; }
         public int Agility { get; set; }
         public int Intelligence { get; set; }
-        #endregion
-
-        #region stats added with scroll
-        public int ScrollStrength { get; set; }
-        public int ScrollVitality { get; set; }
-        public int ScrollWisdom { get; set; }
-        public int ScrollAgility { get; set; }
-        public int ScrollIntelligence { get; set; }
         #endregion
 
         public short StatsPoints { get; set; }
@@ -69,6 +62,7 @@ namespace Past.Common.Database.Record
             Strength = (int)reader["Strength"];
             Vitality = (int)reader["Vitality"];
             Wisdom = (int)reader["Wisdom"];
+            Chance = (int)reader["Chance"];
             Agility = (int)reader["Agility"];
             Intelligence = (int)reader["Intelligence"];
             AlignementSide = (AlignmentSideEnum)(sbyte)reader["AlignementSide"];
@@ -78,11 +72,6 @@ namespace Past.Common.Database.Record
             Kamas = (int)reader["Kamas"];
             StatsPoints = (short)reader["StatsPoints"];
             SpellsPoints = (short)reader["SpellsPoints"];
-            ScrollStrength = (int)reader["ScrollStrength"];
-            ScrollVitality = (int)reader["ScrollVitality"];
-            ScrollWisdom = (int)reader["ScrollWisdom"];
-            ScrollAgility = (int)reader["ScrollAgility"];
-            ScrollIntelligence = (int)reader["ScrollIntelligence"];
             LastUsage = reader["LastUsage"] as DateTime?;
         }
 
@@ -126,6 +115,11 @@ namespace Past.Common.Database.Record
         public static bool NameExist(string name)
         {
             return Convert.ToBoolean(DatabaseManager.ExecuteScalar($"SELECT EXISTS (SELECT 1 FROM characters WHERE Name = '{name}')"));
+        }
+
+        public int Update()
+        {
+            return DatabaseManager.ExecuteNonQuery($"UPDATE characters SET Name = '{Name}', Level = '{Level}', Experience = '{Experience}', Breed = '{(sbyte)Breed}', EntityLookString = '{EntityLookString}', Sex = '{Convert.ToSByte(Sex)}', MapId = '{MapId}', CellId = '{CellId}', Direction = '{(sbyte)Direction}', Health = '{Health}', Energy = '{Energy}', AP = '{AP}', MP = '{MP}', Strength = '{Strength}', Vitality = '{Vitality}', Wisdom = '{Wisdom}', Chance = '{Chance}', Agility = '{Agility}', Intelligence = '{Intelligence}', AlignementSide = '{(sbyte)AlignementSide}', Honor = '{Honor}', PvPEnabled = '{Convert.ToSByte(PvPEnabled)}', Kamas = '{Kamas}', StatsPoints = '{StatsPoints}', SpellsPoints = '{SpellsPoints}', LastUsage = '{LastUsage.Value.ToString("yyyy-MM-dd HH:mm:ss")}' WHERE Id = '{Id}'");
         }
 
         public int Create()

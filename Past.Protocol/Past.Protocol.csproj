@@ -88,6 +88,7 @@
     <Compile Include="Enums\ServerConnectionErrorEnum.cs" />
     <Compile Include="Enums\ServerStatusEnum.cs" />
     <Compile Include="Enums\SocialContactCategoryEnum.cs" />
+    <Compile Include="Enums\StatsEnum.cs" />
     <Compile Include="Enums\SubEntityBindingPointCategoryEnum.cs" />
     <Compile Include="Enums\SubscriptionRequiredEnum.cs" />
     <Compile Include="Enums\TaxCollectorErrorReasonEnum.cs" />
