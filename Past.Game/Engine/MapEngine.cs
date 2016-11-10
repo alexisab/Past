@@ -4,7 +4,6 @@ using Past.Protocol;
 using Past.Protocol.Messages;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Past.Game.Engine
 {
@@ -21,7 +20,7 @@ namespace Past.Game.Engine
 
         public void Send(NetworkMessage message)
         {
-            Parallel.ForEach(Clients, (Action<Client>)(client => client.Send(message)));
+            Clients.ForEach((Action<Client>)(client => client.Send(message)));
         }
 
         public void SendMapGameRolePlayShowActorMessage(Client client)

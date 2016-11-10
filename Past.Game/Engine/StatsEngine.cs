@@ -37,9 +37,12 @@ namespace Past.Game.Engine
             this[StatsEnum.AGILITY].@base = (short)character.Agility;
             this[StatsEnum.INTELLIGENCE].@base = (short)character.Intelligence;
             this[StatsEnum.PROSPECTING].@base = character.Breed == BreedEnum.Enutrof ? (short)120 : (short)100;
-        }
+            int MaxHealth = 50 + (character.Level * 5) + Total(StatsEnum.VITALITY);
+            this[StatsEnum.INITIATIVE].objectsAndMountBonus = (short)(Total(StatsEnum.STRENGTH) + Total(StatsEnum.CHANCE) + Total(StatsEnum.AGILITY) + Total(StatsEnum.INTELLIGENCE) + Total(StatsEnum.INITIATIVE) * (character.Health / MaxHealth));
 
-        public short Total(StatsEnum @enum)
+    }
+
+    public short Total(StatsEnum @enum)
         {
             return (short)(this[@enum].@base + this[@enum].objectsAndMountBonus + this[@enum].alignGiftBonus + this[@enum].contextModif);
         }
