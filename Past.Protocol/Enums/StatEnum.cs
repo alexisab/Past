@@ -1,6 +1,6 @@
 ﻿namespace Past.Protocol.Enums
 {
-    public enum StatsEnum
+    public enum StatEnum
     {
         HEALTH,
         INITIATIVE,

@@ -1,4 +1,5 @@
-﻿using Past.Protocol.Messages;
+﻿using Past.Game.Network.Handlers.Basic;
+using Past.Protocol.Messages;
 using Past.Protocol.Types;
 
 namespace Past.Game.Network.Handlers.Context.Roleplay
@@ -26,6 +27,11 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
             client.Character.CurrentMapId = message.mapId;
             client.Character.CurrentMap.RemoveClient(client);
             client.Send(new CurrentMapMessage(message.mapId));
+        }
+
+        public static void HandleEmotePlayRequestMessage(Client client, EmotePlayRequestMessage message)
+        {
+            BasicHandler.SendTextInformationMessage(client, Protocol.Enums.TextInformationTypeEnum.TEXT_INFORMATION_MESSAGE, 0, new string[] { message.emoteId.ToString() });
         }
 
         public static void SendEmoteListMessage(Client client, sbyte[] emoteIds)

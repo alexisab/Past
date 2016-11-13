@@ -6,7 +6,7 @@ namespace Past.Game.Engine
 {
     public class StatsEngine
     {
-        public CharacterBaseCharacteristic this[StatsEnum @enum]
+        public CharacterBaseCharacteristic this[StatEnum @enum]
         {
             get
             {
@@ -18,31 +18,31 @@ namespace Past.Game.Engine
             }
         }
 
-        private Dictionary<StatsEnum, CharacterBaseCharacteristic> Stats;
+        private Dictionary<StatEnum, CharacterBaseCharacteristic> Stats;
 
         public StatsEngine(CharacterEngine character)
         {
-            Stats = new Dictionary<StatsEnum, CharacterBaseCharacteristic>();
-            foreach (var @enum in typeof(StatsEnum).GetEnumValues())
+            Stats = new Dictionary<StatEnum, CharacterBaseCharacteristic>();
+            foreach (var @enum in typeof(StatEnum).GetEnumValues())
             {
-                Stats.Add((StatsEnum)@enum, new CharacterBaseCharacteristic());
+                Stats.Add((StatEnum)@enum, new CharacterBaseCharacteristic());
             }
-            this[StatsEnum.MOVEMENT_POINTS].@base = 3;
-            this[StatsEnum.SUMMONABLE_CREATURES_BOOST].@base = 1;
-            this[StatsEnum.ACTION_POINTS].@base = character.Level >= 100 ? (short)7 : (short)6;
-            this[StatsEnum.STRENGTH].@base = (short)character.Strength;
-            this[StatsEnum.VITALITY].@base = (short)character.Vitality;
-            this[StatsEnum.WISDOM].@base = (short)character.Wisdom;
-            this[StatsEnum.CHANCE].@base = (short)character.Chance;
-            this[StatsEnum.AGILITY].@base = (short)character.Agility;
-            this[StatsEnum.INTELLIGENCE].@base = (short)character.Intelligence;
-            this[StatsEnum.PROSPECTING].@base = character.Breed == BreedEnum.Enutrof ? (short)120 : (short)100;
-            int MaxHealth = 50 + (character.Level * 5) + Total(StatsEnum.VITALITY);
-            this[StatsEnum.INITIATIVE].objectsAndMountBonus = (short)(Total(StatsEnum.STRENGTH) + Total(StatsEnum.CHANCE) + Total(StatsEnum.AGILITY) + Total(StatsEnum.INTELLIGENCE) + Total(StatsEnum.INITIATIVE) * (character.Health / MaxHealth));
+            this[StatEnum.MOVEMENT_POINTS].@base = 3;
+            this[StatEnum.SUMMONABLE_CREATURES_BOOST].@base = 1;
+            this[StatEnum.ACTION_POINTS].@base = character.Level >= 100 ? (short)7 : (short)6;
+            this[StatEnum.STRENGTH].@base = (short)character.Strength;
+            this[StatEnum.VITALITY].@base = (short)character.Vitality;
+            this[StatEnum.WISDOM].@base = (short)character.Wisdom;
+            this[StatEnum.CHANCE].@base = (short)character.Chance;
+            this[StatEnum.AGILITY].@base = (short)character.Agility;
+            this[StatEnum.INTELLIGENCE].@base = (short)character.Intelligence;
+            this[StatEnum.PROSPECTING].@base = character.Breed == BreedEnum.Enutrof ? (short)120 : (short)100;
+            int MaxHealth = 50 + (character.Level * 5) + Total(StatEnum.VITALITY);
+            this[StatEnum.INITIATIVE].objectsAndMountBonus = (short)(Total(StatEnum.STRENGTH) + Total(StatEnum.CHANCE) + Total(StatEnum.AGILITY) + Total(StatEnum.INTELLIGENCE) + Total(StatEnum.INITIATIVE) * (character.Health / MaxHealth));
 
     }
 
-    public short Total(StatsEnum @enum)
+    public short Total(StatEnum @enum)
         {
             return (short)(this[@enum].@base + this[@enum].objectsAndMountBonus + this[@enum].alignGiftBonus + this[@enum].contextModif);
         }

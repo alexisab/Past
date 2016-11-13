@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using Past.Protocol.Enums;
+using Past.Protocol.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,6 @@ namespace Past.Common.Database.Record
         public ushort Dishonor { get; set; }
         public bool PvPEnabled { get; set; }
         public int Kamas { get; set; }
-
         #region base stats
         public int Health { get; set; }
         public short Energy { get; set; }
@@ -37,7 +37,6 @@ namespace Past.Common.Database.Record
         public int Agility { get; set; }
         public int Intelligence { get; set; }
         #endregion
-
         public short StatsPoints { get; set; }
         public short SpellsPoints { get; set; }
         public DateTime? LastUsage { get; set; }

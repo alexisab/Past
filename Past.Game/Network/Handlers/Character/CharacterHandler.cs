@@ -10,6 +10,7 @@ using Past.Protocol.Enums;
 using Past.Protocol.Messages;
 using Past.Protocol.Types;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Past.Game.Network.Handlers.Character
@@ -47,6 +48,7 @@ namespace Past.Game.Network.Handlers.Character
                     CharacterRecord character = new CharacterRecord(client.Account.Id, message.name, 1, 0, (BreedEnum)message.breed, message.colors.Distinct().Count() != 1 ? look.Insert(look.IndexOf("||") + 1, $"1={message.colors[0]},2={message.colors[1]},3={message.colors[2]},4={message.colors[3]},5={message.colors[4]}") : look, message.sex, breed.StartMapId, breed.StartDisposition.cellId, (DirectionsEnum)breed.StartDisposition.direction, AlignmentSideEnum.ALIGNMENT_NEUTRAL, 0, 0, false, 0, 0, 0, DateTime.Now);
                     character.Create();
                     client.Account.Characters = CharacterRecord.ReturnCharacters(client.Account.Id);
+                    new List<CharacterSpellRecord>(new CharacterSpellRecord[] { new CharacterSpellRecord(client.Account.Characters.FirstOrDefault(chara => chara.Name == character.Name).Id, 64, 0, 1), new CharacterSpellRecord(client.Account.Characters.FirstOrDefault(chara => chara.Name == character.Name).Id, 65, breed.BreedSpellsId[0], 1), new CharacterSpellRecord(client.Account.Characters.FirstOrDefault(chara => chara.Name == character.Name).Id, 66, breed.BreedSpellsId[1], 1), new CharacterSpellRecord(client.Account.Characters.FirstOrDefault(chara => chara.Name == character.Name).Id, 67, breed.BreedSpellsId[2], 1) }).ForEach(spell => spell.Create());
                     client.Send(new CharacterCreationResultMessage((sbyte)CharacterCreationResultEnum.OK));
                     SendCharactersListMessage(client, true);
                 }
@@ -91,26 +93,23 @@ namespace Past.Game.Network.Handlers.Character
                 ContextRoleplayHandler.SendEmoteListMessage(client, new sbyte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 19, 21, 22, 23, 24 });
                 ChatHandler.SendEnabledChannelsMessage(client, new sbyte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 });
                 InventoryHandler.SendInventoryContentMessage(client, new ObjectItem[0], character.Kamas); //TODO Get the characters items
-                InventoryHandler.SendInventoryWeightMessage(client, 0, 1000); //TODO Get pods and max pods
+                InventoryHandler.SendSpellListMessage(client, character.Spells);
                 PvPHandler.SendAlignmentRankUpdateMessage(client, 1);
                 PvPHandler.SendAlignmentSubAreasListMessage(client);
                 SendSetCharacterRestrictionsMessage(client);
                 SendLifePointsRegenBeginMessage(client, 10);
                 SendCharacterStatsListMessage(client);
-                client.Send(new TextInformationMessage((sbyte)TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 89, new string[0]));
-                if (client.Account.LastConnection.HasValue && !string.IsNullOrEmpty(client.Account.LastIp))
-                {
-                    client.Send(new TextInformationMessage((sbyte)TextInformationTypeEnum.TEXT_INFORMATION_MESSAGE, 152, new string[] { $"{client.Account.LastConnection.Value.Year}", $"{client.Account.LastConnection.Value.Month}", $"{client.Account.LastConnection.Value.Day}", $"{client.Account.LastConnection.Value.Hour}", $"{client.Account.LastConnection.Value.Minute}", client.Account.LastIp }));
-                }
-                client.Send(new TextInformationMessage((sbyte)TextInformationTypeEnum.TEXT_INFORMATION_MESSAGE, 153, new string[] { client.Ip }));
-                client.Account.LastConnection = DateTime.Now;
-                client.Account.LastIp = client.Ip;
-                character.LastUsage = DateTime.Now;
+                client.Character.SendLoginMessage();
             }
             else
             {
                 client.Send(new CharacterSelectedErrorMessage());
             }
+        }
+
+        public static void HandleSpellMoveMessage(Client client, SpellMoveMessage message)
+        {
+            ConsoleUtils.Write(ConsoleUtils.Type.DEBUG, $"{message.spellId}");
         }
 
         public static void SendCharactersListMessage(Client client, bool tutorial)

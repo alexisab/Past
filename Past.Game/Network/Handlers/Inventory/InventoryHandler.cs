@@ -1,5 +1,6 @@
 ﻿using Past.Protocol.Messages;
 using Past.Protocol.Types;
+using System.Collections.Generic;
 
 namespace Past.Game.Network.Handlers.Inventory
 {
@@ -13,6 +14,11 @@ namespace Past.Game.Network.Handlers.Inventory
         public static void SendInventoryWeightMessage(Client client, int weight, int weightMax)
         {
             client.Send(new InventoryWeightMessage(weight, weightMax));
+        }
+
+        public static void SendSpellListMessage(Client client, List<SpellItem> spells)
+        {
+            client.Send(new SpellListMessage(true, spells.ToArray()));
         }
     }
 }

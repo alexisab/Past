@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\EmoteEnum.cs" />
     <Compile Include="Enums\AlignmentSideEnum.cs" />
     <Compile Include="Enums\BreedEnum.cs" />
     <Compile Include="Enums\BuildTypeEnum.cs" />
@@ -88,7 +89,7 @@
     <Compile Include="Enums\ServerConnectionErrorEnum.cs" />
     <Compile Include="Enums\ServerStatusEnum.cs" />
     <Compile Include="Enums\SocialContactCategoryEnum.cs" />
-    <Compile Include="Enums\StatsEnum.cs" />
+    <Compile Include="Enums\StatEnum.cs" />
     <Compile Include="Enums\SubEntityBindingPointCategoryEnum.cs" />
     <Compile Include="Enums\SubscriptionRequiredEnum.cs" />
     <Compile Include="Enums\TaxCollectorErrorReasonEnum.cs" />
