@@ -128,7 +128,7 @@ namespace Past.Common.Database.Record
 
         public int Delete()
         {
-            return DatabaseManager.ExecuteNonQuery($"DELETE FROM characters WHERE Id = '{Id}'");
+            return DatabaseManager.ExecuteNonQuery($"DELETE characters, characters_spell FROM characters INNER JOIN characters_spell WHERE characters.Id = '{Id}' AND characters_spell.OwnerId = '{Id}'");
         }
     }
 }
