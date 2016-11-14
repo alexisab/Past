@@ -2,7 +2,6 @@
 using Past.Game.Network;
 using Past.Protocol;
 using Past.Protocol.Messages;
-using System;
 using System.Collections.Generic;
 
 namespace Past.Game.Engine
@@ -20,14 +19,14 @@ namespace Past.Game.Engine
 
         public void Send(NetworkMessage message)
         {
-            Clients.ForEach((Action<Client>)(client => client.Send(message)));
+            Clients.ForEach(client => client.Send(message));
         }
 
-        public void SendMapGameRolePlayShowActorMessage(Client client)
+        public void SendGameRolePlayShowActorMessage(Client client)
         {
-            foreach (Client Client in Clients)
+            foreach (Client _client in Clients)
             {
-                client.Send(new GameRolePlayShowActorMessage(Client.Character.GetGameRolePlayCharacterInformations));
+                client.Send(new GameRolePlayShowActorMessage(_client.Character.GetGameRolePlayCharacterInformations));
             }
         }
 
@@ -38,7 +37,7 @@ namespace Past.Game.Engine
                 if (!Clients.Contains(client))
                 {
                     Clients.Add(client);
-                    SendMapGameRolePlayShowActorMessage(client);
+                    SendGameRolePlayShowActorMessage(client);
                     Send(new GameRolePlayShowActorMessage(client.Character.GetGameRolePlayCharacterInformations));
                 }
             }

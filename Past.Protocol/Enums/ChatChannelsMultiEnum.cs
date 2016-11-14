@@ -1,6 +1,6 @@
 namespace Past.Protocol.Enums
 {
-    public enum ChatChannelsMultiEnum
+    public enum ChatChannelsMultiEnum : sbyte
     {
         CHANNEL_GLOBAL = 0,
         CHANNEL_TEAM = 1,
