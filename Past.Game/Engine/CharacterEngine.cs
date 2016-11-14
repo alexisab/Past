@@ -29,7 +29,7 @@ namespace Past.Game.Engine
         {
             get
             {
-                return Record.Name;
+                return Client.Account.HasRights == true ? $"[{Record.Name}]" : Record.Name;
             }
             set
             {
@@ -374,19 +374,6 @@ namespace Past.Game.Engine
                 Record.LastUsage = value;
             }
         }
-
-        /*private List<SpellItem> spells;
-        public List<SpellItem> Spells //CharacterSpellRecord.ReturnCharacterSpells(Id).ConvertAll<SpellItem>(spell => new SpellItem(spell.Position, spell.SpellId, spell.Level));
-        {
-            get
-            {
-                return CharacterSpellRecord.ReturnCharacterSpells(Id).ConvertAll<SpellItem>(spell => new SpellItem(spell.Position, spell.SpellId, spell.Level));
-            }
-            set
-            {
-                spells = value;
-            }
-        }*/
 
         public List<CharacterSpellRecord> Spells
         {

@@ -41,11 +41,11 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
 
         public static void HandleSpellUpgradeRequestMessage(Client client, SpellUpgradeRequestMessage message)
         {
-            CharacterSpellRecord spell = client.Character.Spells.FirstOrDefault(x => x.SpellId == message.spellId);
-            if (spell != null && client.Character.SpellsPoints > 0)
+            CharacterSpellRecord spellRecord = client.Character.Spells.FirstOrDefault(spell => spell.SpellId == message.spellId);
+            if (spellRecord != null && client.Character.SpellsPoints > 0)
             {
                 client.Character.SpellsPoints--;
-                client.Send(new SpellUpgradeSuccessMessage(spell.SpellId, spell.Level++));
+                client.Send(new SpellUpgradeSuccessMessage(spellRecord.SpellId, spellRecord.Level++));
                 CharacterHandler.SendCharacterStatsListMessage(client);
                 InventoryHandler.SendSpellListMessage(client);
             }
@@ -57,7 +57,25 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
 
         public static void HandleSpellMoveMessage(Client client, SpellMoveMessage message)
         {
-            ConsoleUtils.Write(ConsoleUtils.Type.DEBUG, $"{message.spellId}");
+            CharacterSpellRecord spellRecord = client.Character.Spells.FirstOrDefault(spell => spell.SpellId == message.spellId);
+            if (spellRecord != null)
+            {
+                byte oldPosition = spellRecord.Position;
+                byte newPosition = message.position;
+                CharacterSpellRecord spell2Record = client.Character.Spells.FirstOrDefault(x => x.Position == newPosition);
+                if (spell2Record != null)
+                {
+                    spellRecord.Position = newPosition;
+                    spell2Record.Position = oldPosition;
+                    client.Send(new SpellMovementMessage((short)spellRecord.SpellId, newPosition));
+                    client.Send(new SpellMovementMessage((short)spell2Record.SpellId, oldPosition));
+                }
+                else
+                {
+                    spellRecord.Position = newPosition;
+                    client.Send(new SpellMovementMessage((short)spellRecord.SpellId, newPosition));
+                }
+            }
         }
 
         public static void SendEmoteListMessage(Client client, sbyte[] emoteIds)
