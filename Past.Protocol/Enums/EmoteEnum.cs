@@ -1,6 +1,6 @@
 namespace Past.Protocol.Enums
 {
-    public enum EmoteEnum
+    public enum EmoteEnum : sbyte
     {
         SIT = 1,
         BYE = 2,
