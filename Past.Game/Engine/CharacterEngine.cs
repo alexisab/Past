@@ -375,18 +375,37 @@ namespace Past.Game.Engine
             }
         }
 
-        public List<SpellItem> Spells => CharacterSpellRecord.ReturnCharacterSpells(Id).ConvertAll<SpellItem>(spell => new SpellItem(spell.Position, spell.SpellId, spell.Level));
+        /*private List<SpellItem> spells;
+        public List<SpellItem> Spells //CharacterSpellRecord.ReturnCharacterSpells(Id).ConvertAll<SpellItem>(spell => new SpellItem(spell.Position, spell.SpellId, spell.Level));
+        {
+            get
+            {
+                return CharacterSpellRecord.ReturnCharacterSpells(Id).ConvertAll<SpellItem>(spell => new SpellItem(spell.Position, spell.SpellId, spell.Level));
+            }
+            set
+            {
+                spells = value;
+            }
+        }*/
+
+        public List<CharacterSpellRecord> Spells
+        {
+            get;
+            set;
+        }
 
         public CharacterEngine(CharacterRecord record, Network.Client client)
         {
             Record = record;
             Client = client;
             Stats = new StatsEngine(this);
+            Spells = CharacterSpellRecord.ReturnCharacterSpells(Id);
         }
 
         public void Save()
         {
             Record.Update();
+            Spells.ForEach(spell => spell.Update());
         }
 
         public void SendLoginMessage()

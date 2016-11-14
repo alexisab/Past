@@ -1,6 +1,11 @@
-﻿using Past.Game.Network.Handlers.Basic;
+﻿using Past.Common.Database.Record;
+using Past.Common.Utils;
+using Past.Game.Network.Handlers.Basic;
+using Past.Game.Network.Handlers.Character;
+using Past.Game.Network.Handlers.Inventory;
 using Past.Protocol.Messages;
 using Past.Protocol.Types;
+using System.Linq;
 
 namespace Past.Game.Network.Handlers.Context.Roleplay
 {
@@ -32,6 +37,27 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
         public static void HandleEmotePlayRequestMessage(Client client, EmotePlayRequestMessage message)
         {
             BasicHandler.SendTextInformationMessage(client, Protocol.Enums.TextInformationTypeEnum.TEXT_INFORMATION_MESSAGE, 0, new string[] { message.emoteId.ToString() });
+        }
+
+        public static void HandleSpellUpgradeRequestMessage(Client client, SpellUpgradeRequestMessage message)
+        {
+            CharacterSpellRecord spell = client.Character.Spells.FirstOrDefault(x => x.SpellId == message.spellId);
+            if (spell != null && client.Character.SpellsPoints > 0)
+            {
+                client.Character.SpellsPoints--;
+                client.Send(new SpellUpgradeSuccessMessage(spell.SpellId, spell.Level++));
+                CharacterHandler.SendCharacterStatsListMessage(client);
+                InventoryHandler.SendSpellListMessage(client);
+            }
+            else
+            {
+                client.Send(new SpellUpgradeFailureMessage());
+            }
+        }
+
+        public static void HandleSpellMoveMessage(Client client, SpellMoveMessage message)
+        {
+            ConsoleUtils.Write(ConsoleUtils.Type.DEBUG, $"{message.spellId}");
         }
 
         public static void SendEmoteListMessage(Client client, sbyte[] emoteIds)

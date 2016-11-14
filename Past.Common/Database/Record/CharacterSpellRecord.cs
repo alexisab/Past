@@ -43,6 +43,11 @@ namespace Past.Common.Database.Record
             }
         }
 
+        public int Update()
+        {
+            return DatabaseManager.ExecuteNonQuery($"UPDATE characters_spell SET OwnerId = '{OwnerId}', Position = '{Position}', SpellId = '{SpellId}', Level = '{Level}' WHERE Id = '{Id}'");
+        }
+
         public int Create()
         {
             return DatabaseManager.ExecuteNonQuery($"INSERT INTO characters_spell SET OwnerId = '{OwnerId}', Position = '{Position}', SpellId = '{SpellId}', Level = '{Level}'");
