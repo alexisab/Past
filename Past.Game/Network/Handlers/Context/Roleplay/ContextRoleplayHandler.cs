@@ -1,10 +1,10 @@
 ﻿using Past.Common.Database.Record;
-using Past.Common.Utils;
-using Past.Game.Network.Handlers.Basic;
 using Past.Game.Network.Handlers.Character;
 using Past.Game.Network.Handlers.Inventory;
+using Past.Protocol.Enums;
 using Past.Protocol.Messages;
 using Past.Protocol.Types;
+using System;
 using System.Linq;
 
 namespace Past.Game.Network.Handlers.Context.Roleplay
@@ -36,7 +36,10 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
 
         public static void HandleEmotePlayRequestMessage(Client client, EmotePlayRequestMessage message)
         {
-            BasicHandler.SendTextInformationMessage(client, Protocol.Enums.TextInformationTypeEnum.TEXT_INFORMATION_MESSAGE, 0, new string[] { message.emoteId.ToString() });
+            if (Enum.IsDefined(typeof(EmoteEnum), message.emoteId))
+            {
+                client.Character.CurrentMap.Send(new EmotePlayMessage(message.emoteId, 0, client.Character.Id));
+            }
         }
 
         public static void HandleSpellUpgradeRequestMessage(Client client, SpellUpgradeRequestMessage message)
