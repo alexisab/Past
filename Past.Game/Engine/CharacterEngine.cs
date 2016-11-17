@@ -2,6 +2,7 @@
 using Past.Common.Database.Record;
 using Past.Common.Utils;
 using Past.Game.Network.Handlers.Basic;
+using Past.Game.Network.Handlers.Context;
 using Past.Protocol.Enums;
 using Past.Protocol.Types;
 using System;
@@ -409,6 +410,14 @@ namespace Past.Game.Engine
             Client.Account.LastIp = Client.Ip;
             LastUsage = DateTime.Now;
             BasicHandler.SendTextInformationMessage(Client, TextInformationTypeEnum.TEXT_INFORMATION_MESSAGE, 0, new string[] { "Welcome to Past" });
+        }
+
+        public void Teleport(int mapId, short cellId)
+        {
+            CurrentMap.RemoveClient(Client);
+            CurrentMapId = mapId;
+            CellId = cellId;
+            ContextHandler.SendCurrentMapMessage(Client, CurrentMapId);
         }
 
         public GameRolePlayCharacterInformations GetGameRolePlayCharacterInformations => new GameRolePlayCharacterInformations(Id, EntityLook, Disposition, Name, new HumanInformations(new EntityLook[0], 0, 0, new ActorRestrictionsInformations(false, false, false, false, false, false, false, false, true, false, false, false, false, true, true, true, false, false, false, false, false), 0), GetActorAlignmentInformations);

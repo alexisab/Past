@@ -28,10 +28,7 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
                 cell += 13;
             if (client.Character.Map.RightNeighbourId == message.mapId)
                 cell -= 13;
-            client.Character.CurrentMap.RemoveClient(client);
-            client.Character.CellId = cell;
-            client.Character.CurrentMapId = message.mapId;
-            client.Send(new CurrentMapMessage(message.mapId));
+            client.Character.Teleport(message.mapId, cell);
         }
 
         public static void HandleEmotePlayRequestMessage(Client client, EmotePlayRequestMessage message)
