@@ -1,6 +1,7 @@
 ﻿using Past.Game.Network.Handlers.Basic;
 using Past.Protocol.Enums;
 using Past.Protocol.Messages;
+using System;
 using System.Linq;
 
 namespace Past.Game.Network.Handlers.Context
@@ -28,7 +29,7 @@ namespace Past.Game.Network.Handlers.Context
 
         public static void HandleGameMapChangeOrientationRequestMessage(Client client, GameMapChangeOrientationRequestMessage message)
         {
-            if (message.direction >= 0 && message.direction <= 7)
+            if (Enum.IsDefined(typeof(DirectionsEnum), message.direction))
             {
                 client.Character.Direction = (DirectionsEnum)message.direction;
                 client.Character.CurrentMap.Send(new GameMapChangeOrientationMessage(client.Character.Id, message.direction));

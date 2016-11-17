@@ -198,6 +198,8 @@ namespace Past.Game.Engine
             }
         }
 
+        public short PvPActivationCost => (short)((Honor / 100) * 5);
+
         public int Kamas
         {
             get
@@ -413,7 +415,7 @@ namespace Past.Game.Engine
 
         public CharacterBaseInformations GetCharacterBaseInformations => new CharacterBaseInformations(Id, Name, Level, EntityLook, (sbyte)Breed, Sex);
 
-        public ActorAlignmentInformations GetActorAlignmentInformations => new ActorAlignmentInformations((sbyte)AlignmentSide, 0, AlignmentGrade, 0);
+        public ActorAlignmentInformations GetActorAlignmentInformations => new ActorAlignmentInformations((sbyte)(PvPEnabled ? AlignmentSide : AlignmentSideEnum.ALIGNMENT_NEUTRAL), 0, AlignmentGrade, 0);
 
         public ActorExtendedAlignmentInformations GetActorExtendedAlignmentInformations => new ActorExtendedAlignmentInformations((sbyte)AlignmentSide, 0, AlignmentGrade, 0, Honor, Dishonor, PvPEnabled);
 

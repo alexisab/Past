@@ -84,27 +84,12 @@ namespace Past.Game.Network.Handlers.Character
 
         public static void HandleCharacterSelectionMessage(Client client, CharacterSelectionMessage message)
         {
-            CharacterRecord characterRecord = client.Account.Characters.FirstOrDefault(character => character.Id == message.id);
-            if (characterRecord != null)
-            {
-                CharacterEngine character = new CharacterEngine(characterRecord, client);
-                client.Character = character;
-                client.Send(new CharacterSelectedSuccessMessage(character.GetCharacterBaseInformations));
-                ContextRoleplayHandler.SendEmoteListMessage(client, new sbyte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 19, 21, 22, 23, 24 });
-                ChatHandler.SendEnabledChannelsMessage(client, new sbyte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 });
-                InventoryHandler.SendInventoryContentMessage(client, new ObjectItem[0], character.Kamas); //TODO Get the characters items
-                InventoryHandler.SendSpellListMessage(client);
-                PvPHandler.SendAlignmentRankUpdateMessage(client, 1);
-                PvPHandler.SendAlignmentSubAreasListMessage(client);
-                SendSetCharacterRestrictionsMessage(client);
-                SendLifePointsRegenBeginMessage(client, 10);
-                SendCharacterStatsListMessage(client);
-                client.Character.SendLoginMessage();
-            }
-            else
-            {
-                client.Send(new CharacterSelectedErrorMessage());
-            }
+            SelectCharacter(client, message.id);
+        }
+
+        public static void HandleCharacterFirstSelectionMessage(Client client, CharacterFirstSelectionMessage message)
+        {
+            SelectCharacter(client, message.id);
         }
 
         public static void SendCharactersListMessage(Client client, bool tutorial)
@@ -130,6 +115,31 @@ namespace Past.Game.Network.Handlers.Character
         public static void SendLifePointsRegenBeginMessage(Client client, byte regenRate)
         {
             client.Send(new LifePointsRegenBeginMessage(regenRate));
+        }
+
+        public static void SelectCharacter(Client client, int id)
+        {
+            CharacterRecord characterRecord = client.Account.Characters.FirstOrDefault(character => character.Id == id);
+            if (characterRecord != null)
+            {
+                CharacterEngine character = new CharacterEngine(characterRecord, client);
+                client.Character = character;
+                client.Send(new CharacterSelectedSuccessMessage(character.GetCharacterBaseInformations));
+                ContextRoleplayHandler.SendEmoteListMessage(client, new sbyte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 19, 21, 22, 23, 24 });
+                ChatHandler.SendEnabledChannelsMessage(client, new sbyte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 });
+                InventoryHandler.SendInventoryContentMessage(client, new ObjectItem[0], character.Kamas); //TODO Get the characters items
+                InventoryHandler.SendSpellListMessage(client);
+                PvPHandler.SendAlignmentRankUpdateMessage(client, 1);
+                PvPHandler.SendAlignmentSubAreasListMessage(client);
+                SendSetCharacterRestrictionsMessage(client);
+                SendLifePointsRegenBeginMessage(client, 10);
+                SendCharacterStatsListMessage(client);
+                client.Character.SendLoginMessage();
+            }
+            else
+            {
+                client.Send(new CharacterSelectedErrorMessage());
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 namespace Past.Protocol.Enums
 {
-    public enum DirectionsEnum
+    public enum DirectionsEnum : sbyte
     {
         DIRECTION_EAST = 0,
         DIRECTION_SOUTH_EAST = 1,
