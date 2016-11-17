@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine\CharacterEngine.cs" />
+    <Compile Include="Engine\CommandEngine.cs" />
     <Compile Include="Engine\MapEngine.cs" />
     <Compile Include="Engine\Pathfinder.cs" />
     <Compile Include="Engine\StatsEngine.cs" />

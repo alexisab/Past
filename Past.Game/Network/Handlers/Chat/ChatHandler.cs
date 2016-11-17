@@ -1,4 +1,5 @@
 ﻿using Past.Common.Utils;
+using Past.Game.Engine;
 using Past.Protocol.Enums;
 using Past.Protocol.Messages;
 using System;
@@ -9,7 +10,14 @@ namespace Past.Game.Network.Handlers.Chat
     {
         public static void HandleChatClientMultiMessage(Client client, ChatClientMultiMessage message) //need to add the condition for certain channel
         {
-            SendChatServerMessage(client, message.channel, message.content, client.Character.Id, client.Character.Name);
+            if (!message.content.StartsWith("."))
+            {
+                SendChatServerMessage(client, message.channel, message.content, client.Character.Id, client.Character.Name);
+            }
+            else
+            {
+                CommandEngine.Handle(client, message.content);
+            }
         }
 
         public static void HandleChatSmileyRequestMessage(Client client, ChatSmileyRequestMessage message)
