@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50709
 File Encoding         : 65001
 
-Date: 2016-11-13 21:48:26
+Date: 2016-11-18 18:44:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -37,8 +37,8 @@ CREATE TABLE `accounts` (
 -- ----------------------------
 -- Records of accounts
 -- ----------------------------
-INSERT INTO `accounts` VALUES ('1', 'Test', '098f6bcd4621d373cade4e832627b4f6', 'XMUZLBQKMJAXSXSMMQRVDOHQHEQKEULI', 'admin', '1', 'Delete ?', 'Yes', '2016-10-04 11:42:16', '2016-11-13 04:43:06', '127.0.0.1');
-INSERT INTO `accounts` VALUES ('2', 'Test2', '098f6bcd4621d373cade4e832627b4f6', 'JRUSAUQCGGPAGYPTSNFGHYQBCHMBSGWO', 'admin2', '1', 'Delete ?', 'Yes', '2016-10-04 11:42:16', '2016-11-06 18:47:11', '127.0.0.1');
+INSERT INTO `accounts` VALUES ('1', 'Test', '098f6bcd4621d373cade4e832627b4f6', 'FXVWWKMIMLQYICJBJZBTGNYEHYUATNWW', 'admin', '1', 'Delete ?', 'Yes', '2016-10-04 11:42:16', '2016-11-17 03:14:23', '127.0.0.1');
+INSERT INTO `accounts` VALUES ('2', 'Test2', '098f6bcd4621d373cade4e832627b4f6', 'YMGOOXPSQCRJPDYEQAAYFCSDWOXIGKQA', 'admin2', '1', 'Delete ?', 'Yes', '2016-10-04 11:42:16', '2016-11-17 03:13:10', '127.0.0.1');
 INSERT INTO `accounts` VALUES ('3', 'Test3', '098f6bcd4621d373cade4e832627b4f6', 'VIOYHCDMHWBGVNVWOXBIOYIEAGIXNZES', 'admin3', '1', 'Delete ?', 'Yes', '2016-10-04 11:42:16', '2016-11-04 07:57:14', '127.0.0.1');
 
 -- ----------------------------
@@ -76,12 +76,13 @@ CREATE TABLE `characters` (
   `SpellsPoints` smallint(6) DEFAULT '0',
   `LastUsage` datetime DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=MyISAM AUTO_INCREMENT=56 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 
 -- ----------------------------
 -- Records of characters
 -- ----------------------------
-INSERT INTO `characters` VALUES ('31', '1', 'Skeezr', '1', '0', '1', '{1|11,420|1=8089936,2=14036310,3=770001,4=1476050,5=15483569|125}', '1', '131883', '244', '3', '55', '10000', '6', '3', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2016-11-13 03:02:31');
+INSERT INTO `characters` VALUES ('31', '1', 'Skeezr', '1', '0', '1', '{1|11,420|1=8089936,2=14036310,3=770001,4=1476050,5=15483569|125}', '1', '131883', '172', '0', '55', '10000', '6', '3', '0', '0', '0', '0', '0', '0', '2', '1754', '0', '0', '0', '0', '2', '2016-11-17 03:49:59');
+INSERT INTO `characters` VALUES ('56', '2', 'Asinaki', '1', '0', '2', '{1|20||130}', '0', '131883', '340', '0', '55', '10000', '6', '3', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2016-11-17 03:13:10');
 
 -- ----------------------------
 -- Table structure for characters_spell
@@ -94,12 +95,16 @@ CREATE TABLE `characters_spell` (
   `SpellId` int(11) NOT NULL,
   `Level` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`Id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of characters_spell
 -- ----------------------------
 INSERT INTO `characters_spell` VALUES ('1', '31', '64', '0', '1');
-INSERT INTO `characters_spell` VALUES ('2', '31', '65', '17', '1');
-INSERT INTO `characters_spell` VALUES ('3', '31', '66', '6', '6');
-INSERT INTO `characters_spell` VALUES ('4', '31', '67', '3', '3');
+INSERT INTO `characters_spell` VALUES ('2', '31', '65', '17', '2');
+INSERT INTO `characters_spell` VALUES ('3', '31', '66', '6', '1');
+INSERT INTO `characters_spell` VALUES ('4', '31', '67', '3', '1');
+INSERT INTO `characters_spell` VALUES ('20', '56', '67', '34', '1');
+INSERT INTO `characters_spell` VALUES ('19', '56', '66', '23', '1');
+INSERT INTO `characters_spell` VALUES ('18', '56', '65', '21', '1');
+INSERT INTO `characters_spell` VALUES ('17', '56', '64', '0', '1');
