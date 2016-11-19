@@ -73,7 +73,7 @@ namespace Past.Common.Utils
             return (int)(date.Subtract(new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime()).TotalSeconds);
         }
 
-        public static EntityLook BuildEntityLook(string entityLook) //TODO SubEntity & BonesId
+        public static EntityLook BuildEntityLook(string entityLook) //TODO SubEntity
         {
             string[] look_string = entityLook.Replace("{", "").Replace("}", "").Split('|');
             short bonesId = short.Parse(look_string[0]);
@@ -89,7 +89,14 @@ namespace Past.Common.Utils
             }
             else
             {
-                skins = new short[] { short.Parse(look_string[1]) };
+                if (String.IsNullOrEmpty(look_string[1]))
+                {
+                    skins = new short[0];
+                }
+                else
+                {
+                    skins = new short[] { short.Parse(look_string[1]) };
+                }
             }
             int[] colors;
             if (look_string[2].Contains(","))

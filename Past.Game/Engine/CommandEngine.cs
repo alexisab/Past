@@ -1,6 +1,5 @@
 ﻿using Past.Game.Network;
 using Past.Game.Network.Handlers.Basic;
-using Past.Game.Network.Handlers.Context;
 using Past.Protocol.Enums;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +8,14 @@ namespace Past.Game.Engine
 {
     public class CommandEngine
     {
-        public static Dictionary<string, string> Commands = new Dictionary<string, string>()
+        private static Dictionary<string, string> Commands = new Dictionary<string, string>()
         {
-            { "help", "Display all commands available" },
-            { "save", "Save your character" },
-            { "goname", "Go to the player" },
+            { "help", "display all commands available" },
+            { "save", "save your character" },
+            { "goname", "teleport you to the target" },
+            { "start", "teleport to your start map" },
         };
+
         public static void Handle(Client client, string content)
         {
             string[] command = content.Split(' ');
@@ -23,7 +24,7 @@ namespace Past.Game.Engine
                 case ".help":
                     foreach (var cmd in Commands)
                     {
-                        BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new string[] { $"{cmd.Key}", $"{cmd.Value}" });
+                        BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new string[] { $"{cmd.Key}", $"{cmd.Value}." });
                     }
                     break;
                 case ".save":
@@ -39,6 +40,9 @@ namespace Past.Game.Engine
                     {
                         BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new string[] { "Error", $"Can't found the character {command[1]} !" });
                     }
+                    break;
+                case ".start":
+                    client.Character.Teleport(client.Character.BreedData.StartMapId, client.Character.BreedData.StartDisposition.cellId);
                     break;
                 default:
                     BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new string[] { "Error", $"Command {command[0]} not found !" });
