@@ -14,6 +14,7 @@ namespace Past.Game.Engine
             { "save", "save your character" },
             { "goname", "teleport you to the target" },
             { "start", "teleport to your start map" },
+            { "levelup", "level up your character" },
         };
 
         public static void Handle(Client client, string content)
@@ -43,6 +44,9 @@ namespace Past.Game.Engine
                     break;
                 case ".start":
                     client.Character.Teleport(client.Character.BreedData.StartMapId, client.Character.BreedData.StartDisposition.cellId);
+                    break;
+                case ".levelup":
+                    client.Character.LevelUp();
                     break;
                 default:
                     BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new string[] { "Error", $"Command {command[0]} not found !" });

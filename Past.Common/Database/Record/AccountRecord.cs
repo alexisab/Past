@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Past.Protocol.Enums;
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +12,8 @@ namespace Past.Common.Database.Record
         public string Password { get; set; }
         public string Ticket { get; set; }
         public string Nickname { get; set; }
-        public bool HasRights { get; set; }
+        public GameHierarchyEnum Role { get; set; }
+        public bool HasRights => Role >= GameHierarchyEnum.PLAYER ? true : false;
         public string SecretQuestion { get; set; }
         public string SecretAnswer { get; set; }
         public DateTime? BannedUntil { get; set; }
@@ -26,7 +28,7 @@ namespace Past.Common.Database.Record
             Password = (string)reader["Password"];
             Ticket = (string)reader["Ticket"];
             Nickname = (string)reader["Nickname"];
-            HasRights = (bool)reader["HasRights"];
+            Role = (GameHierarchyEnum)(sbyte)reader["Role"];
             SecretQuestion = (string)reader["SecretQuestion"];
             SecretAnswer = (string)reader["SecretAnswer"];
             BannedUntil = reader["BannedUntil"] as DateTime?;
@@ -66,7 +68,7 @@ namespace Past.Common.Database.Record
 
         public int Update()
         {
-            return DatabaseManager.ExecuteNonQuery($"UPDATE accounts SET Id = '{Id}', Login = '{Login}', Password = '{Password}', Ticket = '{Ticket}', Nickname = '{Nickname}', HasRights = '{Convert.ToInt32(HasRights)}', SecretQuestion = '{SecretQuestion}', SecretAnswer = '{SecretAnswer}', BannedUntil = '{BannedUntil.Value.ToString("yyyy-MM-dd HH:mm:ss")}', LastConnection = '{LastConnection.Value.ToString("yyyy-MM-dd HH:mm:ss")}', LastIp = '{LastIp}' WHERE Id = '{Id}'");
+            return DatabaseManager.ExecuteNonQuery($"UPDATE accounts SET Id = '{Id}', Login = '{Login}', Password = '{Password}', Ticket = '{Ticket}', Nickname = '{Nickname}', Role = '{(sbyte)Role}', SecretQuestion = '{SecretQuestion}', SecretAnswer = '{SecretAnswer}', BannedUntil = '{BannedUntil.Value.ToString("yyyy-MM-dd HH:mm:ss")}', LastConnection = '{LastConnection.Value.ToString("yyyy-MM-dd HH:mm:ss")}', LastIp = '{LastIp}' WHERE Id = '{Id}'");
         }
     }
 }

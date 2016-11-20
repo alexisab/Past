@@ -50,7 +50,7 @@ namespace Past.Game.Network.Handlers.Character
                     client.Account.Characters = CharacterRecord.ReturnCharacters(client.Account.Id);
                     new List<CharacterSpellRecord>(new CharacterSpellRecord[] { new CharacterSpellRecord(client.Account.Characters.FirstOrDefault(chara => chara.Name == character.Name).Id, 64, 0, 1), new CharacterSpellRecord(client.Account.Characters.FirstOrDefault(chara => chara.Name == character.Name).Id, 65, breed.BreedSpellsId[0], 1), new CharacterSpellRecord(client.Account.Characters.FirstOrDefault(chara => chara.Name == character.Name).Id, 66, breed.BreedSpellsId[1], 1), new CharacterSpellRecord(client.Account.Characters.FirstOrDefault(chara => chara.Name == character.Name).Id, 67, breed.BreedSpellsId[2], 1) }).ForEach(spell => spell.Create());
                     client.Send(new CharacterCreationResultMessage((sbyte)CharacterCreationResultEnum.OK));
-                    SendCharactersListMessage(client, true);
+                    SendCharactersListMessage(client, false);
                 }
             }
         }
@@ -87,9 +87,9 @@ namespace Past.Game.Network.Handlers.Character
             SelectCharacter(client, message.id);
         }
 
-        public static void HandleCharacterFirstSelectionMessage(Client client, CharacterFirstSelectionMessage message)
+        public static void HandleCharacterFirstSelectionMessage(Client client, CharacterFirstSelectionMessage message) //TODO Tutorial
         {
-            SelectCharacter(client, message.id);
+            //SelectCharacter(client, message.id);
         }
 
         public static void SendCharactersListMessage(Client client, bool tutorial)
@@ -115,6 +115,11 @@ namespace Past.Game.Network.Handlers.Character
         public static void SendLifePointsRegenBeginMessage(Client client, byte regenRate)
         {
             client.Send(new LifePointsRegenBeginMessage(regenRate));
+        }
+
+        public static void SendCharacterLevelUpMessage(Client client, byte level)
+        {
+            client.Send(new CharacterLevelUpMessage(level));
         }
 
         public static void SelectCharacter(Client client, int id)

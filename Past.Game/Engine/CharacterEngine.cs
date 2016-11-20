@@ -2,11 +2,14 @@
 using Past.Common.Database.Record;
 using Past.Common.Utils;
 using Past.Game.Network.Handlers.Basic;
+using Past.Game.Network.Handlers.Character;
 using Past.Game.Network.Handlers.Context;
+using Past.Game.Network.Handlers.Inventory;
 using Past.Protocol.Enums;
 using Past.Protocol.Types;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Past.Game.Engine
 {
@@ -418,6 +421,50 @@ namespace Past.Game.Engine
             CurrentMapId = mapId;
             CellId = cellId;
             ContextHandler.SendCurrentMapMessage(Client, CurrentMapId);
+        }
+
+        public void LevelUp()
+        {
+            Level++;
+            Health = MaxHealth;
+            StatsPoints += 5;
+            SpellsPoints += 1;
+            Experience = ExperienceLevelFloor;
+            if (GetNextSpell(Level) != 0)
+            {
+                Spells.Add(new CharacterSpellRecord(Id, (byte)(Spells.LastOrDefault().Position + 1), GetNextSpell(Level), 1));
+            }
+            CharacterHandler.SendCharacterLevelUpMessage(Client, Level);
+            CurrentMap.SendCharacterLevelUpInformation(Client);
+            CharacterHandler.SendCharacterStatsListMessage(Client);
+            InventoryHandler.SendSpellListMessage(Client);
+        }
+
+        private int GetNextSpell(byte level)
+        {
+            int spell = 0;
+            switch (level)
+            {
+                case 3: spell = BreedData.BreedSpellsId[3]; break;
+                case 6: spell = BreedData.BreedSpellsId[4]; break;
+                case 9: spell = BreedData.BreedSpellsId[5]; break;
+                case 13: spell = BreedData.BreedSpellsId[6]; break;
+                case 17: spell = BreedData.BreedSpellsId[7]; break;
+                case 21: spell = BreedData.BreedSpellsId[8]; break;
+                case 26: spell = BreedData.BreedSpellsId[9]; break;
+                case 31: spell = BreedData.BreedSpellsId[10]; break;
+                case 36: spell = BreedData.BreedSpellsId[11]; break;
+                case 42: spell = BreedData.BreedSpellsId[12]; break;
+                case 48: spell = BreedData.BreedSpellsId[13]; break;
+                case 54: spell = BreedData.BreedSpellsId[14]; break;
+                case 60: spell = BreedData.BreedSpellsId[15]; break;
+                case 70: spell = BreedData.BreedSpellsId[16]; break;
+                case 80: spell = BreedData.BreedSpellsId[17]; break;
+                case 90: spell = BreedData.BreedSpellsId[18]; break;
+                case 100: spell = BreedData.BreedSpellsId[19]; break;
+                case 200: spell = BreedData.BreedSpellsId[20]; break;
+            }
+            return spell;
         }
 
         public GameRolePlayCharacterInformations GetGameRolePlayCharacterInformations => new GameRolePlayCharacterInformations(Id, EntityLook, Disposition, Name, new HumanInformations(new EntityLook[0], 0, 0, new ActorRestrictionsInformations(false, false, false, false, false, false, false, false, true, false, false, false, false, true, true, true, false, false, false, false, false), 0), GetActorAlignmentInformations);

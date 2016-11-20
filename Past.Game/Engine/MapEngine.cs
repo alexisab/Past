@@ -30,6 +30,17 @@ namespace Past.Game.Engine
             }
         }
 
+        public void SendCharacterLevelUpInformation(Client client)
+        {
+            foreach (Client _client in Clients)
+            {
+                if (_client != client)
+                {
+                    Send(new CharacterLevelUpInformationMessage(client.Character.Level, client.Character.Name, client.Character.Id, 0));
+                }
+            }
+        }
+
         public void AddClient(Client client)
         {
             lock (Clients)
