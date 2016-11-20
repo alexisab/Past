@@ -15,10 +15,7 @@ namespace Past.Game.Engine
             switch (command[0])
             {
                 case ".help":
-                    foreach (var cmd in Command.Commands.Where(@cmd => @cmd.Value.Role <= client.Account.Role))
-                    {
-                        BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new string[] { $"{cmd.Value.Name}", $"{cmd.Value.Description}." });
-                    }
+                    Command.Commands.Where(cmd => cmd.Value.Role <= client.Account.Role).ToList().ForEach(@cmd => BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new string[] { $"{@cmd.Value.Name}", $"{@cmd.Value.Description}" }));
                     break;
                 case ".save":
                     client.Character.Save();
