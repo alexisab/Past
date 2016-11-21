@@ -133,6 +133,7 @@ namespace Past.Game.Network.Handlers.Character
                 ContextRoleplayHandler.SendEmoteListMessage(client, new sbyte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 19, 21, 22, 23, 24 });
                 ChatHandler.SendEnabledChannelsMessage(client, new sbyte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 });
                 InventoryHandler.SendInventoryContentMessage(client, new ObjectItem[0], character.Kamas); //TODO Get the characters items
+                InventoryHandler.SendInventoryWeightMessage(client, 0, character.MaxPods);
                 InventoryHandler.SendSpellListMessage(client);
                 PvPHandler.SendAlignmentRankUpdateMessage(client, 1);
                 PvPHandler.SendAlignmentSubAreasListMessage(client);

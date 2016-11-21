@@ -22,8 +22,9 @@ namespace Past.Common.Data
             Commands.Add(0, new Command(GameHierarchyEnum.PLAYER, "help", "display all commands available"));
             Commands.Add(1, new Command(GameHierarchyEnum.PLAYER, "save", "save the current character"));
             Commands.Add(2, new Command(GameHierarchyEnum.PLAYER, "start", "teleport the current character to his start map"));
-            Commands.Add(3, new Command(GameHierarchyEnum.MODERATOR, "goname", "teleport the current character to the target"));
-            Commands.Add(4, new Command(GameHierarchyEnum.GAMEMASTER_PADAWAN, "levelup", "levelup the current character"));
+            Commands.Add(3, new Command(GameHierarchyEnum.MODERATOR, "goname [target]", "teleport the current character to the target"));
+            Commands.Add(4, new Command(GameHierarchyEnum.MODERATOR, "go [mapid]", "teleport the current character"));
+            Commands.Add(5, new Command(GameHierarchyEnum.GAMEMASTER_PADAWAN, "levelup", "levelup the current character"));
         }
     }
 }

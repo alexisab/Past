@@ -48,4 +48,14 @@
         PVP_AIR_ELEMENT_REDUCTION,
         PVP_FIRE_ELEMENT_REDUCTION
     }
+
+    public enum StatBoost : sbyte
+    {
+        STRENGTH = 10,
+        VITALITY = 11,
+        WISDOM = 12,
+        CHANCE = 13,
+        AGILITY = 14,
+        INTELLIGENCE = 15
+    }
 }

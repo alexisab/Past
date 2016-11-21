@@ -37,6 +37,20 @@ namespace Past.Game.Engine
                         }
                     }
                     break;
+                case ".go":
+                    if (client.Account.Role >= GameHierarchyEnum.MODERATOR)
+                    {
+                        Map map = Map.Maps.FirstOrDefault(findMap => findMap.Value.Id == int.Parse(command[1])).Value;
+                        if (map != null && map.Id != client.Character.CurrentMapId)
+                        {
+                            client.Character.Teleport(map.Id, client.Character.CellId);
+                        }
+                        else
+                        {
+                            BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new string[] { "Error", $"Can't found the map {command[1]} !" });
+                        }
+                    }
+                    break;
                 case ".levelup":
                     if (client.Account.Role >= GameHierarchyEnum.GAMEMASTER_PADAWAN)
                     {

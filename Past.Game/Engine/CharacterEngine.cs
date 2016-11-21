@@ -369,6 +369,8 @@ namespace Past.Game.Engine
             set;
         }
 
+        public int MaxPods => 1000 + (Stats.Total(StatEnum.STRENGTH) * 5);
+
         public DateTime? LastUsage
         {
             get
@@ -425,19 +427,22 @@ namespace Past.Game.Engine
 
         public void LevelUp()
         {
-            Level++;
-            Health = MaxHealth;
-            StatsPoints += 5;
-            SpellsPoints += 1;
-            Experience = ExperienceLevelFloor;
-            if (GetNextSpell(Level) != 0)
+            if (Level != 200)
             {
-                Spells.Add(new CharacterSpellRecord(Id, (byte)(Spells.LastOrDefault().Position + 1), GetNextSpell(Level), 1));
+                Level++;
+                Health = MaxHealth;
+                StatsPoints += 5;
+                SpellsPoints += 1;
+                Experience = ExperienceLevelFloor;
+                if (GetNextSpell(Level) != 0)
+                {
+                    Spells.Add(new CharacterSpellRecord(Id, (byte)(Spells.LastOrDefault().Position + 1), GetNextSpell(Level), 1));
+                }
+                CharacterHandler.SendCharacterLevelUpMessage(Client, Level);
+                CurrentMap.SendCharacterLevelUpInformation(Client);
+                CharacterHandler.SendCharacterStatsListMessage(Client);
+                InventoryHandler.SendSpellListMessage(Client);
             }
-            CharacterHandler.SendCharacterLevelUpMessage(Client, Level);
-            CurrentMap.SendCharacterLevelUpInformation(Client);
-            CharacterHandler.SendCharacterStatsListMessage(Client);
-            InventoryHandler.SendSpellListMessage(Client);
         }
 
         private int GetNextSpell(byte level)
