@@ -139,6 +139,19 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
             }
         }
 
+        public static void HandlePartyInvitationRequestMessage(Client client, PartyInvitationRequestMessage message)
+        {
+            Client targetClient = Server.Clients.FirstOrDefault(target => target.Character.Name == message.name);
+            if (targetClient != null)
+            {
+
+            }
+            else
+            {
+                client.Send(new PartyCannotJoinErrorMessage((sbyte)PartyJoinErrorEnum.PARTY_JOIN_ERROR_PLAYER_NOT_FOUND));
+            }
+        }
+
         public static void SendEmoteListMessage(Client client, sbyte[] emoteIds)
         {
             client.Send(new EmoteListMessage(emoteIds));

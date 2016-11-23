@@ -8,12 +8,10 @@ namespace Past.Game.Engine
 {
     public class MapEngine
     {
-        public Map Map { get; set; }
         private List<Client> Clients;
 
-        public MapEngine(Map map)
+        public MapEngine()
         {
-            Map = map;
             Clients = new List<Client>();
         }
 
@@ -70,7 +68,7 @@ namespace Past.Game.Engine
         {
             foreach (Map map in Map.Maps.Values)
             {
-                map.Instance = new MapEngine(map);
+                map.Instance = new MapEngine();
             }
         }
     }

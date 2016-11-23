@@ -51,6 +51,7 @@
     <Compile Include="Engine\CharacterEngine.cs" />
     <Compile Include="Engine\CommandEngine.cs" />
     <Compile Include="Engine\MapEngine.cs" />
+    <Compile Include="Engine\PartyEngine.cs" />
     <Compile Include="Engine\Pathfinder.cs" />
     <Compile Include="Engine\StatsEngine.cs" />
     <Compile Include="Network\Client.cs" />

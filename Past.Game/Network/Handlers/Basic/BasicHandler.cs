@@ -2,11 +2,25 @@
 using Past.Protocol.Enums;
 using Past.Protocol.Messages;
 using System;
+using System.Linq;
 
 namespace Past.Game.Network.Handlers.Basic
 {
     public class BasicHandler
     {
+        public static void HandleBasicWhoIsRequestMessage(Client client, BasicWhoIsRequestMessage message)
+        {
+            Client targetClient = Server.Clients.FirstOrDefault(target => target.Character.Name == message.search);
+            if (targetClient != null)
+            {
+                client.Send(new BasicWhoIsMessage(targetClient.Character.Name == client.Character.Name ? true : false, (sbyte)targetClient.Account.Role, targetClient.Account.Nickname, targetClient.Character.Name, (short)targetClient.Character.Map.SubAreaId));
+            }
+            else
+            {
+                client.Send(new BasicWhoIsNoMatchMessage(message.search));
+            }
+        }
+
         public static void SendBasicTimeMessage(Client client)
         {
             client.Send(new BasicTimeMessage(Functions.ReturnUnixTimeStamp(DateTime.Now), 3600));
