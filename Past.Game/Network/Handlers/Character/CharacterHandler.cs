@@ -45,7 +45,7 @@ namespace Past.Game.Network.Handlers.Character
                 {
                     Breed breed = Breed.Breeds[(BreedEnum)message.breed];
                     string look = message.sex == false ? breed.MaleLook : breed.FemaleLook;
-                    CharacterRecord character = new CharacterRecord(client.Account.Id, message.name, 1, 0, (BreedEnum)message.breed, message.colors.Distinct().Count() != 1 ? look.Insert(look.IndexOf("||") + 1, $"1={message.colors[0]},2={message.colors[1]},3={message.colors[2]},4={message.colors[3]},5={message.colors[4]}") : look, message.sex, breed.StartMapId, breed.StartDisposition.cellId, (DirectionsEnum)breed.StartDisposition.direction, AlignmentSideEnum.ALIGNMENT_NEUTRAL, 0, 0, false, 0, 0, 0, DateTime.Now);
+                    CharacterRecord character = new CharacterRecord(client.Account.Id, message.name, 1, 0, (BreedEnum)message.breed, message.colors.Distinct().Count() != 1 ? look.Insert(look.IndexOf("||") + 1, $"1={message.colors[0]},2={message.colors[1]},3={message.colors[2]},4={message.colors[3]},5={message.colors[4]}") : look, message.sex, Config.StartMap != 0 ? Config.StartMap : breed.StartMapId, Config.StartCellId != 0 ? Config.StartCellId : breed.StartDisposition.cellId, Config.StartDirection != 0 ? (DirectionsEnum)Config.StartDirection : (DirectionsEnum)breed.StartDisposition.direction, AlignmentSideEnum.ALIGNMENT_NEUTRAL, 0, 0, false, 0, 0, 0, DateTime.Now);
                     character.Create();
                     client.Account.Characters = CharacterRecord.ReturnCharacters(client.Account.Id);
                     new List<CharacterSpellRecord>(new CharacterSpellRecord[] { new CharacterSpellRecord(client.Account.Characters.FirstOrDefault(chara => chara.Name == character.Name).Id, 64, 0, 1), new CharacterSpellRecord(client.Account.Characters.FirstOrDefault(chara => chara.Name == character.Name).Id, 65, breed.BreedSpellsId[0], 1), new CharacterSpellRecord(client.Account.Characters.FirstOrDefault(chara => chara.Name == character.Name).Id, 66, breed.BreedSpellsId[1], 1), new CharacterSpellRecord(client.Account.Characters.FirstOrDefault(chara => chara.Name == character.Name).Id, 67, breed.BreedSpellsId[2], 1) }).ForEach(spell => spell.Create());
@@ -89,7 +89,7 @@ namespace Past.Game.Network.Handlers.Character
 
         public static void HandleCharacterFirstSelectionMessage(Client client, CharacterFirstSelectionMessage message) //TODO Tutorial
         {
-            //SelectCharacter(client, message.id);
+            SelectCharacter(client, message.id);
         }
 
         public static void SendCharactersListMessage(Client client, bool tutorial)
@@ -141,6 +141,12 @@ namespace Past.Game.Network.Handlers.Character
                 SendLifePointsRegenBeginMessage(client, 10);
                 SendCharacterStatsListMessage(client);
                 client.Character.SendLoginMessage();
+                /*if (tutorial == true)
+                {
+                    character.CurrentMapId = 35651584; //mapid of the tutorial map
+                    character.CellId = 324;
+                    client.Send(new QuestStartedMessage(489)); //start the tutorial quest
+                }*/
             }
             else
             {

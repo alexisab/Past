@@ -8,7 +8,7 @@ namespace Past.Common.Database
         public static readonly object Object = new object();
         private static MySqlConnection Connection { get; set; }
 
-        public static void Connect(bool login, string host, string username, string password, string databaseName)
+        public static void Connect(string host, string username, string password, string databaseName)
         {
             lock (Object)
             {

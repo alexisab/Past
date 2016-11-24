@@ -16,6 +16,9 @@ namespace Past.Common.Utils
         public static string Database_Username { get { return GetValue("DATABASE", "Username"); } }
         public static string Database_Password { get { return GetValue("DATABASE", "Password"); } }
         public static bool Debug { get { return bool.Parse(GetValue("OTHERS", "Debug")); } }
+        public static int StartMap { get { return int.Parse(GetValue("OTHERS", "StartMap")); } }
+        public static short StartCellId { get { return short.Parse(GetValue("OTHERS", "StartCellId")); } }
+        public static sbyte StartDirection { get { return sbyte.Parse(GetValue("OTHERS", "StartDirection")); } }
         private static Dictionary<string, Dictionary<string, string>> Elements = new Dictionary<string, Dictionary<string, string>>();
         private static Dictionary<string, string> ConfigEntries;
         #region default ini file
@@ -34,17 +37,20 @@ Username = root
 Password =
 
 [OTHERS]
-Debug = true            ; Display in the console message received and sent";
+Debug = true            ; Display in the console message received and sent
+StartMap = 21757955;	; Custom start map, put 0 if you don't want to use this
+StartCellId = 268;		; Custom start cell, put 0 if you don't want to use this
+StartDirection = 1;		; Custom start direction, put 0 if you don't want to use this";
         #endregion
 
         public static void ReadConfig()
         {
-            string path = String.Format($"{AppDomain.CurrentDomain.BaseDirectory}Config.ini");
+            string path = $"{AppDomain.CurrentDomain.BaseDirectory}Config.ini";
             if (!File.Exists(path))
             {
                 File.WriteAllText(path, DefaultConfig);
             }
-            foreach (var line in File.ReadAllLines(path))
+            foreach (string line in File.ReadAllLines(path))
             {
                 if (!string.IsNullOrEmpty(line))
                 {

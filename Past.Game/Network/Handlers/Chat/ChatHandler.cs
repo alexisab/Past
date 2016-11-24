@@ -3,20 +3,68 @@ using Past.Game.Engine;
 using Past.Protocol.Enums;
 using Past.Protocol.Messages;
 using System;
+using System.Linq;
 
 namespace Past.Game.Network.Handlers.Chat
 {
     public class ChatHandler
     {
-        public static void HandleChatClientMultiMessage(Client client, ChatClientMultiMessage message) //need to add the condition for certain channel
+        public static void HandleChatClientMultiMessage(Client client, ChatClientMultiMessage message) //TODO
         {
             if (!message.content.StartsWith("."))
             {
-                SendChatServerMessage(client, message.channel, message.content, client.Character.Id, client.Character.Name);
+                switch (message.channel)
+                {
+                    case (sbyte)ChatChannelsMultiEnum.CHANNEL_TEAM:
+                        /*if (client.Character.Team != null)
+                        {
+                        }*/
+                        break;
+                    case (sbyte)ChatChannelsMultiEnum.CHANNEL_GUILD:
+                        /*if (client.Character.Guild != null)
+                        {
+                        }*/
+                        break;
+                    case (sbyte)ChatChannelsMultiEnum.CHANNEL_ALIGN:
+                        if (client.Character.AlignmentSide != AlignmentSideEnum.ALIGNMENT_NEUTRAL)
+                        {
+                        }
+                        break;
+                    case (sbyte)ChatChannelsMultiEnum.CHANNEL_PARTY:
+                        if (client.Character.Party != null)
+                        {
+                            //ForEach clients in party
+                        }
+                        break;
+                    case (sbyte)ChatChannelsMultiEnum.CHANNEL_SALES:
+                        break;
+                    case (sbyte)ChatChannelsMultiEnum.CHANNEL_SEEK:
+                        break;
+                    case (sbyte)ChatChannelsMultiEnum.CHANNEL_NOOB:
+                        break;
+                    case (sbyte)ChatChannelsMultiEnum.CHANNEL_ADMIN:
+                        if (client.Account.Role == GameHierarchyEnum.ADMIN)
+                        {
+                        }
+                        break;
+                    default:
+                        SendChatServerMessage(client, message.channel, message.content, client.Character.Id, client.Character.Name);
+                        break;
+                }
+                
             }
             else
             {
                 CommandEngine.Handle(client, message.content);
+            }
+        }
+
+        public static void HandleChatClientPrivateMessage(Client client, ChatClientPrivateMessage message)
+        {
+            Client targetClient = Server.Clients.FirstOrDefault(target => target.Character.Name == message.receiver);
+            if (targetClient != null && targetClient != client)
+            {
+                targetClient.Send(new ChatServerMessage(9, message.content, Functions.ReturnUnixTimeStamp(DateTime.Now), "", client.Character.Id, client.Character.Name));
             }
         }
 

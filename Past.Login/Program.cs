@@ -15,7 +15,7 @@ namespace Past.Login
             MessageReceiver.InitializeMessages();
             MessageHandlerManager<Network.Client>.InitializeHandlers();
 
-            DatabaseManager.Connect(true, Config.Database_Host, Config.Database_Username, Config.Database_Password, Config.Database_Name);
+            DatabaseManager.Connect(Config.Database_Host, Config.Database_Username, Config.Database_Password, Config.Database_Name);
 
             Network.Server.Start();
 

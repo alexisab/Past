@@ -91,6 +91,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Past.Common\Past.Common.csproj">
+      <Project>{D868E97F-C3CD-4AA8-971A-79D4C84551AB}</Project>
+      <Name>Past.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Past.Protocol\Past.Protocol.csproj">
       <Project>{FD666F59-B2C2-41EA-8B6D-98977983B3AD}</Project>
       <Name>Past.Protocol</Name>

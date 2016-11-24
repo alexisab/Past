@@ -363,7 +363,7 @@ namespace Past.Game.Engine
             }
         }
 
-        public StatsEngine Stats
+        public StatEngine Stats
         {
             get;
             set;
@@ -389,11 +389,17 @@ namespace Past.Game.Engine
             set;
         }
 
+        public PartyEngine Party
+        {
+            get;
+            set;
+        }
+
         public CharacterEngine(CharacterRecord record, Network.Client client)
         {
             Record = record;
             Client = client;
-            Stats = new StatsEngine(this);
+            Stats = new StatEngine(this);
             Spells = CharacterSpellRecord.ReturnCharacterSpells(Id);
         }
 
@@ -481,5 +487,7 @@ namespace Past.Game.Engine
         public ActorExtendedAlignmentInformations GetActorExtendedAlignmentInformations => new ActorExtendedAlignmentInformations((sbyte)AlignmentSide, 0, AlignmentGrade, 0, Honor, Dishonor, PvPEnabled);
 
         public CharacterCharacteristicsInformations GetCharacterCharacteristicsInformations => new CharacterCharacteristicsInformations(Experience, ExperienceLevelFloor, ExperienceNextLevelFloor, Kamas, StatsPoints, SpellsPoints, GetActorExtendedAlignmentInformations, Health, MaxHealth, Energy, 10000, AP, MP, Stats[StatEnum.INITIATIVE], Stats[StatEnum.PROSPECTING], Stats[StatEnum.ACTION_POINTS], Stats[StatEnum.MOVEMENT_POINTS], Stats[StatEnum.STRENGTH], Stats[StatEnum.VITALITY], Stats[StatEnum.WISDOM], Stats[StatEnum.CHANCE], Stats[StatEnum.AGILITY], Stats[StatEnum.INTELLIGENCE], Stats[StatEnum.RANGE], Stats[StatEnum.SUMMONABLE_CREATURES_BOOST], Stats[StatEnum.REFLECT], Stats[StatEnum.CRITICAL_HIT], 0, Stats[StatEnum.CRITICAL_MISS], Stats[StatEnum.HEAL_BONUS], Stats[StatEnum.ALL_DAMAGES_BONUS], Stats[StatEnum.WEAPON_DAMAGES_BONUS_PERCENT], Stats[StatEnum.DAMAGES_BONUS_PERCENT], Stats[StatEnum.TRAP_BONUS], Stats[StatEnum.TRAP_BONUS_PERCENT], Stats[StatEnum.PERMANENT_DAMAGE_PERCENT], Stats[StatEnum.DODGE_PA_LOST_PROBABILITY], Stats[StatEnum.DODGE_PM_LOST_PROBABILITY], Stats[StatEnum.NEUTRAL_ELEMENT_REDUCTION], Stats[StatEnum.EARTH_ELEMENT_RESIST_PERCENT], Stats[StatEnum.WATER_ELEMENT_RESIST_PERCENT], Stats[StatEnum.AIR_ELEMENT_RESIST_PERCENT], Stats[StatEnum.FIRE_ELEMENT_RESIST_PERCENT], Stats[StatEnum.NEUTRAL_ELEMENT_REDUCTION], Stats[StatEnum.EARTH_ELEMENT_REDUCTION], Stats[StatEnum.WATER_ELEMENT_REDUCTION], Stats[StatEnum.AIR_ELEMENT_REDUCTION], Stats[StatEnum.FIRE_ELEMENT_REDUCTION], Stats[StatEnum.PVP_NEUTRAL_ELEMENT_RESIST_PERCENT], Stats[StatEnum.PVP_EARTH_ELEMENT_RESIST_PERCENT], Stats[StatEnum.PVP_WATER_ELEMENT_RESIST_PERCENT], Stats[StatEnum.PVP_AIR_ELEMENT_RESIST_PERCENT], Stats[StatEnum.PVP_FIRE_ELEMENT_RESIST_PERCENT], Stats[StatEnum.PVP_NEUTRAL_ELEMENT_REDUCTION], Stats[StatEnum.PVP_EARTH_ELEMENT_REDUCTION], Stats[StatEnum.PVP_WATER_ELEMENT_REDUCTION], Stats[StatEnum.PVP_AIR_ELEMENT_REDUCTION], Stats[StatEnum.PVP_FIRE_ELEMENT_REDUCTION], new CharacterSpellModification[0]);
+
+        public PartyMemberInformations GetPartyMemberInformations => new PartyMemberInformations(Id, Name, Level, EntityLook, Health, MaxHealth, Stats.Total(StatEnum.PROSPECTING), 0, Stats.Total(StatEnum.INITIATIVE), PvPEnabled, (sbyte)AlignmentSide);
     }
 }

@@ -53,7 +53,7 @@
     <Compile Include="Engine\MapEngine.cs" />
     <Compile Include="Engine\PartyEngine.cs" />
     <Compile Include="Engine\Pathfinder.cs" />
-    <Compile Include="Engine\StatsEngine.cs" />
+    <Compile Include="Engine\StatEngine.cs" />
     <Compile Include="Network\Client.cs" />
     <Compile Include="Network\Handlers\Approach\ApproachHandler.cs" />
     <Compile Include="Network\Handlers\Basic\BasicHandler.cs" />

@@ -1,11 +1,10 @@
 ﻿using Past.Protocol.Enums;
 using Past.Protocol.Types;
-using System;
 using System.Collections.Generic;
 
 namespace Past.Game.Engine
 {
-    public class StatsEngine
+    public class StatEngine
     {
         public CharacterBaseCharacteristic this[StatEnum @enum]
         {
@@ -22,7 +21,7 @@ namespace Past.Game.Engine
         private CharacterEngine Character { get; set; }
         private Dictionary<StatEnum, CharacterBaseCharacteristic> Stats;
 
-        public StatsEngine(CharacterEngine character)
+        public StatEngine(CharacterEngine character)
         {
             Character = character;
             Stats = new Dictionary<StatEnum, CharacterBaseCharacteristic>();
