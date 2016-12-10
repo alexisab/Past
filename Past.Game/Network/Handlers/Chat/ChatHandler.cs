@@ -33,7 +33,6 @@ namespace Past.Game.Network.Handlers.Chat
                     case (sbyte)ChatChannelsMultiEnum.CHANNEL_PARTY:
                         if (client.Character.Party != null)
                         {
-                            //ForEach clients in party
                         }
                         break;
                     case (sbyte)ChatChannelsMultiEnum.CHANNEL_SALES:

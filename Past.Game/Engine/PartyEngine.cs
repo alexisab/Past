@@ -1,4 +1,5 @@
 ﻿using Past.Game.Network;
+using Past.Protocol;
 using Past.Protocol.Messages;
 using Past.Protocol.Types;
 using System.Collections.Generic;
@@ -8,46 +9,101 @@ namespace Past.Game.Engine
     public class PartyEngine
     {
         private int id = 0;
-        private int Id { get; set; }
-        private Client Leader { get; set; }
-        private List<Client> InvitedClients;
+        public int Id { get; set; }
+        public Client Leader { get; set; }
+        private List<Client> TemporaryClients;
+        private List<Client> Members;
 
         public PartyEngine(Client client, Client target)
         {
             Id = id++;
             Leader = client;
-            InvitedClients = new List<Client>();
-            InviteCharacter(client, target);
+            Members = new List<Client>();
+            TemporaryClients = new List<Client>();
+            InviteClient(client, target);
             SendPartyJoinMessage(client);
         }
 
+        public void Send(NetworkMessage message)
+        {
+            Members.ForEach(client => client.Send(message));
+        }
+        
         public void SendPartyJoinMessage(Client client)
         {
-            client.Send(new PartyJoinMessage(Leader.Character.Id, InvitedClients.ConvertAll<PartyMemberInformations>(invitedClients => invitedClients.Character.GetPartyMemberInformations).ToArray()));
+            Members.Add(client);
+            client.Send(new PartyJoinMessage(Leader.Character.Id, Members.ConvertAll<PartyMemberInformations>(member => member.Character.GetPartyMemberInformations).ToArray()));
         }
 
-        public void InviteCharacter(Client client, Client target)
+        public void InviteClient(Client client, Client target)
         {
-            lock (InvitedClients)
+            lock (TemporaryClients)
             {
-                if (!InvitedClients.Contains(target))
+                if (!TemporaryClients.Contains(target))
                 {
-                    InvitedClients.Add(client);
-                    InvitedClients.Add(target);
+                    TemporaryClients.Add(target);
+                    target.Character.Party = this;
                     target.Send(new PartyInvitationMessage(client.Character.Id, client.Character.Name, target.Character.Id, target.Character.Name));
                 }
             }
         }
 
-        public void RemoveCharacter(Client client)
+        public void AcceptInvitation(Client client)
         {
-            lock (InvitedClients)
+            if (client.Character.Party != null)
             {
-                if (InvitedClients.Contains(client))
+
+            }
+            else
+            {
+                RemoveTemporaryClient(client);
+                SendPartyJoinMessage(client);
+                Send(new PartyUpdateMessage(client.Character.GetPartyMemberInformations));
+            }
+        }
+
+        public void RefuseInvitation(Client client)
+        {
+            RemoveTemporaryClient(client);
+            if (Members.Count <= 1)
+            {
+                Disband();
+            }
+        }
+
+        public void RemoveMember(Client client)
+        {
+            lock (Members)
+            {
+                if (Members.Contains(client))
                 {
-                    InvitedClients.Remove(client);
+                    Members.Remove(client);
+                    if (Members.Count <= 1)
+                    {
+                        Disband();
+                    }
+                    client.Send(new PartyLeaveMessage());
+                    Send(new PartyMemberRemoveMessage(client.Character.Id));
+                    client.Character.Party = null;
                 }
             }
+        }
+
+        public void RemoveTemporaryClient(Client client)
+        {
+            lock (TemporaryClients)
+            {
+                if (TemporaryClients.Contains(client))
+                {
+                    TemporaryClients.Remove(client);
+                }
+             }
+        }
+
+        public void Disband()
+        {
+            Members.ForEach(client => client.Send(new PartyLeaveMessage()));
+            Members.ForEach(client => client.Character.Party = null);
         }
     }
 }

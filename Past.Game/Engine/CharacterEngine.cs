@@ -409,6 +409,20 @@ namespace Past.Game.Engine
             Spells.ForEach(spell => spell.Update());
         }
 
+        public void Disconnect()
+        {
+            Save();
+            CurrentMap.RemoveClient(Client);
+            if (Party != null)
+            {
+                if (Party.Leader == Client)
+                {
+                    Party.Disband();
+                }
+                Party.RemoveMember(Client);
+            }
+        }
+
         public void SendLoginMessage()
         {
             BasicHandler.SendTextInformationMessage(Client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 89, new string[0]);

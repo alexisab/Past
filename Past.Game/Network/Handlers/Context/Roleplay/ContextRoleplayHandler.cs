@@ -147,7 +147,7 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
             {
                 if (client.Character.Party != null)
                 {
-                    //invite
+                    client.Character.Party.InviteClient(client, targetClient);
                 }
                 else
                 {
@@ -162,6 +162,16 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
 
         public static void HandlePartyAcceptInvitationMessage(Client client, PartyAcceptInvitationMessage message)
         {
+            client.Character.Party.AcceptInvitation(client);
+        }
+
+        public static void HandlePartyRefuseInvitationMessage(Client client, PartyRefuseInvitationMessage message)
+        {
+            if (client.Character.Party != null)
+            {
+                client.Character.Party.RefuseInvitation(client);
+                client.Character.Party = null;
+            }
         }
 
         public static void HandleGuidedModeQuitRequestMessage(Client client, GuidedModeQuitRequestMessage message)

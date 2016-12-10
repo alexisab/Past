@@ -45,8 +45,7 @@ namespace Past.Game.Network
             Account = null;
             if (Character != null)
             {
-                Character.CurrentMap.RemoveClient(this);
-                Character.Save();
+                Character.Disconnect();
             }
             Character = null;
             GameClient.Close();
