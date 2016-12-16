@@ -10,9 +10,11 @@ namespace Past.Tools.Dlm
 
         public Layer FromRaw(BigEndianReader raw)
         {
-            Layer layer = new Layer();
-            layer.LayerId = raw.ReadInt();
-            layer.CellsCount = raw.ReadShort();
+            Layer layer = new Layer
+            {
+                LayerId = raw.ReadInt(),
+                CellsCount = raw.ReadShort()
+            };
             layer.Cells = new Cell[layer.CellsCount];
             for (int i = 0; i < layer.CellsCount; i++)
             {

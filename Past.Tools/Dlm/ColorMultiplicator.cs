@@ -24,11 +24,7 @@
              {
                 return max;
              }
-             if (value < min)
-             {
-                return min;
-             }
-             return value;
+             return value < min ? min : value;
         }
 
         public ColorMultiplicator Multiply(ColorMultiplicator cm)
@@ -37,10 +33,12 @@
                 return cm;
             if (cm.IsOne)
                 return this;
-            var cmr = new ColorMultiplicator(0, 0, 0);
-            cmr.Red = Red + cm.Red;
-            cmr.Green = Green + cm.Green;
-            cmr.Blue = Blue + cm.Blue;
+            var cmr = new ColorMultiplicator(0, 0, 0)
+            {
+                Red = Red + cm.Red,
+                Green = Green + cm.Green,
+                Blue = Blue + cm.Blue
+            };
             cmr.Red = Clamp(cmr.Red, -128, 127);
             cmr.Green = Clamp(cmr.Green, -128, 127);
             cmr.Blue = Clamp(cmr.Blue, -128, 127);

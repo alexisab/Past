@@ -6,28 +6,17 @@ namespace Past.Game.Engine
 {
     public class StatEngine
     {
-        public CharacterBaseCharacteristic this[StatEnum @enum]
-        {
-            get
-            {
-                if (Stats.ContainsKey(@enum))
-                {
-                    return Stats[@enum];
-                }
-                return new CharacterBaseCharacteristic();
-            }
-        }
-
+        public CharacterBaseCharacteristic this[StatEnum @enum] => _stats.ContainsKey(@enum) ? _stats[@enum] : new CharacterBaseCharacteristic();
         private CharacterEngine Character { get; set; }
-        private Dictionary<StatEnum, CharacterBaseCharacteristic> Stats;
+        private readonly Dictionary<StatEnum, CharacterBaseCharacteristic> _stats;
 
         public StatEngine(CharacterEngine character)
         {
             Character = character;
-            Stats = new Dictionary<StatEnum, CharacterBaseCharacteristic>();
+            _stats = new Dictionary<StatEnum, CharacterBaseCharacteristic>();
             foreach (var @enum in typeof(StatEnum).GetEnumValues())
             {
-                Stats.Add((StatEnum)@enum, new CharacterBaseCharacteristic());
+                _stats.Add((StatEnum)@enum, new CharacterBaseCharacteristic());
             }
             this[StatEnum.ACTION_POINTS].@base = character.Level >= 100 ? (short)7 : (short)6;
             this[StatEnum.MOVEMENT_POINTS].@base = 3;

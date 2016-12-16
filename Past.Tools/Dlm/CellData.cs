@@ -9,30 +9,15 @@ namespace Past.Tools.Dlm
         public byte Speed { get; set; }
         public byte MapChangeData { get; set; }
 
-        public bool Los
-        {
-            get { return (LosMov & 2) >> 1 == 1; }
-        }
+        public bool Los => (LosMov & 2) >> 1 == 1;
 
-        public bool Mov
-        {
-            get { return (LosMov & 1) == 1 && !NonWalkableDuringFight; }
-        }
+        public bool Mov => (LosMov & 1) == 1 && !NonWalkableDuringFight;
 
-        public bool NonWalkableDuringFight
-        {
-            get { return (LosMov & 3) >> 2 == 1; }
-        }
+        public bool NonWalkableDuringFight => (LosMov & 3) >> 2 == 1;
 
-        public bool Red
-        {
-            get { return (LosMov & 4) >> 3 == 1; }
-        }
+        public bool Red => (LosMov & 4) >> 3 == 1;
 
-        public bool Blue
-        {
-            get { return (LosMov & 5) >> 4 == 1; }
-        }
+        public bool Blue => (LosMov & 5) >> 4 == 1;
 
         public CellData FromRaw(BigEndianReader raw)
         {

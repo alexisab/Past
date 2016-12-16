@@ -1,13 +1,13 @@
-﻿using Past.Protocol.IO;
-using System;
+﻿using System;
+using Past.Protocol.IO;
 
 namespace Past.Protocol
 {
     public class MessagePart
     {
         private readonly bool m_readData;
-        private long m_availableBytes = 0L;
-        private bool m_dataMissing = false;
+        private long m_availableBytes;
+        private bool m_dataMissing;
         private byte[] m_data;
 
         public bool IsValid
@@ -15,11 +15,11 @@ namespace Past.Protocol
             get
             {
                 bool arg_69_0;
-                if (this.Header.HasValue && this.Length.HasValue && (!this.ReadData || this.Data != null))
+                if (Header.HasValue && Length.HasValue && (!ReadData || Data != null))
                 {
-                    int? length = this.Length;
-                    long num = this.ReadData ? ((long)this.Data.Length) : this.m_availableBytes;
-                    arg_69_0 = ((long)length.GetValueOrDefault() == num && length.HasValue);
+                    int? length = Length;
+                    long num = ReadData ? Data.Length : m_availableBytes;
+                    arg_69_0 = (length.GetValueOrDefault() == num && length.HasValue);
                 }
                 else
                 {
@@ -40,13 +40,13 @@ namespace Past.Protocol
             get
             {
                 int? result;
-                if (!this.Header.HasValue)
+                if (!Header.HasValue)
                 {
                     result = null;
                 }
                 else
                 {
-                    result = this.Header >> 2;
+                    result = Header >> 2;
                 }
                 return result;
             }
@@ -57,13 +57,13 @@ namespace Past.Protocol
             get
             {
                 int? result;
-                if (!this.Header.HasValue)
+                if (!Header.HasValue)
                 {
                     result = null;
                 }
                 else
                 {
-                    result = (this.Header & 3);
+                    result = (Header & 3);
                 }
                 return result;
             }
@@ -79,11 +79,11 @@ namespace Past.Protocol
         {
             get
             {
-                return this.m_data;
+                return m_data;
             }
             private set
             {
-                this.m_data = value;
+                m_data = value;
             }
         }
 
@@ -91,13 +91,13 @@ namespace Past.Protocol
         {
             get
             {
-                return this.m_readData;
+                return m_readData;
             }
         }
 
         public MessagePart(bool readData)
         {
-            this.m_readData = readData;
+            m_readData = readData;
         }
 
         public bool Build(BigEndianReader reader)
@@ -109,30 +109,30 @@ namespace Past.Protocol
             }
             else
             {
-                if (this.IsValid)
+                if (IsValid)
                 {
                     result = true;
                 }
                 else
                 {
-                    if (!this.Header.HasValue && reader.BytesAvailable < 2L)
+                    if (!Header.HasValue && reader.BytesAvailable < 2L)
                     {
                         result = false;
                     }
                     else
                     {
-                        if (reader.BytesAvailable >= 2L && !this.Header.HasValue)
+                        if (reader.BytesAvailable >= 2L && !Header.HasValue)
                         {
-                            this.Header = new int?((int)reader.ReadShort());
+                            Header = reader.ReadShort();
                         }
                         bool arg_CC_0;
-                        if (this.LengthBytesCount.HasValue)
+                        if (LengthBytesCount.HasValue)
                         {
                             long num = reader.BytesAvailable;
-                            int? num2 = this.LengthBytesCount;
-                            if (num >= (long)num2.GetValueOrDefault() && num2.HasValue)
+                            int? num2 = LengthBytesCount;
+                            if (num >= num2.GetValueOrDefault() && num2.HasValue)
                             {
-                                arg_CC_0 = this.Length.HasValue;
+                                arg_CC_0 = Length.HasValue;
                                 goto IL_CC;
                             }
                         }
@@ -140,99 +140,99 @@ namespace Past.Protocol
                     IL_CC:
                         if (!arg_CC_0)
                         {
-                            if (this.LengthBytesCount < 0 || this.LengthBytesCount > 3)
+                            if (LengthBytesCount < 0 || LengthBytesCount > 3)
                             {
                                 throw new Exception("Malformated Message Header, invalid bytes number to read message length (inferior to 0 or superior to 3)");
                             }
-                            this.Length = new int?(0);
-                            for (int i = this.LengthBytesCount.Value - 1; i >= 0; i--)
+                            Length = 0;
+                            for (int i = LengthBytesCount.Value - 1; i >= 0; i--)
                             {
-                                this.Length |= (int)reader.ReadByte() << i * 8;
+                                Length |= reader.ReadByte() << i * 8;
                             }
                         }
-                        if (this.Length.HasValue && !this.m_dataMissing)
+                        if (Length.HasValue && !m_dataMissing)
                         {
-                            if (this.Length == 0)
+                            if (Length == 0)
                             {
-                                if (this.ReadData)
+                                if (ReadData)
                                 {
-                                    this.Data = new byte[0];
+                                    Data = new byte[0];
                                 }
                                 result = true;
                                 return result;
                             }
                             long num = reader.BytesAvailable;
-                            int? num2 = this.Length;
-                            if (num >= (long)num2.GetValueOrDefault() && num2.HasValue)
+                            int? num2 = Length;
+                            if (num >= num2.GetValueOrDefault() && num2.HasValue)
                             {
-                                if (this.ReadData)
+                                if (ReadData)
                                 {
-                                    this.Data = reader.ReadBytes(this.Length.Value);
+                                    Data = reader.ReadBytes(Length.Value);
                                 }
                                 else
                                 {
-                                    this.m_availableBytes = reader.BytesAvailable;
+                                    m_availableBytes = reader.BytesAvailable;
                                 }
                                 result = true;
                                 return result;
                             }
-                            num2 = this.Length;
+                            num2 = Length;
                             num = reader.BytesAvailable;
-                            if ((long)num2.GetValueOrDefault() > num && num2.HasValue)
+                            if (num2.GetValueOrDefault() > num && num2.HasValue)
                             {
-                                if (this.ReadData)
+                                if (ReadData)
                                 {
-                                    this.Data = reader.ReadBytes((int)reader.BytesAvailable);
+                                    Data = reader.ReadBytes(reader.BytesAvailable);
                                 }
                                 else
                                 {
-                                    this.m_availableBytes = reader.BytesAvailable;
+                                    m_availableBytes = reader.BytesAvailable;
                                 }
-                                this.m_dataMissing = true;
+                                m_dataMissing = true;
                                 result = false;
                                 return result;
                             }
                         }
                         else
                         {
-                            if (this.Length.HasValue && this.m_dataMissing)
+                            if (Length.HasValue && m_dataMissing)
                             {
-                                long num = (long)(this.ReadData ? this.Data.Length : 0) + reader.BytesAvailable;
-                                int? num2 = this.Length;
-                                if (num < (long)num2.GetValueOrDefault() && num2.HasValue)
+                                long num = (long)(ReadData ? Data.Length : 0) + reader.BytesAvailable;
+                                int? num2 = Length;
+                                if (num < num2.GetValueOrDefault() && num2.HasValue)
                                 {
-                                    if (this.ReadData)
+                                    if (ReadData)
                                     {
-                                        int destinationIndex = this.m_data.Length;
-                                        Array.Resize<byte>(ref this.m_data, (int)((long)this.Data.Length + reader.BytesAvailable));
-                                        byte[] array = reader.ReadBytes((int)reader.BytesAvailable);
-                                        Array.Copy(array, 0, this.Data, destinationIndex, array.Length);
+                                        int destinationIndex = m_data.Length;
+                                        Array.Resize(ref m_data, (int)((long)Data.Length + reader.BytesAvailable));
+                                        byte[] array = reader.ReadBytes(reader.BytesAvailable);
+                                        Array.Copy(array, 0, Data, destinationIndex, array.Length);
                                     }
                                     else
                                     {
-                                        this.m_availableBytes = reader.BytesAvailable;
+                                        m_availableBytes = reader.BytesAvailable;
                                     }
-                                    this.m_dataMissing = true;
+                                    m_dataMissing = true;
                                 }
-                                num = (long)(this.ReadData ? this.Data.Length : 0) + reader.BytesAvailable;
-                                num2 = this.Length;
-                                if (num >= (long)num2.GetValueOrDefault() && num2.HasValue)
+                                num = (long)(ReadData ? Data.Length : 0) + reader.BytesAvailable;
+                                num2 = Length;
+                                if (num >= num2.GetValueOrDefault() && num2.HasValue)
                                 {
-                                    if (this.ReadData)
+                                    if (ReadData)
                                     {
-                                        int num3 = this.Length.Value - this.Data.Length;
-                                        Array.Resize<byte>(ref this.m_data, this.Data.Length + num3);
+                                        int num3 = Length.Value - Data.Length;
+                                        Array.Resize(ref m_data, Data.Length + num3);
                                         byte[] array = reader.ReadBytes(num3);
-                                        Array.Copy(array, 0, this.Data, this.Data.Length - num3, num3);
+                                        Array.Copy(array, 0, Data, Data.Length - num3, num3);
                                     }
                                     else
                                     {
-                                        this.m_availableBytes = reader.BytesAvailable;
+                                        m_availableBytes = reader.BytesAvailable;
                                     }
                                 }
                             }
                         }
-                        result = this.IsValid;
+                        result = IsValid;
                     }
                 }
             }

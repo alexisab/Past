@@ -11,7 +11,7 @@ namespace Past.Game.Network
 
         public static void Start()
         {
-            GameServer = new Common.Network.Server(Config.GameServer_Address, Config.GameServer_Port);
+            GameServer = new Common.Network.Server(Config.GameServerAddress, Config.GameServerPort);
             GameServer.OnServerStarted += Game_OnServerStarted;
             GameServer.OnServerAcceptedSocket += Game_OnServerAcceptedSocket;
             GameServer.OnServerFailedToStart += Game_OnServerFailedToStart;

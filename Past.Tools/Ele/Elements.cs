@@ -12,13 +12,9 @@ namespace Past.Tools.Ele
 
         public void FromRaw(BigEndianReader raw)
         {
-            int header;
-            int edId;
-            byte edType;
-            GraphicalElementData ed;
             try
             {
-                header = raw.ReadByte();
+                int header = raw.ReadByte();
                 if (header != 69)
                 {
                     throw new Exception("Unknown file format");
@@ -28,9 +24,9 @@ namespace Past.Tools.Ele
                 ElementsMap = new Dictionary<int, GraphicalElementData>();
                 for (int i = 0; i < ElementsCount; i++)
                 {
-                    edId = raw.ReadInt();
-                    edType = raw.ReadByte();
-                    ed = GraphicalElementFactory.GetGraphicalElementData(edId, edType);
+                    int edId = raw.ReadInt();
+                    byte edType = raw.ReadByte();
+                    GraphicalElementData ed = GraphicalElementFactory.GetGraphicalElementData(edId, edType);
                     ed.FromRaw(raw);
                     ElementsMap[edId] = ed;
                 }

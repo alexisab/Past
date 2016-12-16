@@ -41,13 +41,14 @@ namespace Past.Protocol
                     uint num = (uint)property.GetValue(Activator.CreateInstance(type), null);
                     if (MessageReceiver.Messages.ContainsKey(num))
                     {
-                        throw new AmbiguousMatchException(string.Format("MessageReceiver() => {0} item is already in the dictionary, old type is : {1}, new type is  {2}", num, MessageReceiver.Messages[num], type));
+                        throw new AmbiguousMatchException(
+                            $"MessageReceiver() => {num} item is already in the dictionary, old type is : {MessageReceiver.Messages[num]}, new type is  {type}");
                     }
                     MessageReceiver.Messages.Add(num, type);
                     ConstructorInfo constructor = type.GetConstructor(Type.EmptyTypes);
                     if (constructor == null)
                     {
-                        throw new Exception(string.Format("'{0}' doesn't implemented a parameterless constructor", type));
+                        throw new Exception($"'{type}' doesn't implemented a parameterless constructor");
                     }
                     MessageReceiver.Constructors.Add(num, constructor.CreateDelegate<Func<NetworkMessage>>());
                 }
@@ -58,12 +59,13 @@ namespace Past.Protocol
         {
             if (!MessageReceiver.Messages.ContainsKey(id))
             {
-                throw new MessageReceiver.MessageNotFoundException(string.Format("Message <id:{0}> doesn't exist", id));
+                throw new MessageReceiver.MessageNotFoundException($"Message <id:{id}> doesn't exist");
             }
             NetworkMessage message = MessageReceiver.Constructors[id]();
             if (message == null)
             {
-                throw new MessageReceiver.MessageNotFoundException(string.Format("Constructors[{0}] (delegate {1}) does not exist", id, MessageReceiver.Messages[id]));
+                throw new MessageReceiver.MessageNotFoundException(
+                    $"Constructors[{id}] (delegate {MessageReceiver.Messages[id]}) does not exist");
             }
             message.Unpack(reader);
             return message;
@@ -73,7 +75,7 @@ namespace Past.Protocol
         {
             if (!MessageReceiver.Messages.ContainsKey(id))
             {
-                throw new MessageReceiver.MessageNotFoundException(string.Format("Message <id:{0}> doesn't exist", id));
+                throw new MessageReceiver.MessageNotFoundException($"Message <id:{id}> doesn't exist");
             }
             return MessageReceiver.Messages[id];
         }

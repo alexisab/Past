@@ -5,34 +5,33 @@ using System.Linq;
 
 namespace Past.Tools
 {
-    class ParseProtocolEnums
+    public class ParseProtocolEnums
     {
-        static Dictionary<string, List<string>> _data = new Dictionary<string, List<string>>();
+        private static readonly Dictionary<string, List<string>> Data = new Dictionary<string, List<string>>();
 
         public static void ParseEnums(string @source)
         {
-            string _name;
-            string _enum;
             foreach (string file in Directory.GetFiles(source, "*", SearchOption.AllDirectories).Where(x => x.Contains("as")))
             {
-                _name = Path.GetFileName(file).Replace(".as", "");
+                string name = Path.GetFileName(file).Replace(".as", "");
                 foreach (string line in File.ReadAllLines(file).Where(x => x.Contains("public static const")))
                 {
-                    _enum = line.Replace("public static const", "").Replace(":uint", "").Replace(":int", "").Replace(";", ",").Trim();
-                    if (!_data.ContainsKey(Path.GetFileName(file).Replace(".as", "")))
-                        _data.Add(_name, new List<string>());
-                    _data[_name].Add(_enum);
+                    string _enum = line.Replace("public static const", "").Replace(":uint", "").Replace(":int", "").Replace(";", ",").Trim();
+                    if (!Data.ContainsKey(Path.GetFileName(file).Replace(".as", "")))
+                        Data.Add(name, new List<string>());
+                    Data[name].Add(_enum);
                 }
             }
-            foreach (var shit in _data)
+            foreach (KeyValuePair<string, List<string>> shit in Data)
             {
-                using (StreamWriter writer = new StreamWriter(String.Format("{0}/Enums/{1}", AppDomain.CurrentDomain.BaseDirectory, shit.Key + ".cs")))
+                using (StreamWriter writer = new StreamWriter(
+                    $"{AppDomain.CurrentDomain.BaseDirectory}/Enums/{shit.Key + ".cs"}"))
                 {
                     writer.WriteLine("namespace Past.Protocol.Enums");
                     writer.WriteLine("{");
                     writer.WriteLine("".PadLeft(4) + "public enum " + shit.Key);
                     writer.WriteLine("".PadLeft(4) + "{");
-                    foreach (var shit2 in shit.Value)
+                    foreach (string shit2 in shit.Value)
                     {
                         writer.WriteLine("".PadLeft(8) + "{0}", shit2);
 

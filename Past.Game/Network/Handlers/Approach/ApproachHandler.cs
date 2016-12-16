@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Past.Game.Network.Handlers.Approach
 {
-    class ApproachHandler
+    public class ApproachHandler
     {
         public static void HandleAuthenticationTicketMessage(Client client, AuthenticationTicketMessage message)
         {

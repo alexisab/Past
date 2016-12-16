@@ -42,62 +42,40 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
 
         public static void HandleStatsUpgradeRequestMessage(Client client, StatsUpgradeRequestMessage message)
         {
-            if (Enum.IsDefined(typeof(StatBoost), message.statId))
+            if (Enum.IsDefined(typeof(StatBoost), message.statId) &&
+                (message.boostPoint >= 1 && client.Character.StatsPoints >= message.boostPoint))
             {
-                if (message.boostPoint >= 1 && client.Character.StatsPoints >= message.boostPoint)
+                switch ((StatBoost) message.statId)
                 {
-                    switch((StatBoost)message.statId)
-                    {
-                        case StatBoost.STRENGTH:
-                            #region ...
-                            /*statFloor = client.Character.BreedData.StatsPointsForStrength.Split('|', ',');
-                            short strength = client.Character.Stats[StatEnum.STRENGTH].@base;
-                            if (strength >= short.Parse(statFloor[0]) && strength <= short.Parse(statFloor[2])) //0 to 50
-                            {
-                                points = short.Parse(statFloor[1]);
-                            }
-                            else if (strength >= short.Parse(statFloor[2]) && strength <= short.Parse(statFloor[4])) //50 to 150
-                            {
-                                points = short.Parse(statFloor[3]);
-                            }
-                            else if (strength >= short.Parse(statFloor[4]) && strength <= short.Parse(statFloor[6])) //150 to 250
-                            {
-                                points = short.Parse(statFloor[5]);
-                            }
-                            else if (strength >= short.Parse(statFloor[6])) //250 and plus
-                            {
-                                points = short.Parse(statFloor[7]);
-                            }*/
-                            #endregion
-                            client.Character.Stats[StatEnum.STRENGTH].@base += message.boostPoint;
-                            client.Character.Strength = client.Character.Stats[StatEnum.STRENGTH].@base;
-                            break;
-                        case StatBoost.VITALITY:
-                            client.Character.Stats[StatEnum.VITALITY].@base += message.boostPoint;
-                            client.Character.Vitality = client.Character.Stats[StatEnum.VITALITY].@base;
-                            break;
-                        case StatBoost.WISDOM:
-                            client.Character.Stats[StatEnum.WISDOM].@base += message.boostPoint;
-                            client.Character.Wisdom = client.Character.Stats[StatEnum.WISDOM].@base;
-                            break;
-                        case StatBoost.CHANCE:
-                            client.Character.Stats[StatEnum.CHANCE].@base += message.boostPoint;
-                            client.Character.Chance = client.Character.Stats[StatEnum.CHANCE].@base;
-                            break;
-                        case StatBoost.AGILITY:
-                            client.Character.Stats[StatEnum.AGILITY].@base += message.boostPoint;
-                            client.Character.Agility = client.Character.Stats[StatEnum.AGILITY].@base;
-                            break;
-                        case StatBoost.INTELLIGENCE:
-                            client.Character.Stats[StatEnum.INTELLIGENCE].@base += message.boostPoint;
-                            client.Character.Intelligence = client.Character.Stats[StatEnum.INTELLIGENCE].@base;
-                            break;
-                    }
-                    client.Character.StatsPoints -= message.boostPoint;
-                    client.Character.Stats.Refresh();
-                    client.Send(new StatsUpgradeResultMessage(message.boostPoint));
-                    CharacterHandler.SendCharacterStatsListMessage(client);
+                    case StatBoost.STRENGTH:
+                        client.Character.Stats[StatEnum.STRENGTH].@base += message.boostPoint;
+                        client.Character.Strength = client.Character.Stats[StatEnum.STRENGTH].@base;
+                        break;
+                    case StatBoost.VITALITY:
+                        client.Character.Stats[StatEnum.VITALITY].@base += message.boostPoint;
+                        client.Character.Vitality = client.Character.Stats[StatEnum.VITALITY].@base;
+                        break;
+                    case StatBoost.WISDOM:
+                        client.Character.Stats[StatEnum.WISDOM].@base += message.boostPoint;
+                        client.Character.Wisdom = client.Character.Stats[StatEnum.WISDOM].@base;
+                        break;
+                    case StatBoost.CHANCE:
+                        client.Character.Stats[StatEnum.CHANCE].@base += message.boostPoint;
+                        client.Character.Chance = client.Character.Stats[StatEnum.CHANCE].@base;
+                        break;
+                    case StatBoost.AGILITY:
+                        client.Character.Stats[StatEnum.AGILITY].@base += message.boostPoint;
+                        client.Character.Agility = client.Character.Stats[StatEnum.AGILITY].@base;
+                        break;
+                    case StatBoost.INTELLIGENCE:
+                        client.Character.Stats[StatEnum.INTELLIGENCE].@base += message.boostPoint;
+                        client.Character.Intelligence = client.Character.Stats[StatEnum.INTELLIGENCE].@base;
+                        break;
                 }
+                client.Character.StatsPoints -= message.boostPoint;
+                client.Character.Stats.Refresh();
+                client.Send(new StatsUpgradeResultMessage(message.boostPoint));
+                CharacterHandler.SendCharacterStatsListMessage(client);
             }
         }
 

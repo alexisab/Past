@@ -5,12 +5,12 @@ namespace Past.Game.Network.Handlers.PvP
 {
     public class PvPHandler
     {
-        public static void HandleGetPVPActivationCostMessage(Client client, GetPVPActivationCostMessage message)
+        public static void HandleGetPvpActivationCostMessage(Client client, GetPVPActivationCostMessage message)
         {
             client.Send(new PVPActivationCostMessage(client.Character.PvPActivationCost));
         }
 
-        public static void HandleSetEnablePVPRequestMessage(Client client, SetEnablePVPRequestMessage message)
+        public static void HandleSetEnablePvpRequestMessage(Client client, SetEnablePVPRequestMessage message)
         {
             client.Character.PvPEnabled = message.enable;
             client.Character.CurrentMap.Send(new GameRolePlayShowActorMessage(client.Character.GetGameRolePlayCharacterInformations));

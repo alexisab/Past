@@ -1,6 +1,7 @@
 ﻿using Past.Protocol.IO;
 using System;
 using System.IO;
+using ZLibNet;
 
 namespace Past.Tools.Ele
 {
@@ -9,13 +10,13 @@ namespace Past.Tools.Ele
 
         public Elements ReadEle(string filePath)
         {
-            byte[] ba = null;
             Stream eleFile = File.OpenRead(filePath);
             BigEndianReader reader = new BigEndianReader(eleFile);
             int header = reader.ReadByte();
             if (header != 69)
             {
                 reader.Seek(0, SeekOrigin.Begin);
+                byte[] ba = null;
                 try
                 {
                     MemoryStream output = new MemoryStream();
@@ -42,7 +43,7 @@ namespace Past.Tools.Ele
 
         private void Uncompress(Stream input, Stream output)
         {
-            ZOutputStream outZStream = new ZOutputStream(output);
+            ZLibStream outZStream = new ZLibStream(output, CompressionMode.Decompress);
             try
             {
                 byte[] raw = new byte[(int)input.Length];

@@ -50,7 +50,6 @@ namespace Past.Game.Network.Handlers.Chat
                         SendChatServerMessage(client, message.channel, message.content, client.Character.Id, client.Character.Name);
                         break;
                 }
-                
             }
             else
             {

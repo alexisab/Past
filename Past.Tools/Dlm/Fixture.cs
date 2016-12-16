@@ -13,7 +13,7 @@ namespace Past.Tools.Dlm
         public byte RedMultiplier { get; set; }
         public byte GreenMultiplier { get; set; }
         public byte BlueMultiplier { get; set; }
-        public int Hue { get { return (int)(RedMultiplier << 16 | GreenMultiplier << 8 | BlueMultiplier); } }
+        public int Hue => (int)(RedMultiplier << 16 | GreenMultiplier << 8 | BlueMultiplier);
         public byte Alpha { get; set; }
 
         public Fixture FromRaw(BigEndianReader raw)

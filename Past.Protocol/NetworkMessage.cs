@@ -4,8 +4,7 @@ namespace Past.Protocol
 {
     public abstract class NetworkMessage
     {
-        byte BIT_RIGHT_SHIFT_LEN_PACKET_ID = 2;
-        byte BIT_MASK = 3;
+        readonly byte BIT_RIGHT_SHIFT_LEN_PACKET_ID = 2;
 
         public abstract uint Id { get; }
         public abstract void Serialize(IDataWriter writer);
@@ -26,7 +25,7 @@ namespace Past.Protocol
         {
             byte[] data = output.Data;
             output.Clear();
-            var typeLen = ComputeTypeLen((uint)data.Length);
+            uint typeLen = ComputeTypeLen((uint)data.Length);
             output.WriteShort((short)SubComputeStaticHeader(Id, typeLen));
             switch (typeLen)
             {

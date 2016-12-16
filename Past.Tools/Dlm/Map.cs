@@ -22,15 +22,14 @@ namespace Past.Tools.Dlm
         public int GroundCRC { get; set; }
         public byte LayersCount { get; set; }
         public Layer[] Layers { get; set; }
-        public int CellsCount { get { return 560; } }
+        public int CellsCount => 560;
         public CellData[] Cells { get; set; }
 
         public void FromRaw(BigEndianReader raw)
         {
-            int header;
             try
             {
-                header = raw.ReadByte();
+                int header = raw.ReadByte();
                 if (header != 77)
                 {
                     throw new Exception("Unknown file format");

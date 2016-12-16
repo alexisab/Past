@@ -15,7 +15,8 @@ namespace Past.Common.Data
             foreach (var method in methods)
             {
                 method.Invoke(null, null);
-                ConsoleUtils.Write(ConsoleUtils.Type.INFO, $"{method.DeclaringType.Name} Successfully loaded in {sw.ElapsedMilliseconds} ms ...");
+                if (method.DeclaringType != null)
+                    ConsoleUtils.Write(ConsoleUtils.Type.INFO, $"{method.DeclaringType.Name} Successfully loaded in {sw.ElapsedMilliseconds} ms ...");
             }
             sw.Stop();
         }

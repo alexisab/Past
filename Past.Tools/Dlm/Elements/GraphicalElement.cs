@@ -19,22 +19,24 @@ namespace Past.Tools.Dlm.Elements
 
         public GraphicalElement FromRaw(Cell cell, BigEndianReader raw)
         {
-            GraphicalElement element = new GraphicalElement(cell);
-            element.ElementId = raw.ReadInt();
-            element.Hue = new ColorMultiplicator(raw.ReadByte(), raw.ReadByte(), raw.ReadByte());
-            element.Shadow = new ColorMultiplicator(raw.ReadByte(), raw.ReadByte(), raw.ReadByte());
-            element.Offset = new Point(raw.ReadByte(), raw.ReadByte());
-            element.Altitude = raw.ReadByte();
-            element.Identifier = raw.ReadUInt();
+            GraphicalElement element = new GraphicalElement(cell)
+            {
+                ElementId = raw.ReadInt(),
+                Hue = new ColorMultiplicator(raw.ReadByte(), raw.ReadByte(), raw.ReadByte()),
+                Shadow = new ColorMultiplicator(raw.ReadByte(), raw.ReadByte(), raw.ReadByte()),
+                Offset = new Point(raw.ReadByte(), raw.ReadByte()),
+                Altitude = raw.ReadByte(),
+                Identifier = raw.ReadUInt()
+            };
             //CalculateFinalTeint();
             return element;
         }
 
         public void CalculateFinalTeint()
         {
-            var r = Hue.Red + Shadow.Red;
-            var g = Hue.Green + Shadow.Green;
-            var b = Hue.Blue + Shadow.Blue;
+            int r = Hue.Red + Shadow.Red;
+            int g = Hue.Green + Shadow.Green;
+            int b = Hue.Blue + Shadow.Blue;
             r = ColorMultiplicator.Clamp((r + 128) * 2, 0, 512);
             g = ColorMultiplicator.Clamp((g + 128) * 2, 0, 512);
             b = ColorMultiplicator.Clamp((b + 128) * 2, 0, 512);

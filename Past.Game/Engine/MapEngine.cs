@@ -8,7 +8,7 @@ namespace Past.Game.Engine
 {
     public class MapEngine
     {
-        private List<Client> Clients;
+        private readonly List<Client> Clients;
 
         public MapEngine()
         {

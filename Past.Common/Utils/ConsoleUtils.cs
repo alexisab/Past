@@ -9,7 +9,7 @@ namespace Past.Common.Utils
         private static readonly object Object = new object();
         public enum Type { INFO, WARNING, ERROR, DONE, DEBUG, RECEIV, SEND, PAST };
 
-        public static string[] logo = new string[]
+        public static string[] Logo = new string[]
         {
             "                                   ",
             "     #####     ##     ####   ##### ",
@@ -25,9 +25,9 @@ namespace Past.Common.Utils
         {
             Console.Title = $"#Past | {service} Server | Uptime : {(DateTime.Now - Process.GetCurrentProcess().StartTime).ToString(@"dd\.hh\:mm\:ss")}";
             Console.ForegroundColor = ConsoleColor.Green;
-            for (int i = 0; i < logo.Length; i++)
+            for (int i = 0; i < Logo.Length; i++)
             {
-                string text = logo[i];
+                string text = Logo[i];
                 Console.WriteLine(text.PadLeft((int)(Console.BufferWidth + text.Length) / 2));
             }
             Console.ForegroundColor = ConsoleColor.White;

@@ -7,22 +7,23 @@ namespace Past.Common.Utils
 {
     public class Config
     {
-        public static string LoginServer_Address { get { return GetValue("LOGIN", "Address"); } }
-        public static int LoginServer_Port { get { return int.Parse(GetValue("LOGIN", "Port")); } }
-        public static string GameServer_Address { get { return GetValue("GAME", "Address"); } }
-        public static int GameServer_Port { get { return int.Parse(GetValue("GAME", "Port")); } }
-        public static string Database_Host { get { return GetValue("DATABASE", "Host"); } }
-        public static string Database_Name { get { return GetValue("DATABASE", "Name"); } }
-        public static string Database_Username { get { return GetValue("DATABASE", "Username"); } }
-        public static string Database_Password { get { return GetValue("DATABASE", "Password"); } }
-        public static bool Debug { get { return bool.Parse(GetValue("OTHERS", "Debug")); } }
-        public static int StartMap { get { return int.Parse(GetValue("OTHERS", "StartMap")); } }
-        public static short StartCellId { get { return short.Parse(GetValue("OTHERS", "StartCellId")); } }
-        public static sbyte StartDirection { get { return sbyte.Parse(GetValue("OTHERS", "StartDirection")); } }
-        private static Dictionary<string, Dictionary<string, string>> Elements = new Dictionary<string, Dictionary<string, string>>();
-        private static Dictionary<string, string> ConfigEntries;
+        public static string LoginServerAddress => GetValue("LOGIN", "Address");
+        public static int LoginServerPort => int.Parse(GetValue("LOGIN", "Port"));
+        public static string GameServerAddress => GetValue("GAME", "Address");
+        public static int GameServerPort => int.Parse(GetValue("GAME", "Port"));
+        public static string DatabaseHost => GetValue("DATABASE", "Host");
+        public static string DatabaseName => GetValue("DATABASE", "Name");
+        public static string DatabaseUsername => GetValue("DATABASE", "Username");
+        public static string DatabasePassword => GetValue("DATABASE", "Password");
+        public static bool Debug => bool.Parse(GetValue("OTHERS", "Debug"));
+        public static int StartMap => int.Parse(GetValue("OTHERS", "StartMap"));
+        public static short StartCellId => short.Parse(GetValue("OTHERS", "StartCellId"));
+        public static sbyte StartDirection => sbyte.Parse(GetValue("OTHERS", "StartDirection"));
+        private static readonly Dictionary<string, Dictionary<string, string>> Elements = new Dictionary<string, Dictionary<string, string>>();
+        private static Dictionary<string, string> _configEntries;
         #region default ini file
-        private static string DefaultConfig = @"[LOGIN]
+
+        private const string DefaultConfig = @"[LOGIN]
 Address = 127.0.0.1		; Address for the login server
 Port = 443              ; Port for the login server
 
@@ -41,6 +42,7 @@ Debug = true            ; Display in the console message received and sent
 StartMap = 21757955;	; Custom start map, put 0 if you don't want to use this
 StartCellId = 268;		; Custom start cell, put 0 if you don't want to use this
 StartDirection = 1;		; Custom start direction, put 0 if you don't want to use this";
+
         #endregion
 
         public static void ReadConfig()
@@ -57,15 +59,15 @@ StartDirection = 1;		; Custom start direction, put 0 if you don't want to use th
                     if (line.StartsWith("["))
                     {
                         string section = line.Replace("[", "").Replace("]", "");
-                        ConfigEntries = new Dictionary<string, string>();
-                        Elements.Add(section, ConfigEntries);
+                        _configEntries = new Dictionary<string, string>();
+                        Elements.Add(section, _configEntries);
                     }
-                    else if (ConfigEntries != null)
+                    else if (_configEntries != null)
                     {
                         string[] data = line.Trim().Split('=', ';');
                         string key = data[0].Trim();
                         string value = data[1].Trim();
-                        ConfigEntries.Add(key, value);
+                        _configEntries.Add(key, value);
                     }
                 }
             }
@@ -73,7 +75,7 @@ StartDirection = 1;		; Custom start direction, put 0 if you don't want to use th
 
         public static string GetValue(string section, string key)
         {
-            return Elements.Where(x => x.Key == section).First().Value.Where(x => x.Key == key).First().Value;
+            return Elements.First(x => x.Key == section).Value.First(x => x.Key == key).Value;
         }
     }
 }
