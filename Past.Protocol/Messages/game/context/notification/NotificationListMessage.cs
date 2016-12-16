@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class NotificationListMessage : NetworkMessage
+    public class NotificationListMessage : NetworkMessage
 	{
         public int[] flags;
         public override uint Id

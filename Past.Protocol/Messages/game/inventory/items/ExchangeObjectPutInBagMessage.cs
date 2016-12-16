@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeObjectPutInBagMessage : ExchangeObjectMessage
+    public class ExchangeObjectPutInBagMessage : ExchangeObjectMessage
 	{
         public ObjectItem @object;
         public override uint Id

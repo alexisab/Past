@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class JobAllowMultiCraftRequestMessage : NetworkMessage
+    public class JobAllowMultiCraftRequestMessage : NetworkMessage
 	{
         public bool enabled;
         public override uint Id

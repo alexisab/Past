@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class JobUnlearntMessage : NetworkMessage
+    public class JobUnlearntMessage : NetworkMessage
 	{
         public sbyte jobId;
         public override uint Id

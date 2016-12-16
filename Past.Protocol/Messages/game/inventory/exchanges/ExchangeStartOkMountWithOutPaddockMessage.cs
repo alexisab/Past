@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeStartOkMountWithOutPaddockMessage : NetworkMessage
+    public class ExchangeStartOkMountWithOutPaddockMessage : NetworkMessage
 	{
         public MountClientData[] stabledMountsDescription;
         public override uint Id

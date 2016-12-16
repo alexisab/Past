@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class PartyAcceptInvitationMessage : NetworkMessage
+    public class PartyAcceptInvitationMessage : NetworkMessage
 	{
         public override uint Id
         {

@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class MountRidingMessage : NetworkMessage
+    public class MountRidingMessage : NetworkMessage
 	{
         public bool isRiding;
         public override uint Id

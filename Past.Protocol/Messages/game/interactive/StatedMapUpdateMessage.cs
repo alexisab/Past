@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class StatedMapUpdateMessage : NetworkMessage
+    public class StatedMapUpdateMessage : NetworkMessage
 	{
         public StatedElement[] statedElements;
         public override uint Id

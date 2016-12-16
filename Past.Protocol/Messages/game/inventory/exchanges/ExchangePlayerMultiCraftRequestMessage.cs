@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangePlayerMultiCraftRequestMessage : ExchangeRequestMessage
+    public class ExchangePlayerMultiCraftRequestMessage : ExchangeRequestMessage
 	{
         public int target;
         public int skillId;

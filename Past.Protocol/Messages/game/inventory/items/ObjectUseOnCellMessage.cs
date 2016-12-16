@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ObjectUseOnCellMessage : ObjectUseMessage
+    public class ObjectUseOnCellMessage : ObjectUseMessage
 	{
         public short cells;
         public override uint Id

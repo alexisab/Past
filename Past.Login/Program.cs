@@ -5,9 +5,9 @@ using System;
 
 namespace Past.Login
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             ConsoleUtils.InitializeConsole("Login");
             Config.ReadConfig();

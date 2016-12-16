@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class QuestObjectiveValidationMessage : NetworkMessage
+    public class QuestObjectiveValidationMessage : NetworkMessage
 	{
         public short questId;
         public short objectiveId;

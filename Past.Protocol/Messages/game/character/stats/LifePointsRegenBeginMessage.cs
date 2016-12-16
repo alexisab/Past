@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class LifePointsRegenBeginMessage : NetworkMessage
+    public class LifePointsRegenBeginMessage : NetworkMessage
 	{
         public byte regenRate;
         public override uint Id

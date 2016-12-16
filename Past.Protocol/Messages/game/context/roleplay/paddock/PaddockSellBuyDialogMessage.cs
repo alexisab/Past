@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class PaddockSellBuyDialogMessage : NetworkMessage
+    public class PaddockSellBuyDialogMessage : NetworkMessage
 	{
         public bool bsell;
         public int ownerId;

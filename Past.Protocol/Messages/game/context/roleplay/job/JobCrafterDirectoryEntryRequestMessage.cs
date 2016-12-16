@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class JobCrafterDirectoryEntryRequestMessage : NetworkMessage
+    public class JobCrafterDirectoryEntryRequestMessage : NetworkMessage
 	{
         public int playerId;
         public override uint Id

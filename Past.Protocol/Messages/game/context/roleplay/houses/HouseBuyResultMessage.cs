@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class HouseBuyResultMessage : NetworkMessage
+    public class HouseBuyResultMessage : NetworkMessage
 	{
         public int houseId;
         public bool bought;

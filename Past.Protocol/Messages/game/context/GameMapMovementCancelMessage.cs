@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameMapMovementCancelMessage : NetworkMessage
+    public class GameMapMovementCancelMessage : NetworkMessage
 	{
         public short cellId;
         public override uint Id

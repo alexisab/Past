@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeBidHouseSearchMessage : NetworkMessage
+    public class ExchangeBidHouseSearchMessage : NetworkMessage
 	{
         public int type;
         public int genId;

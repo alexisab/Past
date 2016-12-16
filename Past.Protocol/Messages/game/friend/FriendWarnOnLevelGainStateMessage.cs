@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class FriendWarnOnLevelGainStateMessage : NetworkMessage
+    public class FriendWarnOnLevelGainStateMessage : NetworkMessage
 	{
         public bool enable;
         public override uint Id

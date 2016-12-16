@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeObjectMoveKamaMessage : NetworkMessage
+    public class ExchangeObjectMoveKamaMessage : NetworkMessage
 	{
         public int quantity;
         public override uint Id

@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class BasicSwitchModeRequestMessage : NetworkMessage
+    public class BasicSwitchModeRequestMessage : NetworkMessage
 	{
         public sbyte mode;
         public override uint Id

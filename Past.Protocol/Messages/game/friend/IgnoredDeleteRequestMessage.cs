@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class IgnoredDeleteRequestMessage : NetworkMessage
+    public class IgnoredDeleteRequestMessage : NetworkMessage
 	{
         public string name;
         public override uint Id

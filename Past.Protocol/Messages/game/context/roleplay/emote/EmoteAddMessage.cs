@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class EmoteAddMessage : NetworkMessage
+    public class EmoteAddMessage : NetworkMessage
 	{
         public sbyte emoteId;
         public override uint Id

@@ -38,15 +38,9 @@ namespace Past.Game.Network
         public void Disconnect()
         {
             Server.Clients.Remove(this);
-            if (Account != null)
-            {
-                Account.Update();
-            }
+            Account?.Update();
             Account = null;
-            if (Character != null)
-            {
-                Character.Disconnect();
-            }
+            Character?.Disconnect();
             Character = null;
             GameClient.Close();
         }

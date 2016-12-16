@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeReadyMessage : NetworkMessage
+    public class ExchangeReadyMessage : NetworkMessage
 	{
         public bool ready;
         public override uint Id

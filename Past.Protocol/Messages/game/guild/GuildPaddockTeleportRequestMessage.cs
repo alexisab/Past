@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GuildPaddockTeleportRequestMessage : NetworkMessage
+    public class GuildPaddockTeleportRequestMessage : NetworkMessage
 	{
         public int paddockId;
         public override uint Id

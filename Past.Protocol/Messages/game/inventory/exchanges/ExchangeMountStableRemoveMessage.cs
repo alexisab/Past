@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeMountStableRemoveMessage : NetworkMessage
+    public class ExchangeMountStableRemoveMessage : NetworkMessage
 	{
         public double mountId;
         public override uint Id

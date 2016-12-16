@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameActionFightSummonMessage : AbstractGameActionMessage
+    public class GameActionFightSummonMessage : AbstractGameActionMessage
 	{
         public GameFightFighterInformations summon;
         public override uint Id

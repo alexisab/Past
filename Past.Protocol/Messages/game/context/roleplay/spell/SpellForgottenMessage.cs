@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class SpellForgottenMessage : NetworkMessage
+    public class SpellForgottenMessage : NetworkMessage
 	{
         public short[] spellsId;
         public short boostPoint;

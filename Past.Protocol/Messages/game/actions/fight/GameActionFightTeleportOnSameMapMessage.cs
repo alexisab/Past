@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameActionFightTeleportOnSameMapMessage : AbstractGameActionMessage
+    public class GameActionFightTeleportOnSameMapMessage : AbstractGameActionMessage
 	{
         public int targetId;
         public short cellId;

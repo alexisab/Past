@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class PrismInfoJoinLeaveRequestMessage : NetworkMessage
+    public class PrismInfoJoinLeaveRequestMessage : NetworkMessage
 	{
         public bool join;
         public override uint Id

@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GuildKickRequestMessage : NetworkMessage
+    public class GuildKickRequestMessage : NetworkMessage
 	{
         public int kickedId;
         public override uint Id

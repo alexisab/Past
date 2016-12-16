@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class JobListedUpdateMessage : NetworkMessage
+    public class JobListedUpdateMessage : NetworkMessage
 	{
         public bool addedOrDeleted;
         public sbyte jobId;

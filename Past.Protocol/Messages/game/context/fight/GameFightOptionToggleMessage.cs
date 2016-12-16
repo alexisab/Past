@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameFightOptionToggleMessage : NetworkMessage
+    public class GameFightOptionToggleMessage : NetworkMessage
 	{
         public sbyte option;
         public override uint Id

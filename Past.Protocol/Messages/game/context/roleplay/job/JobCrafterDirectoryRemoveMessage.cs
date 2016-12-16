@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class JobCrafterDirectoryRemoveMessage : NetworkMessage
+    public class JobCrafterDirectoryRemoveMessage : NetworkMessage
 	{
         public sbyte jobId;
         public int playerId;

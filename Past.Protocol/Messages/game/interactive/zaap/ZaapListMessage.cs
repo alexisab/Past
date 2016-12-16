@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ZaapListMessage : TeleportDestinationsListMessage
+    public class ZaapListMessage : TeleportDestinationsListMessage
 	{
         public int spawnMapId;
         public override uint Id

@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeTypesExchangerDescriptionForUserMessage : NetworkMessage
+    public class ExchangeTypesExchangerDescriptionForUserMessage : NetworkMessage
 	{
         public int[] typeDescription;
         public override uint Id

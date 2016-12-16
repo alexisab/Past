@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class MountDataMessage : NetworkMessage
+    public class MountDataMessage : NetworkMessage
 	{
         public MountClientData mountData;
         public override uint Id

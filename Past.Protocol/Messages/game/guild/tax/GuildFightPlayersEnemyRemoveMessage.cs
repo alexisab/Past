@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GuildFightPlayersEnemyRemoveMessage : NetworkMessage
+    public class GuildFightPlayersEnemyRemoveMessage : NetworkMessage
 	{
         public double fightId;
         public int playerId;

@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class AlignmentRankUpdateMessage : NetworkMessage
+    public class AlignmentRankUpdateMessage : NetworkMessage
 	{
         public sbyte alignmentRank;
         public bool verbose;

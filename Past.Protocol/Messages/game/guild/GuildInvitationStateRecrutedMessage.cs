@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GuildInvitationStateRecrutedMessage : NetworkMessage
+    public class GuildInvitationStateRecrutedMessage : NetworkMessage
 	{
         public sbyte invitationState;
         public override uint Id

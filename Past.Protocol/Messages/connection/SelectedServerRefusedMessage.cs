@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class SelectedServerRefusedMessage : NetworkMessage
+    public class SelectedServerRefusedMessage : NetworkMessage
 	{
         public short serverId;
         public sbyte error;

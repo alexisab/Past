@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ContactLookErrorMessage : NetworkMessage
+    public class ContactLookErrorMessage : NetworkMessage
 	{
         public int requestId;
         public override uint Id

@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class LivingObjectFeedMessage : NetworkMessage
+    public class LivingObjectFeedMessage : NetworkMessage
 	{
         public int livingUID;
         public byte livingPosition;

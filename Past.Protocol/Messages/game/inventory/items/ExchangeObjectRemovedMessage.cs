@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeObjectRemovedMessage : ExchangeObjectMessage
+    public class ExchangeObjectRemovedMessage : ExchangeObjectMessage
 	{
         public int objectUID;
         public override uint Id

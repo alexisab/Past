@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class CharacterSelectedForceMessage : NetworkMessage
+    public class CharacterSelectedForceMessage : NetworkMessage
 	{
         public int id;
         public override uint Id

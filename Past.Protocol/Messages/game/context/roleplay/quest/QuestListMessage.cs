@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class QuestListMessage : NetworkMessage
+    public class QuestListMessage : NetworkMessage
 	{
         public short[] finishedQuestsIds;
         public short[] activeQuestsIds;

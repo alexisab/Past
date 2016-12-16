@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class StorageObjectsUpdateMessage : NetworkMessage
+    public class StorageObjectsUpdateMessage : NetworkMessage
 	{
         public ObjectItem[] objectList;
         public override uint Id

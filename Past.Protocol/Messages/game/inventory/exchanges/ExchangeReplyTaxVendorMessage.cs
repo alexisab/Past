@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeReplyTaxVendorMessage : NetworkMessage
+    public class ExchangeReplyTaxVendorMessage : NetworkMessage
 	{
         public int objectValue;
         public int taxRate;

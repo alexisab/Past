@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class SequenceStartMessage : NetworkMessage
+    public class SequenceStartMessage : NetworkMessage
 	{
         public int authorId;
         public sbyte sequenceType;

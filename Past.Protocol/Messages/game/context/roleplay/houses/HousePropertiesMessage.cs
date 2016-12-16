@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class HousePropertiesMessage : NetworkMessage
+    public class HousePropertiesMessage : NetworkMessage
 	{
         public HouseInformations properties;
         public override uint Id

@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameRolePlayPlayerFightFriendlyAnsweredMessage : NetworkMessage
+    public class GameRolePlayPlayerFightFriendlyAnsweredMessage : NetworkMessage
 	{
         public int fightId;
         public int sourceId;

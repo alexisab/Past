@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeOnHumanVendorRequestMessage : NetworkMessage
+    public class ExchangeOnHumanVendorRequestMessage : NetworkMessage
 	{
         public int humanVendorId;
         public int humanVendorCell;

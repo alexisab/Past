@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class EmotePlayErrorMessage : NetworkMessage
+    public class EmotePlayErrorMessage : NetworkMessage
 	{
         public override uint Id
         {

@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ObjectGroundRemovedMessage : NetworkMessage
+    public class ObjectGroundRemovedMessage : NetworkMessage
 	{
         public short cell;
         public override uint Id

@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class EnabledChannelsMessage : NetworkMessage
+    public class EnabledChannelsMessage : NetworkMessage
 	{
         public sbyte[] channels;
         public sbyte[] disallowed;

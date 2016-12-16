@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GuildInformationsMembersMessage : NetworkMessage
+    public class GuildInformationsMembersMessage : NetworkMessage
 	{
         public GuildMember[] members;
         public override uint Id

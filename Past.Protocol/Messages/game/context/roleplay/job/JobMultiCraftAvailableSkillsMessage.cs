@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class JobMultiCraftAvailableSkillsMessage : JobAllowMultiCraftRequestMessage
+    public class JobMultiCraftAvailableSkillsMessage : JobAllowMultiCraftRequestMessage
 	{
         public int playerId;
         public short[] skills;

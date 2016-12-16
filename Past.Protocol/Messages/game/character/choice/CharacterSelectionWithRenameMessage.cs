@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class CharacterSelectionWithRenameMessage : CharacterSelectionMessage
+    public class CharacterSelectionWithRenameMessage : CharacterSelectionMessage
 	{
         public string name;
         public override uint Id

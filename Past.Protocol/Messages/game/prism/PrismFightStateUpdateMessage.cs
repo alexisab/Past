@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class PrismFightStateUpdateMessage : NetworkMessage
+    public class PrismFightStateUpdateMessage : NetworkMessage
 	{
         public sbyte state;
         public override uint Id

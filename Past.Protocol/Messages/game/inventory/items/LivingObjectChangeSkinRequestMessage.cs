@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class LivingObjectChangeSkinRequestMessage : NetworkMessage
+    public class LivingObjectChangeSkinRequestMessage : NetworkMessage
 	{
         public int livingUID;
         public byte livingPosition;

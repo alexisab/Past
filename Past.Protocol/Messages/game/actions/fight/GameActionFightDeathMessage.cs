@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameActionFightDeathMessage : AbstractGameActionMessage
+    public class GameActionFightDeathMessage : AbstractGameActionMessage
 	{
         public int targetId;
         public override uint Id

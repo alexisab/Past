@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class MountSetXpRatioRequestMessage : NetworkMessage
+    public class MountSetXpRatioRequestMessage : NetworkMessage
 	{
         public sbyte xpRatio;
         public override uint Id

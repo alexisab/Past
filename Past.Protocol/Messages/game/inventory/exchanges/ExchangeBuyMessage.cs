@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeBuyMessage : NetworkMessage
+    public class ExchangeBuyMessage : NetworkMessage
 	{
         public int objectToBuyId;
         public int quantity;

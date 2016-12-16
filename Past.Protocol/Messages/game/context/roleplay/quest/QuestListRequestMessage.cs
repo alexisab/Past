@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class QuestListRequestMessage : NetworkMessage
+    public class QuestListRequestMessage : NetworkMessage
 	{
         public override uint Id
         {

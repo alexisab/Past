@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class TeleportDestinationsListMessage : NetworkMessage
+    public class TeleportDestinationsListMessage : NetworkMessage
 	{
         public sbyte teleporterType;
         public int[] mapIds;

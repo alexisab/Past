@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class StartupActionFinishedMessage : NetworkMessage
+    public class StartupActionFinishedMessage : NetworkMessage
 	{
         public bool success;
         public bool automaticAction;

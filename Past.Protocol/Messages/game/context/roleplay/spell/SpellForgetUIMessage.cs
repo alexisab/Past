@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class SpellForgetUIMessage : NetworkMessage
+    public class SpellForgetUIMessage : NetworkMessage
 	{
         public bool open;
         public override uint Id

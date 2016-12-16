@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class LockableChangeCodeMessage : NetworkMessage
+    public class LockableChangeCodeMessage : NetworkMessage
 	{
         public string code;
         public override uint Id

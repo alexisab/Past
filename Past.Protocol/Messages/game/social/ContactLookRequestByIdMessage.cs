@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ContactLookRequestByIdMessage : ContactLookRequestMessage
+    public class ContactLookRequestByIdMessage : ContactLookRequestMessage
 	{
         public int playerId;
         public override uint Id

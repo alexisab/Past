@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class CharacterFirstSelectionMessage : CharacterSelectionMessage
+    public class CharacterFirstSelectionMessage : CharacterSelectionMessage
 	{
         public bool doTutorial;
         public override uint Id

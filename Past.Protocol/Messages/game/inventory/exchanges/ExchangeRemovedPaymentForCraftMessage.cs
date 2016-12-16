@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeRemovedPaymentForCraftMessage : NetworkMessage
+    public class ExchangeRemovedPaymentForCraftMessage : NetworkMessage
 	{
         public bool onlySuccess;
         public int objectUID;

@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeKamaModifiedMessage : ExchangeObjectMessage
+    public class ExchangeKamaModifiedMessage : ExchangeObjectMessage
 	{
         public int quantity;
         public override uint Id

@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ChatServerCopyWithObjectMessage : ChatServerCopyMessage
+    public class ChatServerCopyWithObjectMessage : ChatServerCopyMessage
 	{
         public ObjectItem[] objects;
         public override uint Id

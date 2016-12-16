@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ObjectQuantityMessage : NetworkMessage
+    public class ObjectQuantityMessage : NetworkMessage
 	{
         public int objectUID;
         public int quantity;

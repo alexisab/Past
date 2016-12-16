@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class PrismUseRequestMessage : NetworkMessage
+    public class PrismUseRequestMessage : NetworkMessage
 	{
         public override uint Id
         {

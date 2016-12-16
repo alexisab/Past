@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class CharacterReplayWithRecolorRequestMessage : CharacterReplayRequestMessage
+    public class CharacterReplayWithRecolorRequestMessage : CharacterReplayRequestMessage
 	{
         public int[] indexedColor;
         public override uint Id

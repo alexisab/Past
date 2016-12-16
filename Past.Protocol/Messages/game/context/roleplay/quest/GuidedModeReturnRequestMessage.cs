@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GuidedModeReturnRequestMessage : NetworkMessage
+    public class GuidedModeReturnRequestMessage : NetworkMessage
 	{
         public override uint Id
         {

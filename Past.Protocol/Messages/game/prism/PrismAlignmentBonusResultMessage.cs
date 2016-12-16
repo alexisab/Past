@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class PrismAlignmentBonusResultMessage : NetworkMessage
+    public class PrismAlignmentBonusResultMessage : NetworkMessage
 	{
         public AlignmentBonusInformations alignmentBonus;
         public override uint Id

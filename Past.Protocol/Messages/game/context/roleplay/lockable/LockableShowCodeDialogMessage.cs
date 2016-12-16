@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class LockableShowCodeDialogMessage : NetworkMessage
+    public class LockableShowCodeDialogMessage : NetworkMessage
 	{
         public bool changeOrUse;
         public sbyte codeSize;

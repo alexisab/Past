@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ObjectUseOnCharacterMessage : ObjectUseMessage
+    public class ObjectUseOnCharacterMessage : ObjectUseMessage
 	{
         public int characterId;
         public override uint Id

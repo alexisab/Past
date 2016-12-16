@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class TextInformationMessage : NetworkMessage
+    public class TextInformationMessage : NetworkMessage
 	{
         public sbyte msgType;
         public short msgId;

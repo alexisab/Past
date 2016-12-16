@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class PartyKickedByMessage : NetworkMessage
+    public class PartyKickedByMessage : NetworkMessage
 	{
         public int kickerId;
         public override uint Id

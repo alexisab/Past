@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class BasicTimeMessage : NetworkMessage
+    public class BasicTimeMessage : NetworkMessage
 	{
         public int timestamp;
         public short timezoneOffset;

@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameRolePlaySpellAnimMessage : NetworkMessage
+    public class GameRolePlaySpellAnimMessage : NetworkMessage
 	{
         public int casterId;
         public short targetCellId;

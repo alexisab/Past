@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameActionFightCloseCombatMessage : AbstractGameActionFightTargetedAbilityMessage
+    public class GameActionFightCloseCombatMessage : AbstractGameActionFightTargetedAbilityMessage
 	{
         public int weaponGenericId;
         public override uint Id

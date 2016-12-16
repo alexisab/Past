@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameFightOptionStateUpdateMessage : NetworkMessage
+    public class GameFightOptionStateUpdateMessage : NetworkMessage
 	{
         public short fightId;
         public sbyte teamId;

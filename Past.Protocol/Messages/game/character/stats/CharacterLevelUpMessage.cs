@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class CharacterLevelUpMessage : NetworkMessage
+    public class CharacterLevelUpMessage : NetworkMessage
 	{
         public byte newLevel;
         public override uint Id

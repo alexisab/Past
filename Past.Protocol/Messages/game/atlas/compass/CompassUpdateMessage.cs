@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class CompassUpdateMessage : NetworkMessage
+    public class CompassUpdateMessage : NetworkMessage
 	{
         public sbyte type;
         public short worldX;

@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class AdminQuietCommandMessage : AdminCommandMessage
+    public class AdminQuietCommandMessage : AdminCommandMessage
 	{
         public override uint Id
         {

@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class CharacterNameSuggestionSuccessMessage : NetworkMessage
+    public class CharacterNameSuggestionSuccessMessage : NetworkMessage
 	{
         public string suggestion;
         public override uint Id

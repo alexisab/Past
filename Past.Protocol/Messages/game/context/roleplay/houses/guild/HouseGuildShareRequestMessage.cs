@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class HouseGuildShareRequestMessage : NetworkMessage
+    public class HouseGuildShareRequestMessage : NetworkMessage
 	{
         public bool enable;
         public override uint Id

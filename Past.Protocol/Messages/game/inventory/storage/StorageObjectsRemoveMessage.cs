@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class StorageObjectsRemoveMessage : NetworkMessage
+    public class StorageObjectsRemoveMessage : NetworkMessage
 	{
         public int[] objectUIDList;
         public override uint Id

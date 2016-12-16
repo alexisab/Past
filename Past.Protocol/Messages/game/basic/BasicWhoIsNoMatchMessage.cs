@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class BasicWhoIsNoMatchMessage : NetworkMessage
+    public class BasicWhoIsNoMatchMessage : NetworkMessage
 	{
         public string search;
         public override uint Id

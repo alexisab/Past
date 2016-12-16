@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GuildInvitationStateRecruterMessage : NetworkMessage
+    public class GuildInvitationStateRecruterMessage : NetworkMessage
 	{
         public string recrutedName;
         public sbyte invitationState;

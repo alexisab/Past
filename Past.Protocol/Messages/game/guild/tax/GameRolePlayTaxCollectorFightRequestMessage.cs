@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameRolePlayTaxCollectorFightRequestMessage : NetworkMessage
+    public class GameRolePlayTaxCollectorFightRequestMessage : NetworkMessage
 	{
         public int taxCollectorId;
         public override uint Id

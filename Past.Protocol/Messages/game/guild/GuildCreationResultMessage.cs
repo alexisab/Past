@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GuildCreationResultMessage : NetworkMessage
+    public class GuildCreationResultMessage : NetworkMessage
 	{
         public sbyte result;
         public override uint Id

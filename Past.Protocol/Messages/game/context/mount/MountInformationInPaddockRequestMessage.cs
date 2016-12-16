@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class MountInformationInPaddockRequestMessage : NetworkMessage
+    public class MountInformationInPaddockRequestMessage : NetworkMessage
 	{
         public int mapRideId;
         public override uint Id

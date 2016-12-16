@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeHandleMountStableMessage : NetworkMessage
+    public class ExchangeHandleMountStableMessage : NetworkMessage
 	{
         public sbyte actionType;
         public int rideId;

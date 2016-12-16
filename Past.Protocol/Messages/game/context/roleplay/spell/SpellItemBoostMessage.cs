@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class SpellItemBoostMessage : NetworkMessage
+    public class SpellItemBoostMessage : NetworkMessage
 	{
         public int statId;
         public short spellId;

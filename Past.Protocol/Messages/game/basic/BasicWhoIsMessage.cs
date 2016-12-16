@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class BasicWhoIsMessage : NetworkMessage
+    public class BasicWhoIsMessage : NetworkMessage
 	{
         public bool self;
         public sbyte position;

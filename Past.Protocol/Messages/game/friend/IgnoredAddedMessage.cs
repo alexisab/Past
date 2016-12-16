@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class IgnoredAddedMessage : NetworkMessage
+    public class IgnoredAddedMessage : NetworkMessage
 	{
         public IgnoredInformations ignoreAdded;
         public override uint Id

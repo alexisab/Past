@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class InteractiveUseEndedMessage : NetworkMessage
+    public class InteractiveUseEndedMessage : NetworkMessage
 	{
         public int elemId;
         public short skillId;

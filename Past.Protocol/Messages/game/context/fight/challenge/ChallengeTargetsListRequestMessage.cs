@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ChallengeTargetsListRequestMessage : NetworkMessage
+    public class ChallengeTargetsListRequestMessage : NetworkMessage
 	{
         public sbyte challengeId;
         public override uint Id

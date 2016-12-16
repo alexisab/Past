@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameRolePlayPlayerLifeStatusMessage : NetworkMessage
+    public class GameRolePlayPlayerLifeStatusMessage : NetworkMessage
 	{
         public sbyte state;
         public override uint Id

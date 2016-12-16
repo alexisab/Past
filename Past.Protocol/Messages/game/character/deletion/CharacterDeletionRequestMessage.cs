@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class CharacterDeletionRequestMessage : NetworkMessage
+    public class CharacterDeletionRequestMessage : NetworkMessage
 	{
         public int characterId;
         public string secretAnswerHash;

@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeStartOkNpcTradeMessage : NetworkMessage
+    public class ExchangeStartOkNpcTradeMessage : NetworkMessage
 	{
         public int npcId;
         public override uint Id

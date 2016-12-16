@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeStartedBidSellerMessage : NetworkMessage
+    public class ExchangeStartedBidSellerMessage : NetworkMessage
 	{
         public SellerBuyerDescriptor sellerDescriptor;
         public ObjectItemToSellInBid[] objectsInfos;

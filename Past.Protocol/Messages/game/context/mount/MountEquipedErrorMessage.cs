@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class MountEquipedErrorMessage : NetworkMessage
+    public class MountEquipedErrorMessage : NetworkMessage
 	{
         public sbyte errorType;
         public override uint Id

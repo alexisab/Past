@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class SpellMoveMessage : NetworkMessage
+    public class SpellMoveMessage : NetworkMessage
 	{
         public short spellId;
         public byte position;

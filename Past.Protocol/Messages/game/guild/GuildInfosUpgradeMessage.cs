@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GuildInfosUpgradeMessage : NetworkMessage
+    public class GuildInfosUpgradeMessage : NetworkMessage
 	{
         public sbyte maxTaxCollectorsCount;
         public sbyte taxCollectorsCount;

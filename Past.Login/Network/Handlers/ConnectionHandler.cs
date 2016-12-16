@@ -52,7 +52,7 @@ namespace Past.Login.Network.Handlers
                 }
                 if (Server.Clients.Count(x => x.Account == account) > 1)
                 {
-                    Server.Clients.FirstOrDefault(x => x.Account == account).Disconnect();
+                    Server.Clients.FirstOrDefault(x => x.Account == account)?.Disconnect();
                 }
                 client.Account = account;
                 client.Send(new IdentificationSuccessMessage(account.HasRights, false, account.Nickname, 0, account.SecretQuestion, 42195168000000));
@@ -82,7 +82,7 @@ namespace Past.Login.Network.Handlers
                 }
                 if (Server.Clients.Count(x => x.Account == account) > 1)
                 {
-                    Server.Clients.FirstOrDefault(x => x.Account == account).Disconnect();
+                    Server.Clients.FirstOrDefault(x => x.Account == account)?.Disconnect();
                 }
                 client.Account = account;
                 client.Send(new IdentificationSuccessMessage(account.HasRights, false, account.Nickname, 0, account.SecretQuestion, 42195168000000));

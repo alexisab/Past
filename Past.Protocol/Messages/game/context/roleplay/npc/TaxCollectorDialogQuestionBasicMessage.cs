@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class TaxCollectorDialogQuestionBasicMessage : NetworkMessage
+    public class TaxCollectorDialogQuestionBasicMessage : NetworkMessage
 	{
         public string guildName;
         public override uint Id

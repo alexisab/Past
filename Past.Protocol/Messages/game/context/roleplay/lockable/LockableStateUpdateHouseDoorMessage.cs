@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class LockableStateUpdateHouseDoorMessage : LockableStateUpdateAbstractMessage
+    public class LockableStateUpdateHouseDoorMessage : LockableStateUpdateAbstractMessage
 	{
         public int houseId;
         public override uint Id

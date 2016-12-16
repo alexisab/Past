@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeBidHouseInListAddedMessage : NetworkMessage
+    public class ExchangeBidHouseInListAddedMessage : NetworkMessage
 	{
         public int itemUID;
         public int objGenericId;

@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class NpcGenericActionRequestMessage : NetworkMessage
+    public class NpcGenericActionRequestMessage : NetworkMessage
 	{
         public int npcId;
         public sbyte npcActionId;

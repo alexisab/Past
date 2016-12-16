@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameRolePlayPlayerFightRequestMessage : NetworkMessage
+    public class GameRolePlayPlayerFightRequestMessage : NetworkMessage
 	{
         public int targetId;
         public bool friendly;

@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class PurchasableDialogMessage : NetworkMessage
+    public class PurchasableDialogMessage : NetworkMessage
 	{
         public bool buyOrSell;
         public int purchasableId;

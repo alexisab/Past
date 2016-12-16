@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class PaddockMoveItemRequestMessage : NetworkMessage
+    public class PaddockMoveItemRequestMessage : NetworkMessage
 	{
         public short oldCellId;
         public short newCellId;

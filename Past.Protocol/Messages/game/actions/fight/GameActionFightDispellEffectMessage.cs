@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameActionFightDispellEffectMessage : GameActionFightDispellMessage
+    public class GameActionFightDispellEffectMessage : GameActionFightDispellMessage
 	{
         public int boostUID;
         public override uint Id

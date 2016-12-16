@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ChatServerMessage : ChatAbstractServerMessage
+    public class ChatServerMessage : ChatAbstractServerMessage
 	{
         public int senderId;
         public string senderName;

@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameContextMoveElementMessage : NetworkMessage
+    public class GameContextMoveElementMessage : NetworkMessage
 	{
         public EntityMovementInformations movement;
         public override uint Id

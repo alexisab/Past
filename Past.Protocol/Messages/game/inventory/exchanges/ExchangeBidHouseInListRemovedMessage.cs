@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeBidHouseInListRemovedMessage : NetworkMessage
+    public class ExchangeBidHouseInListRemovedMessage : NetworkMessage
 	{
         public int itemUID;
         public override uint Id

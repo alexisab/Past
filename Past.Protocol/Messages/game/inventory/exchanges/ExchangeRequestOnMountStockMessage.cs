@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeRequestOnMountStockMessage : NetworkMessage
+    public class ExchangeRequestOnMountStockMessage : NetworkMessage
 	{
         public override uint Id
         {

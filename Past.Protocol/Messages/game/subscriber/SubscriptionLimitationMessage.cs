@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class SubscriptionLimitationMessage : NetworkMessage
+    public class SubscriptionLimitationMessage : NetworkMessage
 	{
         public sbyte reason;
         public override uint Id

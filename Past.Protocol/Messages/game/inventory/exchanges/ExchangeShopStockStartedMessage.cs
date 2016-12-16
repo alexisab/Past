@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeShopStockStartedMessage : NetworkMessage
+    public class ExchangeShopStockStartedMessage : NetworkMessage
 	{
         public ObjectItemToSell[] objectsInfos;
         public override uint Id

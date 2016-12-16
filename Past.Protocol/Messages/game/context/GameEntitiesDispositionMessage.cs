@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameEntitiesDispositionMessage : NetworkMessage
+    public class GameEntitiesDispositionMessage : NetworkMessage
 	{
         public IdentifiedEntityDispositionInformations[] dispositions;
         public override uint Id

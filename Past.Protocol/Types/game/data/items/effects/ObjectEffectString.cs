@@ -1,4 +1,3 @@
-using System;
 using Past.Protocol.IO;
 
 namespace Past.Protocol.Types

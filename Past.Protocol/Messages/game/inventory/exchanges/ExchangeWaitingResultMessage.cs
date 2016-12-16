@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeWaitingResultMessage : NetworkMessage
+    public class ExchangeWaitingResultMessage : NetworkMessage
 	{
         public bool bwait;
         public override uint Id

@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class CharactersListMessage : NetworkMessage
+    public class CharactersListMessage : NetworkMessage
 	{
         public bool hasStartupActions;
         public bool tutorielAvailable;

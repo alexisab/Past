@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeReplayCountModifiedMessage : NetworkMessage
+    public class ExchangeReplayCountModifiedMessage : NetworkMessage
 	{
         public int count;
         public override uint Id

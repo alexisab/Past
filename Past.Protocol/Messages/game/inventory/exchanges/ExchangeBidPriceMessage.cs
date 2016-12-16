@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeBidPriceMessage : NetworkMessage
+    public class ExchangeBidPriceMessage : NetworkMessage
 	{
         public int genericId;
         public int averagePrice;

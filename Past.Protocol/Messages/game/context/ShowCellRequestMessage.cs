@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ShowCellRequestMessage : NetworkMessage
+    public class ShowCellRequestMessage : NetworkMessage
 	{
         public short cellId;
         public override uint Id

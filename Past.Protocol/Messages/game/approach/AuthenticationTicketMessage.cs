@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class AuthenticationTicketMessage : NetworkMessage
+    public class AuthenticationTicketMessage : NetworkMessage
 	{
         public string ticket;
         public string lang;

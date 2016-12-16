@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class MountRenamedMessage : NetworkMessage
+    public class MountRenamedMessage : NetworkMessage
 	{
         public double mountId;
         public string name;

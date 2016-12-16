@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class KamasUpdateMessage : NetworkMessage
+    public class KamasUpdateMessage : NetworkMessage
 	{
         public int kamasTotal;
         public override uint Id

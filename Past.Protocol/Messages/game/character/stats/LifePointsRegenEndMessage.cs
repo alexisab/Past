@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class LifePointsRegenEndMessage : UpdateLifePointsMessage
+    public class LifePointsRegenEndMessage : UpdateLifePointsMessage
 	{
         public int lifePointsGained;
         public override uint Id

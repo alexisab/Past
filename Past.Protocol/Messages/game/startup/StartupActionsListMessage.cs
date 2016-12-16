@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class StartupActionsListMessage : NetworkMessage
+    public class StartupActionsListMessage : NetworkMessage
 	{
         public StartupActionAddObject[] actions;
         public override uint Id

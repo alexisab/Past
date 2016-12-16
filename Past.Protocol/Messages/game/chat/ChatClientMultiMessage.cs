@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ChatClientMultiMessage : ChatAbstractClientMessage
+    public class ChatClientMultiMessage : ChatAbstractClientMessage
 	{
         public sbyte channel;
         public override uint Id

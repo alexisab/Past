@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeOkMultiCraftMessage : NetworkMessage
+    public class ExchangeOkMultiCraftMessage : NetworkMessage
 	{
         public int initiatorId;
         public int otherId;

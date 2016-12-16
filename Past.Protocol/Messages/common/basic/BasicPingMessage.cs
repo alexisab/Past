@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class BasicPingMessage : NetworkMessage
+    public class BasicPingMessage : NetworkMessage
 	{
         public bool quiet;
         public override uint Id

@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class FriendsListWithSpouseMessage : FriendsListMessage
+    public class FriendsListWithSpouseMessage : FriendsListMessage
 	{
         public FriendSpouseInformations spouse;
         public override uint Id

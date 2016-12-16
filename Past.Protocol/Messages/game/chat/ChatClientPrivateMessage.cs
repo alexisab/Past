@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ChatClientPrivateMessage : ChatAbstractClientMessage
+    public class ChatClientPrivateMessage : ChatAbstractClientMessage
 	{
         public string receiver;
         public override uint Id

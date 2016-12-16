@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class AbstractGameActionMessage : NetworkMessage
+    public class AbstractGameActionMessage : NetworkMessage
 	{
         public short actionId;
         public int sourceId;

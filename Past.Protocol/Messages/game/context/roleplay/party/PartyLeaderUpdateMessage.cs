@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class PartyLeaderUpdateMessage : NetworkMessage
+    public class PartyLeaderUpdateMessage : NetworkMessage
 	{
         public int partyLeaderId;
         public override uint Id

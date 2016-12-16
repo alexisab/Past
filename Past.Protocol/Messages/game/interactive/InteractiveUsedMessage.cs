@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class InteractiveUsedMessage : NetworkMessage
+    public class InteractiveUsedMessage : NetworkMessage
 	{
         public int entityId;
         public int elemId;

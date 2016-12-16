@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameContextQuitMessage : NetworkMessage
+    public class GameContextQuitMessage : NetworkMessage
 	{
         public override uint Id
         {

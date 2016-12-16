@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeStartOkCraftWithInformationMessage : ExchangeStartOkCraftMessage
+    public class ExchangeStartOkCraftWithInformationMessage : ExchangeStartOkCraftMessage
 	{
         public sbyte nbCase;
         public int skillId;

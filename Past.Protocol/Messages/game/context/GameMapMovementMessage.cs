@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameMapMovementMessage : NetworkMessage
+    public class GameMapMovementMessage : NetworkMessage
 	{
         public int actorId;
         public short[] keyMovements;

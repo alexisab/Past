@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeBidHouseItemAddOkMessage : NetworkMessage
+    public class ExchangeBidHouseItemAddOkMessage : NetworkMessage
 	{
         public ObjectItemToSellInBid itemInfo;
         public override uint Id

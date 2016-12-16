@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ValidateSpellForgetMessage : NetworkMessage
+    public class ValidateSpellForgetMessage : NetworkMessage
 	{
         public short spellId;
         public override uint Id

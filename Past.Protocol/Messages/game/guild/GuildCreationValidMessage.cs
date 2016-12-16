@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GuildCreationValidMessage : NetworkMessage
+    public class GuildCreationValidMessage : NetworkMessage
 	{
         public string guildName;
         public GuildEmblem guildEmblem;

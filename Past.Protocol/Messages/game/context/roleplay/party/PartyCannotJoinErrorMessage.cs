@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class PartyCannotJoinErrorMessage : NetworkMessage
+    public class PartyCannotJoinErrorMessage : NetworkMessage
 	{
         public sbyte reason;
         public override uint Id

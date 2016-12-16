@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GuildInformationsGeneralMessage : NetworkMessage
+    public class GuildInformationsGeneralMessage : NetworkMessage
 	{
         public bool enabled;
         public sbyte level;

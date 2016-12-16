@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameFightTurnListMessage : NetworkMessage
+    public class GameFightTurnListMessage : NetworkMessage
 	{
         public int[] ids;
         public int[] deadsIds;

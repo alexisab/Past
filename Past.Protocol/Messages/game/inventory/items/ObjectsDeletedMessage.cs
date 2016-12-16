@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ObjectsDeletedMessage : NetworkMessage
+    public class ObjectsDeletedMessage : NetworkMessage
 	{
         public int[] objectUID;
         public override uint Id

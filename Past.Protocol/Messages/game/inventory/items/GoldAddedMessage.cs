@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GoldAddedMessage : NetworkMessage
+    public class GoldAddedMessage : NetworkMessage
 	{
         public GoldItem gold;
         public override uint Id

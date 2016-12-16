@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ServerSelectionMessage : NetworkMessage
+    public class ServerSelectionMessage : NetworkMessage
 	{
         public short serverId;
         public override uint Id

@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ObjectFoundWhileRecoltingMessage : NetworkMessage
+    public class ObjectFoundWhileRecoltingMessage : NetworkMessage
 	{
         public int genericId;
         public int quantity;

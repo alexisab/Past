@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameFightSynchronizeMessage : NetworkMessage
+    public class GameFightSynchronizeMessage : NetworkMessage
 	{
         public GameFightFighterInformations[] fighters;
         public override uint Id

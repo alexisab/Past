@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class PrismFightDefendersStateMessage : NetworkMessage
+    public class PrismFightDefendersStateMessage : NetworkMessage
 	{
         public double fightId;
         public CharacterMinimalPlusLookAndGradeInformations[] mainFighters;

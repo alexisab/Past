@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ProtocolRequired : NetworkMessage
+    public class ProtocolRequired : NetworkMessage
 	{
         public int requiredVersion;
         public int currentVersion;

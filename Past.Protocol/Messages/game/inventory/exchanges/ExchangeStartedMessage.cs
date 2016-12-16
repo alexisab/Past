@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeStartedMessage : NetworkMessage
+    public class ExchangeStartedMessage : NetworkMessage
 	{
         public sbyte exchangeType;
         public override uint Id

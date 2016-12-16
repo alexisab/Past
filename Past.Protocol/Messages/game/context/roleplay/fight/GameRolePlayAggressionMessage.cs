@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameRolePlayAggressionMessage : NetworkMessage
+    public class GameRolePlayAggressionMessage : NetworkMessage
 	{
         public int attackerId;
         public int defenderId;

@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class HouseSellRequestMessage : NetworkMessage
+    public class HouseSellRequestMessage : NetworkMessage
 	{
         public int amount;
         public override uint Id

@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class AbstractGameActionWithAckMessage : AbstractGameActionMessage
+    public class AbstractGameActionWithAckMessage : AbstractGameActionMessage
 	{
         public short waitAckId;
         public override uint Id

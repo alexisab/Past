@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class CharacterStatsListMessage : NetworkMessage
+    public class CharacterStatsListMessage : NetworkMessage
 	{
         public CharacterCharacteristicsInformations stats;
         public override uint Id

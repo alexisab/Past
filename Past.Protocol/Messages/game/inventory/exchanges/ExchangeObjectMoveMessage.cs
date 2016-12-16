@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeObjectMoveMessage : NetworkMessage
+    public class ExchangeObjectMoveMessage : NetworkMessage
 	{
         public int objectUID;
         public short quantity;

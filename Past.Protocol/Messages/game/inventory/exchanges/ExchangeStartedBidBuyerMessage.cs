@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeStartedBidBuyerMessage : NetworkMessage
+    public class ExchangeStartedBidBuyerMessage : NetworkMessage
 	{
         public SellerBuyerDescriptor buyerDescriptor;
         public override uint Id

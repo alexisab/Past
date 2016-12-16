@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameMapChangeOrientationRequestMessage : NetworkMessage
+    public class GameMapChangeOrientationRequestMessage : NetworkMessage
 	{
         public sbyte direction;
         public override uint Id

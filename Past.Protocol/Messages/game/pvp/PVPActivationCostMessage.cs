@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class PVPActivationCostMessage : NetworkMessage
+    public class PVPActivationCostMessage : NetworkMessage
 	{
         public short cost;
         public override uint Id

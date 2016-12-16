@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class EmotePlayMassiveMessage : EmotePlayAbstractMessage
+    public class EmotePlayMassiveMessage : EmotePlayAbstractMessage
 	{
         public int[] actorIds;
         public override uint Id

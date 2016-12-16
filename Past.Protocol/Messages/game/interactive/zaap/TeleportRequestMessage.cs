@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class TeleportRequestMessage : NetworkMessage
+    public class TeleportRequestMessage : NetworkMessage
 	{
         public sbyte teleporterType;
         public int mapId;

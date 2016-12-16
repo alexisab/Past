@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class MapNpcsQuestStatusUpdateMessage : NetworkMessage
+    public class MapNpcsQuestStatusUpdateMessage : NetworkMessage
 	{
         public int mapId;
         public int[] npcsIdsCanGiveQuest;

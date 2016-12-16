@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class HelloConnectMessage : NetworkMessage
+    public class HelloConnectMessage : NetworkMessage
 	{
         public string key;
         public override uint Id

@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class InteractiveElementUpdatedMessage : NetworkMessage
+    public class InteractiveElementUpdatedMessage : NetworkMessage
 	{
         public InteractiveElement interactiveElement;
         public override uint Id

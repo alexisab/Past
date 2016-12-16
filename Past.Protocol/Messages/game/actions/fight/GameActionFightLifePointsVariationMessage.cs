@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameActionFightLifePointsVariationMessage : AbstractGameActionMessage
+    public class GameActionFightLifePointsVariationMessage : AbstractGameActionMessage
 	{
         public int targetId;
         public short delta;

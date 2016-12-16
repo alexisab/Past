@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class QueueStatusMessage : NetworkMessage
+    public class QueueStatusMessage : NetworkMessage
 	{
         public ushort position;
         public ushort total;

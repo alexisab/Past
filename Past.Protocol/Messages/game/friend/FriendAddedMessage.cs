@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class FriendAddedMessage : NetworkMessage
+    public class FriendAddedMessage : NetworkMessage
 	{
         public FriendInformations friendAdded;
         public override uint Id

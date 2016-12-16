@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeStartOkJobIndexMessage : NetworkMessage
+    public class ExchangeStartOkJobIndexMessage : NetworkMessage
 	{
         public int[] jobs;
         public override uint Id

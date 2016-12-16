@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class MapRunningFightDetailsRequestMessage : NetworkMessage
+    public class MapRunningFightDetailsRequestMessage : NetworkMessage
 	{
         public int fightId;
         public override uint Id

@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class MountInformationRequestMessage : NetworkMessage
+    public class MountInformationRequestMessage : NetworkMessage
 	{
         public double id;
         public double time;

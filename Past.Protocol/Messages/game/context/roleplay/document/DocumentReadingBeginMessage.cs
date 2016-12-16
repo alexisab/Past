@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class DocumentReadingBeginMessage : NetworkMessage
+    public class DocumentReadingBeginMessage : NetworkMessage
 	{
         public short documentId;
         public override uint Id

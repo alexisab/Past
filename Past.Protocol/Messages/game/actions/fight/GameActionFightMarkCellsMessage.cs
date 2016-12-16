@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameActionFightMarkCellsMessage : AbstractGameActionMessage
+    public class GameActionFightMarkCellsMessage : AbstractGameActionMessage
 	{
         public short markId;
         public sbyte markType;

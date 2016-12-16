@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class TaxCollectorMovementAddMessage : NetworkMessage
+    public class TaxCollectorMovementAddMessage : NetworkMessage
 	{
         public TaxCollectorInformations informations;
         public override uint Id

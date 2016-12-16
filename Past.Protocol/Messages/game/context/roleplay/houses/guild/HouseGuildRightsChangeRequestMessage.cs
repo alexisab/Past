@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class HouseGuildRightsChangeRequestMessage : NetworkMessage
+    public class HouseGuildRightsChangeRequestMessage : NetworkMessage
 	{
         public uint rights;
         public override uint Id

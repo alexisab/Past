@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class NpcDialogCreationMessage : NetworkMessage
+    public class NpcDialogCreationMessage : NetworkMessage
 	{
         public int mapId;
         public int npcId;

@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
 using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameRolePlayShowChallengeMessage : NetworkMessage
+    public class GameRolePlayShowChallengeMessage : NetworkMessage
 	{
         public FightCommonInformations commonsInfos;
         public override uint Id

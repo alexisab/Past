@@ -1,7 +1,6 @@
 ﻿using Past.Protocol.IO;
 using System;
 using System.IO;
-using zlib;
 
 namespace Past.Tools.Dlm
 {

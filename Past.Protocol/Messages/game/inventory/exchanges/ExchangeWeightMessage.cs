@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class ExchangeWeightMessage : NetworkMessage
+    public class ExchangeWeightMessage : NetworkMessage
 	{
         public int currentWeight;
         public int maxWeight;

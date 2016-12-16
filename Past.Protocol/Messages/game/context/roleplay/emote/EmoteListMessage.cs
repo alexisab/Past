@@ -1,10 +1,8 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
-using System;
 
 namespace Past.Protocol.Messages
 {
-	public class EmoteListMessage : NetworkMessage
+    public class EmoteListMessage : NetworkMessage
 	{
         public sbyte[] emoteIds;
         public override uint Id

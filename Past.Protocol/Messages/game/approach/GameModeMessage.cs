@@ -1,10 +1,9 @@
 using Past.Protocol.IO;
-using Past.Protocol.Types;
 using System;
 
 namespace Past.Protocol.Messages
 {
-	public class GameModeMessage : NetworkMessage
+    public class GameModeMessage : NetworkMessage
 	{
         public sbyte mode;
         public override uint Id
