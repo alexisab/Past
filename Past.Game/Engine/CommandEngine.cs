@@ -1,8 +1,8 @@
-﻿using Past.Common.Data;
+﻿using System.Linq;
+using Past.Common.Data;
 using Past.Game.Network;
 using Past.Game.Network.Handlers.Basic;
 using Past.Protocol.Enums;
-using System.Linq;
 
 namespace Past.Game.Engine
 {
@@ -15,7 +15,7 @@ namespace Past.Game.Engine
             switch (command[0])
             {
                 case ".help":
-                    Command.Commands.Where(cmd => cmd.Value.Role <= client.Account.Role).ToList().ForEach(@cmd => BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new string[] { $"{@cmd.Value.Name}", $"{@cmd.Value.Description}" }));
+                    Command.Commands.Where(cmd => cmd.Value.Role <= client.Account.Role).ToList().ForEach(cmd => BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new[] { $"{cmd.Value.Name}", $"{cmd.Value.Description}" }));
                     break;
                 case ".save":
                     client.Character.Save();
@@ -33,7 +33,7 @@ namespace Past.Game.Engine
                         }
                         else
                         {
-                            BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new string[] { "Error", $"Can't found the character {command[1]} !" });
+                            BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new[] { "Error", $"Can't found the character {command[1]} !" });
                         }
                     }
                     break;
@@ -47,7 +47,7 @@ namespace Past.Game.Engine
                         }
                         else
                         {
-                            BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new string[] { "Error", $"Can't found the map {command[1]} !" });
+                            BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new[] { "Error", $"Can't found the map {command[1]} !" });
                         }
                     }
                     break;
@@ -58,7 +58,7 @@ namespace Past.Game.Engine
                     }
                     break;
                 default:
-                    BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new string[] { "Error", $"Command {command[0]} not found !" });
+                    BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new[] { "Error", $"Command {command[0]} not found !" });
                     break;
             }
         }

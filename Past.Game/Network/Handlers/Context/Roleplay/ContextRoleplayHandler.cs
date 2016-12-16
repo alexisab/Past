@@ -82,11 +82,11 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
         public static void HandleSpellUpgradeRequestMessage(Client client, SpellUpgradeRequestMessage message)
         {
             CharacterSpellRecord spellRecord = client.Character.Spells.FirstOrDefault(spell => spell.SpellId == message.spellId);
-            if (spellRecord != null && client.Character.SpellsPoints > 0)
+            if (client.Character.CanBoostSpell(spellRecord))
             {
-                client.Character.SpellsPoints--;
+                client.Character.SpellsPoints -= spellRecord.Level;
                 spellRecord.Level++;
-                client.Send(new SpellUpgradeSuccessMessage(spellRecord.SpellId, spellRecord.Level++));
+                client.Send(new SpellUpgradeSuccessMessage(spellRecord.SpellId, spellRecord.Level));
                 CharacterHandler.SendCharacterStatsListMessage(client);
                 InventoryHandler.SendSpellListMessage(client);
             }

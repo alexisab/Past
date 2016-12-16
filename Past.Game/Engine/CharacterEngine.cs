@@ -492,6 +492,12 @@ namespace Past.Game.Engine
             return spell;
         }
 
+        public bool CanBoostSpell(CharacterSpellRecord spell)
+        {
+            //Need to add a check if the character is fighting when fight will be done.
+            return SpellsPoints >= 0 && spell != null && spell.Level < 6 && SpellsPoints >= spell.Level && Spells.Contains(spell);
+        }
+
         public GameRolePlayCharacterInformations GetGameRolePlayCharacterInformations => new GameRolePlayCharacterInformations(Id, EntityLook, Disposition, Name, new HumanInformations(new EntityLook[0], 0, 0, new ActorRestrictionsInformations(false, false, false, false, false, false, false, false, true, false, false, false, false, true, true, true, false, false, false, false, false), 0), GetActorAlignmentInformations);
 
         public CharacterBaseInformations GetCharacterBaseInformations => new CharacterBaseInformations(Id, Name, Level, EntityLook, (sbyte)Breed, Sex);
