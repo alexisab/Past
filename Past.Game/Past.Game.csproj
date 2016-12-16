@@ -56,6 +56,7 @@
     <Compile Include="Engine\StatEngine.cs" />
     <Compile Include="Network\Client.cs" />
     <Compile Include="Network\Handlers\Approach\ApproachHandler.cs" />
+    <Compile Include="Network\Handlers\Authorized\AuthorizedHandler.cs" />
     <Compile Include="Network\Handlers\Basic\BasicHandler.cs" />
     <Compile Include="Network\Handlers\Character\CharacterHandler.cs" />
     <Compile Include="Network\Handlers\Chat\ChatHandler.cs" />

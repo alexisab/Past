@@ -85,6 +85,7 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
             if (spellRecord != null && client.Character.SpellsPoints > 0)
             {
                 client.Character.SpellsPoints--;
+                spellRecord.Level++;
                 client.Send(new SpellUpgradeSuccessMessage(spellRecord.SpellId, spellRecord.Level++));
                 CharacterHandler.SendCharacterStatsListMessage(client);
                 InventoryHandler.SendSpellListMessage(client);

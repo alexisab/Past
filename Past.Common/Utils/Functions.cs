@@ -71,6 +71,32 @@ namespace Past.Common.Utils
             return (int) (date.Subtract(new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime()).TotalSeconds);
         }
 
+        /// 0 = Continent Amaknien
+        /// 1 = Debug
+        /// 2 = Test
+        /// 3 = Zone de départ
+        public static int GetMapIdFromCoord(int worldId, int x, int y)
+        {
+            const int worldIdMax = 2 << 12;
+            const int mapCoordMax = 2 << 8;
+            if (x > mapCoordMax || y > mapCoordMax || worldId > worldIdMax)
+            {
+                return -1;
+            }
+            int newWorldId = worldId & 4095;
+            int newX = Math.Abs(x) & 255;
+            if (x < 0)
+            {
+                newX = newX | 256;
+            }
+            int newY = Math.Abs(y) & 255;
+            if (y < 0)
+            {
+                newY = newY | 256;
+            }
+            return newWorldId << 18 | (newX << 9 | newY);
+        }
+
         public static EntityLook BuildEntityLook(string entityLook)
         {
             string[] lookStringSplit = entityLook.Replace("{", "").Replace("}", "").Split('|');
