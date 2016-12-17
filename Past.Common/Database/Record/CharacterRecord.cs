@@ -2,6 +2,7 @@
 using Past.Protocol.Enums;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace Past.Common.Database.Record
@@ -40,7 +41,7 @@ namespace Past.Common.Database.Record
         public short SpellsPoints { get; set; }
         public DateTime? LastUsage { get; set; }
 
-        public CharacterRecord(MySqlDataReader reader)
+        public CharacterRecord(IDataRecord reader)
         {
             Id = (int)reader["Id"];
             OwnerId = (int)reader["OwnerId"];

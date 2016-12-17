@@ -34,7 +34,7 @@ namespace Past.Common.Network
                     IsRunning = true;
                     Socket.Bind(new IPEndPoint(IPAddress.Parse(Address), Port));
                     Socket.Listen(100);
-                    new Thread(new ThreadStart(this.AcceptThread)).Start();
+                    new Thread(AcceptThread).Start();
                     ServerStart();
                 }
                 catch (Exception ex)
@@ -68,7 +68,7 @@ namespace Past.Common.Network
             {
                 try
                 {
-                    Socket.BeginAccept(new AsyncCallback(this.AcceptCallBack), Socket);
+                    Socket.BeginAccept(AcceptCallBack, Socket);
                 }
                 catch (Exception)
                 {

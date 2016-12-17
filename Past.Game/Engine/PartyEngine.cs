@@ -1,8 +1,10 @@
-﻿using Past.Game.Network;
+﻿using System;
+using Past.Game.Network;
 using Past.Protocol;
 using Past.Protocol.Messages;
 using Past.Protocol.Types;
 using System.Collections.Generic;
+using Past.Common.Utils;
 
 namespace Past.Game.Engine
 {
@@ -33,6 +35,11 @@ namespace Past.Game.Engine
         {
             Members.Add(client);
             client.Send(new PartyJoinMessage(Leader.Character.Id, Members.ConvertAll<PartyMemberInformations>(member => member.Character.GetPartyMemberInformations).ToArray()));
+        }
+
+        public void SendPartyChatServerMessage(string content, int senderId, string senderName)
+        {
+            Send(new ChatServerMessage(4, content, Functions.ReturnUnixTimeStamp(DateTime.Now), "", senderId, senderName));
         }
 
         public void InviteClient(Client client, Client target)

@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Collections.Generic;
+using System.Data;
 
 namespace Past.Common.Database.Record
 {
@@ -11,7 +12,7 @@ namespace Past.Common.Database.Record
         public int SpellId { get; set; }
         public sbyte Level { get; set; }
 
-        public CharacterSpellRecord(MySqlDataReader reader)
+        public CharacterSpellRecord(IDataRecord reader)
         {
             Id = (int)reader["Id"];
             OwnerId = (int)reader["OwnerId"];

@@ -31,9 +31,7 @@ namespace Past.Game.Network.Handlers.Chat
                         }
                         break;
                     case (sbyte)ChatChannelsMultiEnum.CHANNEL_PARTY:
-                        if (client.Character.Party != null)
-                        {
-                        }
+                        client.Character.Party?.SendPartyChatServerMessage(message.content, client.Character.Id, client.Character.Name);
                         break;
                     case (sbyte)ChatChannelsMultiEnum.CHANNEL_SALES:
                         break;
@@ -44,6 +42,7 @@ namespace Past.Game.Network.Handlers.Chat
                     case (sbyte)ChatChannelsMultiEnum.CHANNEL_ADMIN:
                         if (client.Account.Role == GameHierarchyEnum.ADMIN)
                         {
+                            SendAdminChatServerMessage(message.content, client.Character.Id, client.Character.Name);
                         }
                         break;
                     default:
@@ -76,6 +75,17 @@ namespace Past.Game.Network.Handlers.Chat
             if (!string.IsNullOrEmpty(content) && Enum.IsDefined(typeof(ChatChannelsMultiEnum), channel))
             {
                 client.Character.CurrentMap.Send(new ChatServerMessage(channel, content, Functions.ReturnUnixTimeStamp(DateTime.Now), "", senderId, senderName));
+            }
+        }
+
+        public static void SendAdminChatServerMessage(string content, int senderId, string senderName)
+        {
+            if (!string.IsNullOrEmpty(content))
+            {
+                foreach (Client client in Server.Clients.Where(client => client.Character != null))
+                {
+                    client.Send(new ChatServerMessage(8, content, Functions.ReturnUnixTimeStamp(DateTime.Now), "", senderId, senderName));
+                }
             }
         }
 

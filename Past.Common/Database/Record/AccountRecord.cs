@@ -2,6 +2,7 @@
 using Past.Protocol.Enums;
 using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace Past.Common.Database.Record
 {
@@ -21,7 +22,7 @@ namespace Past.Common.Database.Record
         public DateTime? LastConnection { get; set; }
         public string LastIp { get; set; }
 
-        public AccountRecord(MySqlDataReader reader)
+        public AccountRecord(IDataRecord reader)
         {
             Id = (int)reader["Id"];
             Login = (string)reader["Login"];

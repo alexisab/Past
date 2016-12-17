@@ -15,8 +15,7 @@ namespace Past.Common.Database
                 try
                 {
                     string connectionString = $"server={host};uid={username};pwd={password};database={databaseName}";
-                    Connection = new MySqlConnection();
-                    Connection.ConnectionString = connectionString;
+                    Connection = new MySqlConnection {ConnectionString = connectionString};
                     Connection.Open();
                     ConsoleUtils.Write(ConsoleUtils.Type.INFO, $"Successfully connected to database {databaseName} ...");
                 }
@@ -33,8 +32,8 @@ namespace Past.Common.Database
             {
                 try
                 {
-                    Connection = null;
                     Connection.Close();
+                    Connection = null;
                 }
                 catch (MySqlException ex)
                 {
