@@ -8,7 +8,7 @@ namespace Past.Tools
     {
         private static void Main(string[] args)
         {
-            using (StreamWriter writer = new StreamWriter("mapsDatas"))
+            /*using (StreamWriter writer = new StreamWriter("mapsDatas"))
             {
                 foreach (string file in Directory.GetFiles(@"C:\Users\skeee\Desktop\Dofus 2 Online\content\maps", "*", SearchOption.AllDirectories).Where(x => x.Contains("dlm")))
                 {
@@ -22,7 +22,7 @@ namespace Past.Tools
             while (true)
             {
                 Console.Read();
-            }
+            }*/
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Past.Protocol.IO;
+﻿/*using Past.Protocol.IO;
 using System;
 using System.IO;
 using ZLibNet;
@@ -60,4 +60,4 @@ namespace Past.Tools.Ele
             }
         }
     }
-}
+}*/

@@ -1,6 +1,7 @@
-﻿using Past.Protocol.IO;
+﻿/*using Past.Protocol.IO;
 using System;
 using System.IO;
+using System.IO.Compression;
 using ZLibNet;
 
 namespace Past.Tools.Dlm
@@ -58,6 +59,6 @@ namespace Past.Tools.Dlm
             }
         }
     }
-}
+}*/
 
 
