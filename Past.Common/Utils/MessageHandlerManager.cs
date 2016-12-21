@@ -10,11 +10,11 @@ namespace Past.Common.Utils
     {
         public static void InitializeHandlers()
         {
-            IEnumerable<MethodInfo> methods = Assembly.GetEntryAssembly().GetTypes().SelectMany(t => t.GetMethods()).Where(m => m.Name.StartsWith("Handle") && m.GetParameters().Length == 2 && (typeof(NetworkMessage).IsAssignableFrom(m.GetParameters().ElementAt(1).ParameterType) && m.GetParameters().ElementAt(0).ParameterType == typeof(C)));
+            var methods = Assembly.GetEntryAssembly().GetTypes().SelectMany(t => t.GetMethods()).Where(m => m.Name.StartsWith("Handle") && m.GetParameters().Length == 2 && (typeof(NetworkMessage).IsAssignableFrom(m.GetParameters().ElementAt(1).ParameterType) && m.GetParameters().ElementAt(0).ParameterType == typeof(C)));
             foreach (var method in methods)
             {
-                Type packetType = method.GetParameters()[1].ParameterType;
-                Type t = typeof(Messages<>).MakeGenericType(typeof(C), packetType);
+                var packetType = method.GetParameters()[1].ParameterType;
+                var t = typeof(Messages<>).MakeGenericType(typeof(C), packetType);
                 t.GetMethod("Register").Invoke(null, new object[] { method });
             }
         }

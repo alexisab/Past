@@ -10,22 +10,22 @@ namespace Past.Login.Network.Handlers
 {
     public class ConnectionHandler
     {
-        public static void HandleIdentificationMessage(Client client, IdentificationMessage message)
+        public static void HandleIdentificationMessage(LoginClient client, IdentificationMessage message)
         {
             Login(client, message);
         }
 
-        public static void HandleIdentificationMessageWithServerIdMessage(Client client, IdentificationMessageWithServerIdMessage message)
+        public static void HandleIdentificationMessageWithServerIdMessage(LoginClient client, IdentificationMessageWithServerIdMessage message)
         {
             LoginWithServerId(client, message);
         }
 
-        public static void HandleServerSelectionMessage(Client client, ServerSelectionMessage message)
+        public static void HandleServerSelectionMessage(LoginClient client, ServerSelectionMessage message)
         {
             SendSelectedServerDataMessage(client, message.serverId);
         }
 
-        public static void SendSelectedServerDataMessage(Client client, short serverId)
+        public static void SendSelectedServerDataMessage(LoginClient client, short serverId)
         {
             client.Account.Ticket = client.Ticket;
             client.Account.Update();
@@ -33,7 +33,7 @@ namespace Past.Login.Network.Handlers
             client.Disconnect();
         }
 
-        public static void Login(Client client, IdentificationMessage message)
+        public static void Login(LoginClient client, IdentificationMessage message)
         {
             if (message.version.ToString() != "2.0.0.0")
             {
@@ -50,9 +50,9 @@ namespace Past.Login.Network.Handlers
                 {
                     client.Send(new IdentificationFailedMessage((sbyte)IdentificationFailureReasonEnum.BANNED));
                 }
-                if (Server.Clients.Count(x => x.Account == account) > 1)
+                if (client.Server.Clients.Count(x => x.Account == account) > 1)
                 {
-                    Server.Clients.FirstOrDefault(x => x.Account == account)?.Disconnect();
+                    client.Server.Clients.FirstOrDefault(x => x.Account == account)?.Disconnect();
                 }
                 client.Account = account;
                 client.Send(new IdentificationSuccessMessage(account.HasRights, false, account.Nickname, 0, account.SecretQuestion, 42195168000000));
@@ -63,7 +63,7 @@ namespace Past.Login.Network.Handlers
             }
         }
 
-        public static void LoginWithServerId(Client client, IdentificationMessageWithServerIdMessage message)
+        public static void LoginWithServerId(LoginClient client, IdentificationMessageWithServerIdMessage message)
         {
             if (message.version.ToString() != "2.0.0.0")
             {
@@ -80,9 +80,9 @@ namespace Past.Login.Network.Handlers
                 {
                     client.Send(new IdentificationFailedMessage((sbyte)IdentificationFailureReasonEnum.BANNED));
                 }
-                if (Server.Clients.Count(x => x.Account == account) > 1)
+                if (client.Server.Clients.Count(x => x.Account == account) > 1)
                 {
-                    Server.Clients.FirstOrDefault(x => x.Account == account)?.Disconnect();
+                    client.Server.Clients.FirstOrDefault(x => x.Account == account)?.Disconnect();
                 }
                 client.Account = account;
                 client.Send(new IdentificationSuccessMessage(account.HasRights, false, account.Nickname, 0, account.SecretQuestion, 42195168000000));

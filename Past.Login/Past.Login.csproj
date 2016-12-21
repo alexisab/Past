@@ -47,9 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Network\Client.cs" />
+    <Compile Include="Network\LoginClient.cs" />
+    <Compile Include="Network\LoginServer.cs" />
     <Compile Include="Network\Handlers\ConnectionHandler.cs" />
-    <Compile Include="Network\Server.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

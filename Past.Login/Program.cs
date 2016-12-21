@@ -2,6 +2,7 @@
 using Past.Common.Utils;
 using Past.Protocol;
 using System;
+using Past.Login.Network;
 
 namespace Past.Login
 {
@@ -13,11 +14,11 @@ namespace Past.Login
             Config.ReadConfig();
             
             MessageReceiver.InitializeMessages();
-            MessageHandlerManager<Network.Client>.InitializeHandlers();
+            MessageHandlerManager<LoginClient>.InitializeHandlers();
 
             DatabaseManager.Connect(Config.DatabaseHost, Config.DatabaseUsername, Config.DatabasePassword, Config.DatabaseName);
 
-            Network.Server.Start();
+            var s = new LoginServer();
 
             while (true)
             {
