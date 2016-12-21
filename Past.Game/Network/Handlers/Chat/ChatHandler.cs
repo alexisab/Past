@@ -9,7 +9,7 @@ namespace Past.Game.Network.Handlers.Chat
 {
     public class ChatHandler
     {
-        public static void HandleChatClientMultiMessage(Client client, ChatClientMultiMessage message) //TODO
+        public static void HandleChatClientMultiMessage(GameClient client, ChatClientMultiMessage message) //TODO
         {
             if (!message.content.StartsWith("."))
             {
@@ -42,7 +42,7 @@ namespace Past.Game.Network.Handlers.Chat
                     case (sbyte)ChatChannelsMultiEnum.CHANNEL_ADMIN:
                         if (client.Account.Role == GameHierarchyEnum.ADMIN)
                         {
-                            SendAdminChatServerMessage(message.content, client.Character.Id, client.Character.Name);
+                            SendAdminChatServerMessage(client, message.content, client.Character.Id, client.Character.Name);
                         }
                         break;
                     default:
@@ -56,21 +56,21 @@ namespace Past.Game.Network.Handlers.Chat
             }
         }
 
-        public static void HandleChatClientPrivateMessage(Client client, ChatClientPrivateMessage message)
+        public static void HandleChatClientPrivateMessage(GameClient client, ChatClientPrivateMessage message)
         {
-            Client targetClient = Server.Clients.FirstOrDefault(target => target.Character.Name == message.receiver);
+            var targetClient = client.Server.Clients.FirstOrDefault(target => target.Character.Name == message.receiver);
             if (targetClient != null && targetClient != client)
             {
                 targetClient.Send(new ChatServerMessage(9, message.content, Functions.ReturnUnixTimeStamp(DateTime.Now), "", client.Character.Id, client.Character.Name));
             }
         }
 
-        public static void HandleChatSmileyRequestMessage(Client client, ChatSmileyRequestMessage message)
+        public static void HandleChatSmileyRequestMessage(GameClient client, ChatSmileyRequestMessage message)
         {
             client.Character.CurrentMap.Send(new ChatSmileyMessage(client.Character.Id, message.smileyId));
         }
 
-        public static void SendChatServerMessage(Client client, sbyte channel, string content, int senderId, string senderName)
+        public static void SendChatServerMessage(GameClient client, sbyte channel, string content, int senderId, string senderName)
         {
             if (!string.IsNullOrEmpty(content) && Enum.IsDefined(typeof(ChatChannelsMultiEnum), channel))
             {
@@ -78,18 +78,18 @@ namespace Past.Game.Network.Handlers.Chat
             }
         }
 
-        public static void SendAdminChatServerMessage(string content, int senderId, string senderName)
+        public static void SendAdminChatServerMessage(GameClient client, string content, int senderId, string senderName)
         {
             if (!string.IsNullOrEmpty(content))
             {
-                foreach (Client client in Server.Clients.Where(client => client.Character != null))
+                foreach (var c in client.Server.Clients.Where(c => c.Character != null))
                 {
-                    client.Send(new ChatServerMessage(8, content, Functions.ReturnUnixTimeStamp(DateTime.Now), "", senderId, senderName));
+                    c.Send(new ChatServerMessage(8, content, Functions.ReturnUnixTimeStamp(DateTime.Now), "", senderId, senderName));
                 }
             }
         }
 
-        public static void SendEnabledChannelsMessage(Client client, sbyte[] channels)
+        public static void SendEnabledChannelsMessage(GameClient client, sbyte[] channels)
         {
             client.Send(new EnabledChannelsMessage(channels, new sbyte[0]));
         }

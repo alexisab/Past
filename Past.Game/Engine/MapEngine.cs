@@ -8,11 +8,11 @@ namespace Past.Game.Engine
 {
     public class MapEngine
     {
-        private readonly List<Client> Clients;
+        private readonly List<GameClient> Clients;
 
         public MapEngine()
         {
-            Clients = new List<Client>();
+            Clients = new List<GameClient>();
         }
 
         public void Send(NetworkMessage message)
@@ -20,17 +20,17 @@ namespace Past.Game.Engine
             Clients.ForEach(client => client.Send(message));
         }
 
-        public void SendGameRolePlayShowActorMessage(Client client)
+        public void SendGameRolePlayShowActorMessage(GameClient client)
         {
-            foreach (Client _client in Clients)
+            foreach (var _client in Clients)
             {
                 client.Send(new GameRolePlayShowActorMessage(_client.Character.GetGameRolePlayCharacterInformations));
             }
         }
 
-        public void SendCharacterLevelUpInformation(Client client)
+        public void SendCharacterLevelUpInformation(GameClient client)
         {
-            foreach (Client _client in Clients)
+            foreach (var _client in Clients)
             {
                 if (_client != client)
                 {
@@ -39,7 +39,7 @@ namespace Past.Game.Engine
             }
         }
 
-        public void AddClient(Client client)
+        public void AddClient(GameClient client)
         {
             lock (Clients)
             {
@@ -52,7 +52,7 @@ namespace Past.Game.Engine
             }
         }
 
-        public void RemoveClient(Client client)
+        public void RemoveClient(GameClient client)
         {
             lock (Clients)
             {
@@ -66,7 +66,7 @@ namespace Past.Game.Engine
 
         public static void Initialize()
         {
-            foreach (Map map in Map.Maps.Values)
+            foreach (var map in Map.Maps.Values)
             {
                 map.Instance = new MapEngine();
             }

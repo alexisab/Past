@@ -1,20 +1,21 @@
 ﻿using Past.Common.Network;
 using Past.Common.Utils;
+using Past.Game.Engine;
 using Past.Protocol;
 using Past.Protocol.IO;
 using Past.Protocol.Messages;
 
-namespace Past.Login.Network
+namespace Past.Game.Network
 {
-    public class LoginClient : AbstractClient<LoginClient, LoginServer>
+    public class GameClient : AbstractClient<GameClient, GameServer>
     {
+        public CharacterEngine Character { get; set; }
+
         public override void OnCreate()
         {
             base.OnCreate();
 
-            Ticket = Functions.RandomString(32, true);
-            Send(new ProtocolRequired(1165, 1165));
-            Send(new HelloConnectMessage(Ticket));
+            Send(new HelloGameMessage());
         }
 
         public override void OnReceive(byte[] data)
@@ -31,7 +32,7 @@ namespace Past.Login.Network
                     {
                         ConsoleUtils.Write(ConsoleUtils.Type.RECEIV, $"{message} Id {messagePart.Id} Length {messagePart.Length} ...");
                     }
-                    MessageHandlerManager<LoginClient>.InvokeHandler(this, message);
+                    MessageHandlerManager<GameClient>.InvokeHandler(this, message);
                 }
             }
         }

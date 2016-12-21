@@ -10,6 +10,7 @@ using Past.Protocol.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Past.Game.Network;
 
 namespace Past.Game.Engine
 {
@@ -21,7 +22,7 @@ namespace Past.Game.Engine
             set;
         }
 
-        private Network.Client Client
+        private GameClient Client
         {
             get;
             set;
@@ -395,7 +396,7 @@ namespace Past.Game.Engine
             set;
         }
 
-        public CharacterEngine(CharacterRecord record, Network.Client client)
+        public CharacterEngine(CharacterRecord record, GameClient client)
         {
             Record = record;
             Client = client;

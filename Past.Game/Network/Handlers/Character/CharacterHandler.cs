@@ -17,7 +17,7 @@ namespace Past.Game.Network.Handlers.Character
 {
     public class CharacterHandler
     {
-        public static void HandleCharactersListRequestMessage(Client client, CharactersListRequestMessage message)
+        public static void HandleCharactersListRequestMessage(GameClient client, CharactersListRequestMessage message)
         {
             if (client.Account.Characters.Count < 0)
             {
@@ -29,7 +29,7 @@ namespace Past.Game.Network.Handlers.Character
             }
         }
 
-        public static void HandleCharacterCreationRequestMessage(Client client, CharacterCreationRequestMessage message)
+        public static void HandleCharacterCreationRequestMessage(GameClient client, CharacterCreationRequestMessage message)
         {
             if (client.Account.Characters.Count >= 5)
             {
@@ -57,12 +57,12 @@ namespace Past.Game.Network.Handlers.Character
             }
         }
 
-        public static void HandleCharacterNameSuggestionRequestMessage(Client client, CharacterNameSuggestionRequestMessage message)
+        public static void HandleCharacterNameSuggestionRequestMessage(GameClient client, CharacterNameSuggestionRequestMessage message)
         {
             client.Send(new CharacterNameSuggestionSuccessMessage(Functions.RandomName()));
         }
 
-        public static void HandleCharacterDeletionRequestMessage(Client client, CharacterDeletionRequestMessage message)
+        public static void HandleCharacterDeletionRequestMessage(GameClient client, CharacterDeletionRequestMessage message)
         {
             CharacterRecord characterRecord = client.Account.Characters.FirstOrDefault(character => character.Id == message.characterId);
             if (characterRecord != null)
@@ -84,17 +84,17 @@ namespace Past.Game.Network.Handlers.Character
             }
         }
 
-        public static void HandleCharacterSelectionMessage(Client client, CharacterSelectionMessage message)
+        public static void HandleCharacterSelectionMessage(GameClient client, CharacterSelectionMessage message)
         {
             SelectCharacter(client, message.id);
         }
 
-        public static void HandleCharacterFirstSelectionMessage(Client client, CharacterFirstSelectionMessage message) //TODO Tutorial
+        public static void HandleCharacterFirstSelectionMessage(GameClient client, CharacterFirstSelectionMessage message) //TODO Tutorial
         {
             SelectCharacter(client, message.id);
         }
 
-        public static void SendCharactersListMessage(Client client, bool tutorial)
+        public static void SendCharactersListMessage(GameClient client, bool tutorial)
         {
             CharacterBaseInformations[] characterBaseInformations = new CharacterBaseInformations[client.Account.Characters.Count];
             for (int i = 0; i < client.Account.Characters.Count; i++)
@@ -104,27 +104,27 @@ namespace Past.Game.Network.Handlers.Character
             client.Send(new CharactersListMessage(false, tutorial, characterBaseInformations));
         }
 
-        public static void SendCharacterStatsListMessage(Client client)
+        public static void SendCharacterStatsListMessage(GameClient client)
         {
             client.Send(new CharacterStatsListMessage(client.Character.GetCharacterCharacteristicsInformations));
         }
 
-        public static void SendSetCharacterRestrictionsMessage(Client client)
+        public static void SendSetCharacterRestrictionsMessage(GameClient client)
         {
             client.Send(new SetCharacterRestrictionsMessage(new ActorRestrictionsInformations(false, false, false, false, false, false, false, false, true, false, false, false, false, true, true, true, false, false, false, false, false)));
         }
 
-        public static void SendLifePointsRegenBeginMessage(Client client, byte regenRate)
+        public static void SendLifePointsRegenBeginMessage(GameClient client, byte regenRate)
         {
             client.Send(new LifePointsRegenBeginMessage(regenRate));
         }
 
-        public static void SendCharacterLevelUpMessage(Client client, byte level)
+        public static void SendCharacterLevelUpMessage(GameClient client, byte level)
         {
             client.Send(new CharacterLevelUpMessage(level));
         }
 
-        public static void SelectCharacter(Client client, int id)
+        public static void SelectCharacter(GameClient client, int id)
         {
             CharacterRecord characterRecord = client.Account.Characters.FirstOrDefault(character => character.Id == id);
             if (characterRecord != null)

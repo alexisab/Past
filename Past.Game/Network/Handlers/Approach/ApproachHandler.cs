@@ -7,7 +7,7 @@ namespace Past.Game.Network.Handlers.Approach
 {
     public class ApproachHandler
     {
-        public static void HandleAuthenticationTicketMessage(Client client, AuthenticationTicketMessage message)
+        public static void HandleAuthenticationTicketMessage(GameClient client, AuthenticationTicketMessage message)
         {
             if (message.ticket != string.Empty)
             {

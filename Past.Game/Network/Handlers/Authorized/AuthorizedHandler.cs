@@ -5,7 +5,7 @@ namespace Past.Game.Network.Handlers.Authorized
 {
     public class AuthorizedHandler
     {
-        public static void HandleAdminQuietCommandMessage(Client client, AdminQuietCommandMessage message)
+        public static void HandleAdminQuietCommandMessage(GameClient client, AdminQuietCommandMessage message)
         {
             if(message.content.Contains("move"))
             {

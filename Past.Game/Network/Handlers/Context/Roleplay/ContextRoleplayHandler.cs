@@ -12,13 +12,13 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
 {
     public class ContextRoleplayHandler
     {
-        public static void HandleMapInformationsRequestMessage(Client client, MapInformationsRequestMessage message)
+        public static void HandleMapInformationsRequestMessage(GameClient client, MapInformationsRequestMessage message)
         {
             client.Send(new MapComplementaryInformationsDataMessage(client.Character.Map.Id, (short)client.Character.Map.SubAreaId, new HouseInformations[0], new GameRolePlayActorInformations[0], new InteractiveElement[0], new StatedElement[0], new MapObstacle[0], new FightCommonInformations[0]));
             client.Character.CurrentMap.AddClient(client);
         }
 
-        public static void HandleChangeMapMessage(Client client, ChangeMapMessage message)
+        public static void HandleChangeMapMessage(GameClient client, ChangeMapMessage message)
         {
             short cell = client.Character.CellId;
             if (client.Character.Map.TopNeighbourId == message.mapId)
@@ -32,7 +32,7 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
             client.Character.Teleport(message.mapId, cell);
         }
 
-        public static void HandleEmotePlayRequestMessage(Client client, EmotePlayRequestMessage message)
+        public static void HandleEmotePlayRequestMessage(GameClient client, EmotePlayRequestMessage message)
         {
             if (Enum.IsDefined(typeof(EmoteEnum), message.emoteId))
             {
@@ -40,7 +40,7 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
             }
         }
 
-        public static void HandleStatsUpgradeRequestMessage(Client client, StatsUpgradeRequestMessage message)
+        public static void HandleStatsUpgradeRequestMessage(GameClient client, StatsUpgradeRequestMessage message)
         {
             if (Enum.IsDefined(typeof(StatBoost), message.statId) &&
                 (message.boostPoint >= 1 && client.Character.StatsPoints >= message.boostPoint))
@@ -79,7 +79,7 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
             }
         }
 
-        public static void HandleSpellUpgradeRequestMessage(Client client, SpellUpgradeRequestMessage message)
+        public static void HandleSpellUpgradeRequestMessage(GameClient client, SpellUpgradeRequestMessage message)
         {
             CharacterSpellRecord spellRecord = client.Character.Spells.FirstOrDefault(spell => spell.SpellId == message.spellId);
             if (client.Character.CanBoostSpell(spellRecord))
@@ -96,7 +96,7 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
             }
         }
 
-        public static void HandleSpellMoveMessage(Client client, SpellMoveMessage message)
+        public static void HandleSpellMoveMessage(GameClient client, SpellMoveMessage message)
         {
             CharacterSpellRecord spellRecord = client.Character.Spells.FirstOrDefault(spell => spell.SpellId == message.spellId);
             if (spellRecord != null)
@@ -119,9 +119,9 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
             }
         }
 
-        public static void HandlePartyInvitationRequestMessage(Client client, PartyInvitationRequestMessage message)
+        public static void HandlePartyInvitationRequestMessage(GameClient client, PartyInvitationRequestMessage message)
         {
-            Client targetClient = Server.Clients.FirstOrDefault(target => target.Character.Name == message.name);
+            GameClient targetClient = client.Server.Clients.FirstOrDefault(target => target.Character.Name == message.name);
             if (targetClient != null && targetClient != client)
             {
                 if (client.Character.Party != null)
@@ -139,12 +139,12 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
             }
         }
 
-        public static void HandlePartyAcceptInvitationMessage(Client client, PartyAcceptInvitationMessage message)
+        public static void HandlePartyAcceptInvitationMessage(GameClient client, PartyAcceptInvitationMessage message)
         {
             client.Character.Party.AcceptInvitation(client);
         }
 
-        public static void HandlePartyRefuseInvitationMessage(Client client, PartyRefuseInvitationMessage message)
+        public static void HandlePartyRefuseInvitationMessage(GameClient client, PartyRefuseInvitationMessage message)
         {
             if (client.Character.Party != null)
             {
@@ -153,17 +153,17 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
             }
         }
 
-        public static void HandleGuidedModeQuitRequestMessage(Client client, GuidedModeQuitRequestMessage message)
+        public static void HandleGuidedModeQuitRequestMessage(GameClient client, GuidedModeQuitRequestMessage message)
         {
 
         }
 
-        public static void HandleGuidedModeReturnRequestMessage(Client client, GuidedModeReturnRequestMessage message)
+        public static void HandleGuidedModeReturnRequestMessage(GameClient client, GuidedModeReturnRequestMessage message)
         {
 
         }
 
-        public static void SendEmoteListMessage(Client client, sbyte[] emoteIds)
+        public static void SendEmoteListMessage(GameClient client, sbyte[] emoteIds)
         {
             client.Send(new EmoteListMessage(emoteIds));
         }

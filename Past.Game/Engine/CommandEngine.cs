@@ -9,7 +9,7 @@ namespace Past.Game.Engine
     public class CommandEngine
     {
         
-        public static void Handle(Client client, string content)
+        public static void Handle(GameClient client, string content)
         {
             string[] command = content.Split(' ');
             switch (command[0])
@@ -26,7 +26,7 @@ namespace Past.Game.Engine
                 case ".goname":
                     if (client.Account.Role >= GameHierarchyEnum.MODERATOR)
                     {
-                        Client targetClient = Server.Clients.FirstOrDefault(target => target.Character.Name == command[1]);
+                        GameClient targetClient = client.Server.Clients.FirstOrDefault(target => target.Character.Name == command[1]);
                         if (targetClient != null && targetClient != client)
                         {
                             client.Character.Teleport(targetClient.Character.CurrentMapId, targetClient.Character.CellId);

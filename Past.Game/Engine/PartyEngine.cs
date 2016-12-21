@@ -12,16 +12,16 @@ namespace Past.Game.Engine
     {
         private int id = 0;
         public int Id { get; set; }
-        public Client Leader { get; set; }
-        private List<Client> TemporaryClients;
-        private List<Client> Members;
+        public GameClient Leader { get; set; }
+        private List<GameClient> TemporaryClients;
+        private List<GameClient> Members;
 
-        public PartyEngine(Client client, Client target)
+        public PartyEngine(GameClient client, GameClient target)
         {
             Id = id++;
             Leader = client;
-            Members = new List<Client>();
-            TemporaryClients = new List<Client>();
+            Members = new List<GameClient>();
+            TemporaryClients = new List<GameClient>();
             InviteClient(client, target);
             SendPartyJoinMessage(client);
         }
@@ -31,7 +31,7 @@ namespace Past.Game.Engine
             Members.ForEach(client => client.Send(message));
         }
         
-        public void SendPartyJoinMessage(Client client)
+        public void SendPartyJoinMessage(GameClient client)
         {
             Members.Add(client);
             client.Send(new PartyJoinMessage(Leader.Character.Id, Members.ConvertAll<PartyMemberInformations>(member => member.Character.GetPartyMemberInformations).ToArray()));
@@ -42,7 +42,7 @@ namespace Past.Game.Engine
             Send(new ChatServerMessage(4, content, Functions.ReturnUnixTimeStamp(DateTime.Now), "", senderId, senderName));
         }
 
-        public void InviteClient(Client client, Client target)
+        public void InviteClient(GameClient client, GameClient target)
         {
             lock (TemporaryClients)
             {
@@ -55,7 +55,7 @@ namespace Past.Game.Engine
             }
         }
 
-        public void AcceptInvitation(Client client)
+        public void AcceptInvitation(GameClient client)
         {
             if (client.Character.Party != null)
             {
@@ -69,7 +69,7 @@ namespace Past.Game.Engine
             }
         }
 
-        public void RefuseInvitation(Client client)
+        public void RefuseInvitation(GameClient client)
         {
             RemoveTemporaryClient(client);
             if (Members.Count <= 1)
@@ -78,7 +78,7 @@ namespace Past.Game.Engine
             }
         }
 
-        public void RemoveMember(Client client)
+        public void RemoveMember(GameClient client)
         {
             lock (Members)
             {
@@ -96,7 +96,7 @@ namespace Past.Game.Engine
             }
         }
 
-        public void RemoveTemporaryClient(Client client)
+        public void RemoveTemporaryClient(GameClient client)
         {
             lock (TemporaryClients)
             {

@@ -1,6 +1,7 @@
 ﻿using Past.Common.Extensions;
 using Past.Common.Utils;
 using System;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,15 +17,19 @@ namespace Past.Common.Network
     {
         public TS Server { get; set; }
         public Socket Socket { get; internal set; }
-        public AccountRecord Account { get; set; }
 
-        public readonly string Ticket;
+        public string Ip
+            => ((IPEndPoint)Socket.RemoteEndPoint).Address.ToString();
+
+
+        public AccountRecord Account { get; set; }
+        public CharacterRecord CharacterRecord { get; set; } 
+        public string Ticket { get; set; }
 
         private readonly CancellationTokenSource _receiveSource;
 
         protected AbstractClient()
         {
-            Ticket = Functions.RandomString(32, true);
             _receiveSource = new CancellationTokenSource();
         }
 

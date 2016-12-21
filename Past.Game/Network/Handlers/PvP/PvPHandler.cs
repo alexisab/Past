@@ -5,12 +5,12 @@ namespace Past.Game.Network.Handlers.PvP
 {
     public class PvPHandler
     {
-        public static void HandleGetPvpActivationCostMessage(Client client, GetPVPActivationCostMessage message)
+        public static void HandleGetPvpActivationCostMessage(GameClient client, GetPVPActivationCostMessage message)
         {
             client.Send(new PVPActivationCostMessage(client.Character.PvPActivationCost));
         }
 
-        public static void HandleSetEnablePvpRequestMessage(Client client, SetEnablePVPRequestMessage message)
+        public static void HandleSetEnablePvpRequestMessage(GameClient client, SetEnablePVPRequestMessage message)
         {
             client.Character.PvPEnabled = message.enable;
             client.Character.CurrentMap.Send(new GameRolePlayShowActorMessage(client.Character.GetGameRolePlayCharacterInformations));
@@ -21,12 +21,12 @@ namespace Past.Game.Network.Handlers.PvP
             CharacterHandler.SendCharacterStatsListMessage(client);
         }
 
-        public static void SendAlignmentRankUpdateMessage(Client client, sbyte alignmentRank)
+        public static void SendAlignmentRankUpdateMessage(GameClient client, sbyte alignmentRank)
         {
             client.Send(new AlignmentRankUpdateMessage(alignmentRank, false));
         }
 
-        public static void SendAlignmentSubAreasListMessage(Client client)
+        public static void SendAlignmentSubAreasListMessage(GameClient client)
         {
             client.Send(new AlignmentSubAreasListMessage(new short[0], new short[0]));
         }

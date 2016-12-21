@@ -8,7 +8,7 @@ namespace Past.Game.Network.Handlers.Basic
 {
     public class BasicHandler
     {
-        public static void HandleBasicWhoIsRequestMessage(Client client, BasicWhoIsRequestMessage message)
+        public static void HandleBasicWhoIsRequestMessage(GameClient client, BasicWhoIsRequestMessage message)
         {
             Client targetClient = Server.Clients.FirstOrDefault(target => target.Character.Name == message.search);
             if (targetClient != null)
@@ -21,17 +21,17 @@ namespace Past.Game.Network.Handlers.Basic
             }
         }
 
-        public static void SendBasicTimeMessage(Client client)
+        public static void SendBasicTimeMessage(GameClient client)
         {
             client.Send(new BasicTimeMessage(Functions.ReturnUnixTimeStamp(DateTime.Now), 3600));
         }
 
-        public static void SendBasicNoOperationMessage(Client client)
+        public static void SendBasicNoOperationMessage(GameClient client)
         {
             client.Send(new BasicNoOperationMessage());
         }
 
-        public static void SendTextInformationMessage(Client client, TextInformationTypeEnum msgType, short msgId, string[] parameters)
+        public static void SendTextInformationMessage(GameClient client, TextInformationTypeEnum msgType, short msgId, string[] parameters)
         {
             client.Send(new TextInformationMessage((sbyte)msgType, msgId, parameters));
         }
