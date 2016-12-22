@@ -98,7 +98,7 @@ namespace Past.Common.Network
             Disconnect();
         }
 
-        protected void Disconnect()
+        public void Disconnect()
         {
             _receiveSource.Cancel();
             Socket.Close();
