@@ -22,7 +22,7 @@ Download the game & the emulator:
 # Credits
 * Dr.Brook
 * Genesis
-* Unknown
+* Unknown (Nameless)
 * Fallen
 * Silyseveur
 * [greatmeas] (https://github.com/greatmaes)
