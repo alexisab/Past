@@ -68,7 +68,7 @@ namespace Past.Common.Network
                     }
                     catch (ObjectDisposedException)
                     {
-                        Disconnect();
+                        
                     }
                 }, _receiveSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         }
@@ -98,10 +98,11 @@ namespace Past.Common.Network
             Disconnect();
         }
 
-        public virtual void Disconnect()
+        protected void Disconnect()
         {
-            Socket.Close();
             _receiveSource.Cancel();
+            Socket.Close();
+            Server.Clients.Remove((TC)this);
         }
     }
 }
