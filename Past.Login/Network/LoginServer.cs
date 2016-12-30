@@ -11,7 +11,7 @@ namespace Past.Login.Network
 
         public LoginServer() : base("Auth", IPAddress.Parse(Config.LoginServerAddress), Config.LoginServerPort, 100)
         {
-            Clients = base._clients;
+            Clients = _clients;
             ConsoleUtils.Write(ConsoleUtils.Type.INFO, $"Login server started on {Config.LoginServerAddress}:{Config.LoginServerPort} ...");
         }
     }

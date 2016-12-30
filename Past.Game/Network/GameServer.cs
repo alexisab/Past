@@ -11,7 +11,7 @@ namespace Past.Game.Network
 
         public GameServer() : base("Auth", IPAddress.Parse(Config.GameServerAddress), Config.GameServerPort, 100)
         {
-            Clients = base._clients;
+            Clients = _clients;
             ConsoleUtils.Write(ConsoleUtils.Type.INFO, $"Game server started on {Config.GameServerAddress}:{Config.GameServerPort} ...");
         }
     }
