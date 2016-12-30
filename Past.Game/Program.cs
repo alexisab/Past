@@ -21,11 +21,13 @@ namespace Past.Game
             DataManager.InitializeDatas();
             MapEngine.Initialize();
 
-            DatabaseManager.Connect(Config.DatabaseHost, Config.DatabaseUsername, Config.DatabasePassword, Config.DatabaseName);
-            
-            var s = new GameServer();
+            DatabaseManager.Connect(Config.DatabaseHost, Config.DatabaseUsername, Config.DatabasePassword,
+                Config.DatabaseName);
+
+            GameServer gameServer = new GameServer();
 
             while (true)
+
             {
                 Console.ReadLine();
             }

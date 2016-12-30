@@ -18,7 +18,7 @@ namespace Past.Login
 
             DatabaseManager.Connect(Config.DatabaseHost, Config.DatabaseUsername, Config.DatabasePassword, Config.DatabaseName);
 
-            var s = new LoginServer();
+            LoginServer loginServer = new LoginServer();
 
             while (true)
             {
