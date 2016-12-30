@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -15,14 +16,12 @@ namespace Past.Common.Utils
         public static string DatabaseName => GetValue("DATABASE", "Name");
         public static string DatabaseUsername => GetValue("DATABASE", "Username");
         public static string DatabasePassword => GetValue("DATABASE", "Password");
-        public static bool Debug => bool.Parse(GetValue("OTHERS", "Debug"));
         public static int StartMap => int.Parse(GetValue("OTHERS", "StartMap"));
         public static short StartCellId => short.Parse(GetValue("OTHERS", "StartCellId"));
         public static sbyte StartDirection => sbyte.Parse(GetValue("OTHERS", "StartDirection"));
         private static readonly Dictionary<string, Dictionary<string, string>> Elements = new Dictionary<string, Dictionary<string, string>>();
         private static Dictionary<string, string> _configEntries;
         #region default ini file
-
         private const string DefaultConfig = @"[LOGIN]
 Address = 127.0.0.1		; Address for the login server
 Port = 443              ; Port for the login server
@@ -38,16 +37,16 @@ Username = root
 Password =
 
 [OTHERS]
-Debug = true            ; Display in the console message received and sent
-StartMap = 21757955;	; Custom start map, put 0 if you don't want to use this
-StartCellId = 268;		; Custom start cell, put 0 if you don't want to use this
-StartDirection = 1;		; Custom start direction, put 0 if you don't want to use this";
-
+StartMap = 21757955 	; Custom start map, put 0 if you don't want to use this
+StartCellId = 268		; Custom start cell, put 0 if you don't want to use this
+StartDirection = 1		; Custom start direction, put 0 if you don't want to use this";
         #endregion
 
         public static void ReadConfig()
         {
-            string path = $"{AppDomain.CurrentDomain.BaseDirectory}Config.ini";
+            string path = Debugger.IsAttached
+                ? $@"{Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory.Replace(@"\bin\Debug\", ""))}\Config.ini"
+                : $@"{Directory.GetParent(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).ToString())}\Config.ini";
             if (!File.Exists(path))
             {
                 File.WriteAllText(path, DefaultConfig);
