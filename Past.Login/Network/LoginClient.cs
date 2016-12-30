@@ -11,7 +11,7 @@ namespace Past.Login.Network
         public override void OnCreate()
         {
             base.OnCreate();
-
+            base.OnDisconnect += OnDisconnect;
             Ticket = Functions.RandomString(32, true);
             Send(new ProtocolRequired(1165, 1165));
             Send(new HelloConnectMessage(Ticket));
@@ -19,21 +19,23 @@ namespace Past.Login.Network
 
         public override void OnReceive(byte[] data)
         {
-            base.OnReceive(data);
-
-            using (var reader = new BigEndianReader(data))
+            using (BigEndianReader reader = new BigEndianReader(data))
             {
-                var messagePart = new MessagePart(false);
+                MessagePart messagePart = new MessagePart(false);
                 if (messagePart.Build(reader))
                 {
                     dynamic message = MessageReceiver.BuildMessage((uint)messagePart.Id, reader);
-                    if (Config.Debug)
-                    {
-                        ConsoleUtils.Write(ConsoleUtils.Type.RECEIV, $"{message} Id {messagePart.Id} Length {messagePart.Length} ...");
-                    }
+                    ConsoleUtils.Write(ConsoleUtils.Type.RECEIV, $"{message} Id {messagePart.Id} Length {messagePart.Length} ...");
                     MessageHandlerManager<LoginClient>.InvokeHandler(this, message);
                 }
             }
+        }
+
+        public new void OnDisconnect()
+        {
+            //Account?.Update();
+            Account = null;
+            ConsoleUtils.Write(ConsoleUtils.Type.INFO, $"Client {Ip}:{Port} disconnected from login server ...");
         }
     }
 }

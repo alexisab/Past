@@ -14,27 +14,31 @@ namespace Past.Game.Network
         public override void OnCreate()
         {
             base.OnCreate();
-
+            base.OnDisconnect += OnDisconnect;
             Send(new HelloGameMessage());
         }
 
         public override void OnReceive(byte[] data)
         {
-            base.OnReceive(data);
-
-            using (var reader = new BigEndianReader(data))
+            using (BigEndianReader reader = new BigEndianReader(data))
             {
-                var messagePart = new MessagePart(false);
+                MessagePart messagePart = new MessagePart(false);
                 if (messagePart.Build(reader))
                 {
                     dynamic message = MessageReceiver.BuildMessage((uint)messagePart.Id, reader);
-                    if (Config.Debug)
-                    {
-                        ConsoleUtils.Write(ConsoleUtils.Type.RECEIV, $"{message} Id {messagePart.Id} Length {messagePart.Length} ...");
-                    }
+                    ConsoleUtils.Write(ConsoleUtils.Type.RECEIV, $"{message} Id {messagePart.Id} Length {messagePart.Length} ...");
                     MessageHandlerManager<GameClient>.InvokeHandler(this, message);
                 }
             }
+        }
+
+        public new void OnDisconnect()
+        {
+            Account?.Update();
+            Character?.Disconnect();
+            Account = null;
+            Character = null;
+            ConsoleUtils.Write(ConsoleUtils.Type.INFO, $"Client {Ip}:{Port} disconnected from game server ...");
         }
     }
 }

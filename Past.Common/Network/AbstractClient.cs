@@ -21,23 +21,27 @@ namespace Past.Common.Network
         public string Ip
             => ((IPEndPoint)Socket.RemoteEndPoint).Address.ToString();
 
+        public int Port
+            => ((IPEndPoint)Socket.RemoteEndPoint).Port;
 
         public AccountRecord Account { get; set; }
-        public CharacterRecord CharacterRecord { get; set; } 
         public string Ticket { get; set; }
 
         private readonly CancellationTokenSource _receiveSource;
+
+        public event SocketDisconnected OnDisconnect;
+        public delegate void SocketDisconnected();
 
         protected AbstractClient()
         {
             _receiveSource = new CancellationTokenSource();
         }
 
-        public virtual void OnReceive(byte[] data)
-            => ConsoleUtils.Write(ConsoleUtils.Type.INFO, $"{data.Length} bytes received from client ...");
+        public abstract void OnReceive(byte[] data);
+        //=> ConsoleUtils.Write(ConsoleUtils.Type.INFO, $"{data.Length} bytes received from client {Socket.RemoteEndPoint} ...");
 
         public virtual void OnCreate()
-            => ConsoleUtils.Write(ConsoleUtils.Type.INFO, "Client created ...");
+            => ConsoleUtils.Write(ConsoleUtils.Type.INFO, $"Client {Socket.RemoteEndPoint} created ...");
 
         internal void Init()
         {
@@ -54,13 +58,13 @@ namespace Past.Common.Network
                     {
                         for (;;)
                         {
-                            var buffer = new byte[1024];
-                            var readBytes = await Socket.ReceiveAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
+                            byte[] buffer = new byte[1024];
+                            int readBytes = await Socket.ReceiveAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
                             if (readBytes < 1)
                                 Disconnect();
                             else
                             {
-                                var data = new byte[readBytes];
+                                byte[] data = new byte[readBytes];
                                 Array.Copy(buffer, data, data.Length);
                                 OnReceive(data);
                             }
@@ -77,15 +81,12 @@ namespace Past.Common.Network
         {
             try
             {
-                using (var writer = new BigEndianWriter())
+                using (BigEndianWriter writer = new BigEndianWriter())
                 {
                     message.Pack(writer);
                     Socket.Send(writer.Data);
                 }
-                if (Config.Debug)
-                {
-                    ConsoleUtils.Write(ConsoleUtils.Type.SEND, $"{message} to client {Socket.RemoteEndPoint} ...");
-                }
+                ConsoleUtils.Write(ConsoleUtils.Type.SEND, $"{message} to client {Socket.RemoteEndPoint} ...");
             }
             catch (Exception ex)
             {
@@ -100,9 +101,10 @@ namespace Past.Common.Network
 
         public void Disconnect()
         {
+            OnDisconnect?.Invoke();
             _receiveSource.Cancel();
             Socket.Close();
-            Server.Clients.Remove((TC)this);
+            Server._clients.Remove((TC)this);
         }
     }
 }

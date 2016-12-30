@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Net;
 using System.Threading;
 using System.Net.Sockets;
@@ -16,7 +15,7 @@ namespace Past.Common.Network
     {
         private readonly Socket _socket;
         private readonly CancellationTokenSource _acceptCts;
-        public readonly List<TC> Clients;
+        public readonly List<TC> _clients;
 
         public string Name { get; }
 
@@ -31,7 +30,7 @@ namespace Past.Common.Network
 
             _acceptCts = new CancellationTokenSource();
 
-            Clients = new List<TC>();
+            _clients = new List<TC>();
             AcceptLoop();
         }
 
@@ -44,11 +43,11 @@ namespace Past.Common.Network
                     {
                         for (;;)
                         {
-                            var s = await _socket.AcceptAsync();
+                            Socket s = await _socket.AcceptAsync();
                             if (!OnAccept(s)) continue;
-                            var tc = new TC { Socket = s, Server = (TS)this };
+                            TC tc = new TC { Socket = s, Server = (TS)this };
                             tc.Init();
-                            Clients.Add(tc);
+                            _clients.Add(tc);
                         }
                     }
                     catch (Exception ex)
@@ -64,7 +63,7 @@ namespace Past.Common.Network
             {
                 _acceptCts.Cancel();
                 //disable all clients.
-                foreach (var c in Clients)
+                foreach (TC c in _clients)
                 {
                     c.Dispose();
                 }
