@@ -26,14 +26,16 @@ namespace Past.Game.Engine
                 case ".goname":
                     if (client.Account.Role >= GameHierarchyEnum.MODERATOR)
                     {
-                        GameClient targetClient = client.Server.Clients.FirstOrDefault(target => target.Character.Name == command[1]);
+                        GameClient targetClient = GameServer.Clients.FirstOrDefault(target => target.Character.Name == command[1]);
                         if (targetClient != null && targetClient != client)
                         {
                             client.Character.Teleport(targetClient.Character.CurrentMapId, targetClient.Character.CellId);
                         }
                         else
                         {
-                            BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new[] { "Error", $"Can't found the character {command[1]} !" });
+                            BasicHandler.SendTextInformationMessage(client,
+                                TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16,
+                                new[] {"Error", $"Can't found the character {command[1]} !"});
                         }
                     }
                     break;
@@ -47,14 +49,49 @@ namespace Past.Game.Engine
                         }
                         else
                         {
-                            BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new[] { "Error", $"Can't found the map {command[1]} !" });
+                            BasicHandler.SendTextInformationMessage(client,
+                                TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16,
+                                new[] {"Error", $"Can't found the map {command[1]} !"});
                         }
                     }
                     break;
                 case ".levelup":
                     if (client.Account.Role >= GameHierarchyEnum.GAMEMASTER_PADAWAN)
                     {
-                        client.Character.LevelUp();
+                        GameClient targetClient = GameServer.Clients.FirstOrDefault(target => target.Character.Name == command[1]);
+                        if (targetClient != null)
+                        {
+                            targetClient.Character.LevelUp();
+                        }
+                        else
+                        {
+                            BasicHandler.SendTextInformationMessage(client,
+                                TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16,
+                                new[] {"Error", $"Can't found the character {command[1]} !"});
+                        }
+                    }
+                    break;
+                case ".addkamas":
+                    if (client.Account.Role >= GameHierarchyEnum.GAMEMASTER_PADAWAN)
+                    {
+
+                    }
+                    break;
+                case ".kick":
+                    if (client.Account.Role >= GameHierarchyEnum.GAMEMASTER)
+                    {
+                        GameClient targetClient = GameServer.Clients.FirstOrDefault(target => target.Character.Name == command[1]);
+                        if (targetClient != null)
+                        {
+                            BasicHandler.SendSystemMessageDisplayMessage(targetClient, true, 18, new []{ client.Character.Name, "" });
+                            targetClient.Disconnect();
+                        }
+                        else
+                        {
+                            BasicHandler.SendTextInformationMessage(client,
+                                TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16,
+                                new[] { "Error", $"Can't found the character {command[1]} !" });
+                        }
                     }
                     break;
                 default:

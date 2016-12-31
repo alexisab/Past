@@ -34,7 +34,7 @@ namespace Past.Game.Engine
         {
             get
             {
-                return Client.Account.HasRights == true ? $"[{Record.Name}]" : Record.Name;
+                return Client.Account.HasRights ? $"[{Record.Name}]" : Record.Name;
             }
             set
             {
@@ -429,13 +429,19 @@ namespace Past.Game.Engine
             BasicHandler.SendTextInformationMessage(Client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 89, new string[0]);
             if (Client.Account.LastConnection.HasValue && !string.IsNullOrEmpty(Client.Account.LastIp))
             {
-                BasicHandler.SendTextInformationMessage(Client, TextInformationTypeEnum.TEXT_INFORMATION_MESSAGE, 152, new string[] { $"{Client.Account.LastConnection.Value.Year}", $"{Client.Account.LastConnection.Value.Month}", $"{Client.Account.LastConnection.Value.Day}", $"{Client.Account.LastConnection.Value.Hour}", $"{Client.Account.LastConnection.Value.Minute}", Client.Account.LastIp });
+                BasicHandler.SendTextInformationMessage(Client, TextInformationTypeEnum.TEXT_INFORMATION_MESSAGE, 152,
+                    new[]
+                    {
+                        $"{Client.Account.LastConnection.Value.Year}", $"{Client.Account.LastConnection.Value.Month}",
+                        $"{Client.Account.LastConnection.Value.Day}", $"{Client.Account.LastConnection.Value.Hour}",
+                        $"{Client.Account.LastConnection.Value.Minute}", Client.Account.LastIp
+                    });
             }
-            BasicHandler.SendTextInformationMessage(Client, TextInformationTypeEnum.TEXT_INFORMATION_MESSAGE, 153, new string[] { Client.Ip });
+            BasicHandler.SendTextInformationMessage(Client, TextInformationTypeEnum.TEXT_INFORMATION_MESSAGE, 153, new[] {Client.Ip});
             Client.Account.LastConnection = DateTime.Now;
             Client.Account.LastIp = Client.Ip;
             LastUsage = DateTime.Now;
-            BasicHandler.SendTextInformationMessage(Client, TextInformationTypeEnum.TEXT_INFORMATION_MESSAGE, 0, new string[] { "Welcome to Past" });
+            BasicHandler.SendTextInformationMessage(Client, TextInformationTypeEnum.TEXT_INFORMATION_MESSAGE, 0, new[] {"Welcome to Past"});
         }
 
         public void Teleport(int mapId, short cellId)
@@ -499,16 +505,22 @@ namespace Past.Game.Engine
             return SpellsPoints >= 0 && spell != null && spell.Level < 6 && SpellsPoints >= spell.Level && Spells.Contains(spell);
         }
 
-        public GameRolePlayCharacterInformations GetGameRolePlayCharacterInformations => new GameRolePlayCharacterInformations(Id, EntityLook, Disposition, Name, new HumanInformations(new EntityLook[0], 0, 0, new ActorRestrictionsInformations(false, false, false, false, false, false, false, false, true, false, false, false, false, true, true, true, false, false, false, false, false), 0), GetActorAlignmentInformations);
+        public GameRolePlayCharacterInformations GetGameRolePlayCharacterInformations 
+            => new GameRolePlayCharacterInformations(Id, EntityLook, Disposition, Name, new HumanInformations(new EntityLook[0], 0, 0, new ActorRestrictionsInformations(false, false, false, false, false, false, false, false, true, false, false, false, false, true, true, true, false, false, false, false, false), 0), GetActorAlignmentInformations);
 
-        public CharacterBaseInformations GetCharacterBaseInformations => new CharacterBaseInformations(Id, Name, Level, EntityLook, (sbyte)Breed, Sex);
+        public CharacterBaseInformations GetCharacterBaseInformations 
+            => new CharacterBaseInformations(Id, Name, Level, EntityLook, (sbyte)Breed, Sex);
 
-        public ActorAlignmentInformations GetActorAlignmentInformations => new ActorAlignmentInformations((sbyte)(PvPEnabled ? AlignmentSide : AlignmentSideEnum.ALIGNMENT_NEUTRAL), 0, AlignmentGrade, 0);
+        public ActorAlignmentInformations GetActorAlignmentInformations 
+            => new ActorAlignmentInformations((sbyte)(PvPEnabled ? AlignmentSide : AlignmentSideEnum.ALIGNMENT_NEUTRAL), 0, AlignmentGrade, 0);
 
-        public ActorExtendedAlignmentInformations GetActorExtendedAlignmentInformations => new ActorExtendedAlignmentInformations((sbyte)AlignmentSide, 0, AlignmentGrade, 0, Honor, Dishonor, PvPEnabled);
+        public ActorExtendedAlignmentInformations GetActorExtendedAlignmentInformations 
+            => new ActorExtendedAlignmentInformations((sbyte)AlignmentSide, 0, AlignmentGrade, 0, Honor, Dishonor, PvPEnabled);
 
-        public CharacterCharacteristicsInformations GetCharacterCharacteristicsInformations => new CharacterCharacteristicsInformations(Experience, ExperienceLevelFloor, ExperienceNextLevelFloor, Kamas, StatsPoints, SpellsPoints, GetActorExtendedAlignmentInformations, Health, MaxHealth, Energy, 10000, AP, MP, Stats[StatEnum.INITIATIVE], Stats[StatEnum.PROSPECTING], Stats[StatEnum.ACTION_POINTS], Stats[StatEnum.MOVEMENT_POINTS], Stats[StatEnum.STRENGTH], Stats[StatEnum.VITALITY], Stats[StatEnum.WISDOM], Stats[StatEnum.CHANCE], Stats[StatEnum.AGILITY], Stats[StatEnum.INTELLIGENCE], Stats[StatEnum.RANGE], Stats[StatEnum.SUMMONABLE_CREATURES_BOOST], Stats[StatEnum.REFLECT], Stats[StatEnum.CRITICAL_HIT], 0, Stats[StatEnum.CRITICAL_MISS], Stats[StatEnum.HEAL_BONUS], Stats[StatEnum.ALL_DAMAGES_BONUS], Stats[StatEnum.WEAPON_DAMAGES_BONUS_PERCENT], Stats[StatEnum.DAMAGES_BONUS_PERCENT], Stats[StatEnum.TRAP_BONUS], Stats[StatEnum.TRAP_BONUS_PERCENT], Stats[StatEnum.PERMANENT_DAMAGE_PERCENT], Stats[StatEnum.DODGE_PA_LOST_PROBABILITY], Stats[StatEnum.DODGE_PM_LOST_PROBABILITY], Stats[StatEnum.NEUTRAL_ELEMENT_REDUCTION], Stats[StatEnum.EARTH_ELEMENT_RESIST_PERCENT], Stats[StatEnum.WATER_ELEMENT_RESIST_PERCENT], Stats[StatEnum.AIR_ELEMENT_RESIST_PERCENT], Stats[StatEnum.FIRE_ELEMENT_RESIST_PERCENT], Stats[StatEnum.NEUTRAL_ELEMENT_REDUCTION], Stats[StatEnum.EARTH_ELEMENT_REDUCTION], Stats[StatEnum.WATER_ELEMENT_REDUCTION], Stats[StatEnum.AIR_ELEMENT_REDUCTION], Stats[StatEnum.FIRE_ELEMENT_REDUCTION], Stats[StatEnum.PVP_NEUTRAL_ELEMENT_RESIST_PERCENT], Stats[StatEnum.PVP_EARTH_ELEMENT_RESIST_PERCENT], Stats[StatEnum.PVP_WATER_ELEMENT_RESIST_PERCENT], Stats[StatEnum.PVP_AIR_ELEMENT_RESIST_PERCENT], Stats[StatEnum.PVP_FIRE_ELEMENT_RESIST_PERCENT], Stats[StatEnum.PVP_NEUTRAL_ELEMENT_REDUCTION], Stats[StatEnum.PVP_EARTH_ELEMENT_REDUCTION], Stats[StatEnum.PVP_WATER_ELEMENT_REDUCTION], Stats[StatEnum.PVP_AIR_ELEMENT_REDUCTION], Stats[StatEnum.PVP_FIRE_ELEMENT_REDUCTION], new CharacterSpellModification[0]);
+        public CharacterCharacteristicsInformations GetCharacterCharacteristicsInformations 
+            => new CharacterCharacteristicsInformations(Experience, ExperienceLevelFloor, ExperienceNextLevelFloor, Kamas, StatsPoints, SpellsPoints, GetActorExtendedAlignmentInformations, Health, MaxHealth, Energy, 10000, AP, MP, Stats[StatEnum.INITIATIVE], Stats[StatEnum.PROSPECTING], Stats[StatEnum.ACTION_POINTS], Stats[StatEnum.MOVEMENT_POINTS], Stats[StatEnum.STRENGTH], Stats[StatEnum.VITALITY], Stats[StatEnum.WISDOM], Stats[StatEnum.CHANCE], Stats[StatEnum.AGILITY], Stats[StatEnum.INTELLIGENCE], Stats[StatEnum.RANGE], Stats[StatEnum.SUMMONABLE_CREATURES_BOOST], Stats[StatEnum.REFLECT], Stats[StatEnum.CRITICAL_HIT], 0, Stats[StatEnum.CRITICAL_MISS], Stats[StatEnum.HEAL_BONUS], Stats[StatEnum.ALL_DAMAGES_BONUS], Stats[StatEnum.WEAPON_DAMAGES_BONUS_PERCENT], Stats[StatEnum.DAMAGES_BONUS_PERCENT], Stats[StatEnum.TRAP_BONUS], Stats[StatEnum.TRAP_BONUS_PERCENT], Stats[StatEnum.PERMANENT_DAMAGE_PERCENT], Stats[StatEnum.DODGE_PA_LOST_PROBABILITY], Stats[StatEnum.DODGE_PM_LOST_PROBABILITY], Stats[StatEnum.NEUTRAL_ELEMENT_REDUCTION], Stats[StatEnum.EARTH_ELEMENT_RESIST_PERCENT], Stats[StatEnum.WATER_ELEMENT_RESIST_PERCENT], Stats[StatEnum.AIR_ELEMENT_RESIST_PERCENT], Stats[StatEnum.FIRE_ELEMENT_RESIST_PERCENT], Stats[StatEnum.NEUTRAL_ELEMENT_REDUCTION], Stats[StatEnum.EARTH_ELEMENT_REDUCTION], Stats[StatEnum.WATER_ELEMENT_REDUCTION], Stats[StatEnum.AIR_ELEMENT_REDUCTION], Stats[StatEnum.FIRE_ELEMENT_REDUCTION], Stats[StatEnum.PVP_NEUTRAL_ELEMENT_RESIST_PERCENT], Stats[StatEnum.PVP_EARTH_ELEMENT_RESIST_PERCENT], Stats[StatEnum.PVP_WATER_ELEMENT_RESIST_PERCENT], Stats[StatEnum.PVP_AIR_ELEMENT_RESIST_PERCENT], Stats[StatEnum.PVP_FIRE_ELEMENT_RESIST_PERCENT], Stats[StatEnum.PVP_NEUTRAL_ELEMENT_REDUCTION], Stats[StatEnum.PVP_EARTH_ELEMENT_REDUCTION], Stats[StatEnum.PVP_WATER_ELEMENT_REDUCTION], Stats[StatEnum.PVP_AIR_ELEMENT_REDUCTION], Stats[StatEnum.PVP_FIRE_ELEMENT_REDUCTION], new CharacterSpellModification[0]);
 
-        public PartyMemberInformations GetPartyMemberInformations => new PartyMemberInformations(Id, Name, Level, EntityLook, Health, MaxHealth, Stats.Total(StatEnum.PROSPECTING), 0, Stats.Total(StatEnum.INITIATIVE), PvPEnabled, (sbyte)AlignmentSide);
+        public PartyMemberInformations GetPartyMemberInformations 
+            => new PartyMemberInformations(Id, Name, Level, EntityLook, Health, MaxHealth, Stats.Total(StatEnum.PROSPECTING), 0, Stats.Total(StatEnum.INITIATIVE), PvPEnabled, (sbyte)AlignmentSide);
     }
 }
