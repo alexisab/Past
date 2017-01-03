@@ -118,12 +118,12 @@ namespace Past.Common.Database.Record
 
         public int Update()
         {
-            return DatabaseManager.ExecuteNonQuery($"UPDATE characters SET Name = '{Name}', Level = '{Level}', Experience = '{Experience}', Breed = '{(sbyte)Breed}', EntityLookString = '{EntityLookString}', Sex = '{Convert.ToSByte(Sex)}', MapId = '{MapId}', CellId = '{CellId}', Direction = '{(sbyte)Direction}', Health = '{Health}', Energy = '{Energy}', AP = '{AP}', MP = '{MP}', Strength = '{Strength}', Vitality = '{Vitality}', Wisdom = '{Wisdom}', Chance = '{Chance}', Agility = '{Agility}', Intelligence = '{Intelligence}', AlignementSide = '{(sbyte)AlignementSide}', Honor = '{Honor}', PvPEnabled = '{Convert.ToSByte(PvPEnabled)}', Kamas = '{Kamas}', StatsPoints = '{StatsPoints}', SpellsPoints = '{SpellsPoints}', LastUsage = '{LastUsage.Value.ToString("yyyy-MM-dd HH:mm:ss")}' WHERE Id = '{Id}'");
+            return DatabaseManager.ExecuteNonQuery($"UPDATE characters SET Name = '{Name}', Level = '{Level}', Experience = '{Experience}', Breed = '{(sbyte)Breed}', EntityLookString = '{EntityLookString}', Sex = '{Convert.ToSByte(Sex)}', MapId = '{MapId}', CellId = '{CellId}', Direction = '{(sbyte)Direction}', Health = '{Health}', Energy = '{Energy}', AP = '{AP}', MP = '{MP}', Strength = '{Strength}', Vitality = '{Vitality}', Wisdom = '{Wisdom}', Chance = '{Chance}', Agility = '{Agility}', Intelligence = '{Intelligence}', AlignementSide = '{(sbyte)AlignementSide}', Honor = '{Honor}', PvPEnabled = '{Convert.ToSByte(PvPEnabled)}', Kamas = '{Kamas}', StatsPoints = '{StatsPoints}', SpellsPoints = '{SpellsPoints}', LastUsage = '{LastUsage:yyyy-MM-dd HH:mm:ss}' WHERE Id = '{Id}'");
         }
 
         public int Create()
         {
-            return DatabaseManager.ExecuteNonQuery($"INSERT INTO characters SET OwnerId = '{OwnerId}', Name = '{Name}', Level = '{Level}', Experience = '{Experience}', Breed = '{(sbyte)Breed}', EntityLookString = '{EntityLookString}', Sex = '{Convert.ToSByte(Sex)}', MapId = '{MapId}', CellId = '{CellId}', Direction = '{(sbyte)Direction}', LastUsage = '{LastUsage.Value.ToString("yyyy-MM-dd HH:mm:ss")}'");
+            return DatabaseManager.ExecuteNonQuery($"INSERT INTO characters SET OwnerId = '{OwnerId}', Name = '{Name}', Level = '{Level}', Experience = '{Experience}', Breed = '{(sbyte)Breed}', EntityLookString = '{EntityLookString}', Sex = '{Convert.ToSByte(Sex)}', MapId = '{MapId}', CellId = '{CellId}', Direction = '{(sbyte)Direction}', LastUsage = '{LastUsage:yyyy-MM-dd HH:mm:ss}'");
         }
 
         public int Delete()

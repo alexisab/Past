@@ -14,7 +14,7 @@ namespace Past.Common.Database.Record
         public string Ticket { get; set; }
         public string Nickname { get; set; }
         public GameHierarchyEnum Role { get; set; }
-        public bool HasRights => Role >= GameHierarchyEnum.PLAYER ? true : false;
+        public bool HasRights => Role >= GameHierarchyEnum.PLAYER;
         public string SecretQuestion { get; set; }
         public string SecretAnswer { get; set; }
         public DateTime? BannedUntil { get; set; }
@@ -69,7 +69,7 @@ namespace Past.Common.Database.Record
 
         public int Update()
         {
-            return DatabaseManager.ExecuteNonQuery($"UPDATE accounts SET Id = '{Id}', Login = '{Login}', Password = '{Password}', Ticket = '{Ticket}', Nickname = '{Nickname}', Role = '{(sbyte)Role}', SecretQuestion = '{SecretQuestion}', SecretAnswer = '{SecretAnswer}', BannedUntil = '{BannedUntil.Value.ToString("yyyy-MM-dd HH:mm:ss")}', LastConnection = '{LastConnection.Value.ToString("yyyy-MM-dd HH:mm:ss")}', LastIp = '{LastIp}' WHERE Id = '{Id}'");
+            return DatabaseManager.ExecuteNonQuery($"UPDATE accounts SET Id = '{Id}', Login = '{Login}', Password = '{Password}', Ticket = '{Ticket}', Nickname = '{Nickname}', Role = '{(sbyte)Role}', SecretQuestion = '{SecretQuestion}', SecretAnswer = '{SecretAnswer}', BannedUntil = '{BannedUntil:yyyy-MM-dd HH:mm:ss}', LastConnection = '{LastConnection:yyyy-MM-dd HH:mm:ss}', LastIp = '{LastIp}' WHERE Id = '{Id}'");
         }
     }
 }

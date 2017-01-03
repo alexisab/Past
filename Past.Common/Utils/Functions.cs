@@ -1,8 +1,8 @@
-﻿using Past.Protocol.Types;
-using System;
+﻿using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using Past.Protocol.Types;
 
 namespace Past.Common.Utils
 {
@@ -115,7 +115,7 @@ namespace Past.Common.Utils
             {
                 skins = string.IsNullOrEmpty(lookStringSplit[1])
                     ? new short[0]
-                    : new short[] {short.Parse(lookStringSplit[1])};
+                    : new[] {short.Parse(lookStringSplit[1])};
             }
             int[] colors;
             if (lookStringSplit[2].Contains(","))
@@ -135,14 +135,14 @@ namespace Past.Common.Utils
             {
                 colors = new int[0];
             }
-            short[] size = new short[] {short.Parse(lookStringSplit[3])};
+            short[] size = {short.Parse(lookStringSplit[3])};
             SubEntity[] subEntity;
             if (lookStringSplit.Length > 4) //if contains subEntity
             {
                 string subEntitiesString = entityLook.Substring(entityLook.IndexOf('@') - 1);
                 if (subEntitiesString.Count(@char => @char == '@') > 1) //more than one subEntity
                 {
-                    string[] subEntityString = subEntitiesString.Split(new string[] {"},"},
+                    string[] subEntityString = subEntitiesString.Split(new[] {"},"},
                         StringSplitOptions.RemoveEmptyEntries);
                     subEntity = new SubEntity[subEntityString.Length];
                     for (int i = 0; i < subEntityString.Length; i++)
@@ -163,7 +163,7 @@ namespace Past.Common.Utils
                         {
                             subEntitySkins = string.IsNullOrEmpty(strings[1])
                                 ? new short[0]
-                                : new short[] {short.Parse(strings[1])};
+                                : new[] {short.Parse(strings[1])};
                         }
                         int[] subEntityColors;
                         if (strings[2].Contains(","))
@@ -183,7 +183,7 @@ namespace Past.Common.Utils
                         {
                             subEntityColors = new int[0];
                         }
-                        short[] subEntitySize = new short[] {short.Parse(strings[3])};
+                        short[] subEntitySize = {short.Parse(strings[3])};
                         subEntity[i] = new SubEntity(sbyte.Parse(strings[0][0].ToString()),
                             sbyte.Parse(strings[0][2].ToString()),
                             new EntityLook(subEntityBonesId, subEntitySkins, subEntityColors,
@@ -207,7 +207,7 @@ namespace Past.Common.Utils
                     {
                         oneSubEntitySkins = string.IsNullOrEmpty(oneSubEntityString[1])
                             ? new short[0]
-                            : new short[] { short.Parse(oneSubEntityString[1]) };
+                            : new[] { short.Parse(oneSubEntityString[1]) };
                     }
                     int[] oneSubEntityColors;
                     if (oneSubEntityString[2].Contains(","))
@@ -227,8 +227,8 @@ namespace Past.Common.Utils
                     {
                         oneSubEntityColors = new int[0];
                     }
-                    short[] oneSubEntitySize = new short[] { short.Parse(oneSubEntityString[3]) };
-                    subEntity = new SubEntity[]
+                    short[] oneSubEntitySize = { short.Parse(oneSubEntityString[3]) };
+                    subEntity = new[]
                     {
                         new SubEntity(sbyte.Parse(oneSubEntityString[0][0].ToString()),
                             sbyte.Parse(oneSubEntityString[0][2].ToString()),

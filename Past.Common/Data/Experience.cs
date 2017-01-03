@@ -8,6 +8,7 @@ namespace Past.Common.Data
         public long CharacterXp { get; set; }
         public long GuildXp { get; set; }
         public long JobXp { get; set; }
+        public long MountXp { get; set; }
         public long AlignmentXp { get; set; }
         public static Dictionary<byte, Experience> Experiences = new Dictionary<byte, Experience>();
 
@@ -16,6 +17,7 @@ namespace Past.Common.Data
             CharacterXp = characterXp;
             GuildXp = guildXp;
             JobXp = jobXp;
+            MountXp = mountXp;
             AlignmentXp = alignementXp;
         }
 
