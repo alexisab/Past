@@ -17,7 +17,7 @@ namespace Past.Game.Network.Handlers.Inventory
 
         public static void SendSpellListMessage(GameClient client)
         {
-            client.Send(new SpellListMessage(true, client.Character.Spells.ConvertAll<SpellItem>(spell => new SpellItem(spell.Position, spell.SpellId, spell.Level)).ToArray()));
+            client.Send(new SpellListMessage(true, client.Character.Spells.ConvertAll(spell => new SpellItem(spell.Position, spell.SpellId, spell.Level)).ToArray()));
         }
     }
 }

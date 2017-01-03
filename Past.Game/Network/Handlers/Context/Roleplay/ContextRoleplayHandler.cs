@@ -121,7 +121,7 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
 
         public static void HandlePartyInvitationRequestMessage(GameClient client, PartyInvitationRequestMessage message)
         {
-            GameClient targetClient = client.Server.Clients.FirstOrDefault(target => target.Character.Name == message.name);
+            GameClient targetClient = GameServer.Clients.FirstOrDefault(target => target.Character.Name == message.name);
             if (targetClient != null && targetClient != client)
             {
                 if (client.Character.Party != null)

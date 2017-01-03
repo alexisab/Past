@@ -50,7 +50,7 @@ namespace Past.Game.Network.Handlers.Character
                     client.Account.Characters = CharacterRecord.ReturnCharacters(client.Account.Id);
                     CharacterRecord firstOrDefault = client.Account.Characters.FirstOrDefault(character => character.Name == characterRecord.Name);
                     if (firstOrDefault != null)
-                        new List<CharacterSpellRecord>(new CharacterSpellRecord[] { new CharacterSpellRecord(firstOrDefault.Id, 64, 0, 1), new CharacterSpellRecord(firstOrDefault.Id, 65, breed.BreedSpellsId[0], 1), new CharacterSpellRecord(firstOrDefault.Id, 66, breed.BreedSpellsId[1], 1), new CharacterSpellRecord(firstOrDefault.Id, 67, breed.BreedSpellsId[2], 1) }).ForEach(spell => spell.Create());
+                        new List<CharacterSpellRecord>(new[] { new CharacterSpellRecord(firstOrDefault.Id, 64, 0, 1), new CharacterSpellRecord(firstOrDefault.Id, 65, breed.BreedSpellsId[0], 1), new CharacterSpellRecord(firstOrDefault.Id, 66, breed.BreedSpellsId[1], 1), new CharacterSpellRecord(firstOrDefault.Id, 67, breed.BreedSpellsId[2], 1) }).ForEach(spell => spell.Create());
                     client.Send(new CharacterCreationResultMessage((sbyte)CharacterCreationResultEnum.OK));
                     SendCharactersListMessage(client, false);
                 }

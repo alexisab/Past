@@ -50,13 +50,13 @@ namespace Past.Login.Network.Handlers
                 {
                     client.Send(new IdentificationFailedMessage((sbyte)IdentificationFailureReasonEnum.BANNED));
                 }
-                if (client.Server.Clients.Count(x => x.Account == account) > 1)
+                if (LoginServer.Clients.Count(x => x.Account == account) > 1)
                 {
-                    client.Server.Clients.FirstOrDefault(x => x.Account == account)?.Disconnect();
+                    LoginServer.Clients.FirstOrDefault(x => x.Account == account)?.Disconnect();
                 }
                 client.Account = account;
                 client.Send(new IdentificationSuccessMessage(account.HasRights, false, account.Nickname, 0, account.SecretQuestion, 42195168000000));
-                client.Send(new ServersListMessage(new GameServerInformations[]
+                client.Send(new ServersListMessage(new[]
                 {
                     new GameServerInformations(111, (sbyte)ServerStatusEnum.ONLINE, 0, true, (sbyte)CharacterRecord.ReturnCharacters(account.Id).Count())
                 }));
@@ -80,9 +80,9 @@ namespace Past.Login.Network.Handlers
                 {
                     client.Send(new IdentificationFailedMessage((sbyte)IdentificationFailureReasonEnum.BANNED));
                 }
-                if (client.Server.Clients.Count(x => x.Account == account) > 1)
+                if (LoginServer.Clients.Count(x => x.Account == account) > 1)
                 {
-                    client.Server.Clients.FirstOrDefault(x => x.Account == account)?.Disconnect();
+                    LoginServer.Clients.FirstOrDefault(x => x.Account == account)?.Disconnect();
                 }
                 client.Account = account;
                 client.Send(new IdentificationSuccessMessage(account.HasRights, false, account.Nickname, 0, account.SecretQuestion, 42195168000000));

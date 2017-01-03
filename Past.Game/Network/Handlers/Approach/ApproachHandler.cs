@@ -15,9 +15,9 @@ namespace Past.Game.Network.Handlers.Approach
                 if (account != null)
                 {
                     client.Account = account;
-                    if (Server.Clients.Count(x => x.Account.Login == account.Login) > 1)
+                    if (GameServer.Clients.Count(x => x.Account.Login == account.Login) > 1)
                     {
-                        Server.Clients.First(x => x.Account.Login == account.Login).Disconnect();
+                        GameServer.Clients.First(x => x.Account.Login == account.Login).Disconnect();
                     }
                     client.Account.Characters = CharacterRecord.ReturnCharacters(account.Id);
                     client.Send(new AuthenticationTicketAcceptedMessage());
