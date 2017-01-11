@@ -8,21 +8,21 @@ namespace Past.Game.Engine
 {
     public class MapEngine
     {
-        private readonly List<GameClient> _clients;
+        public readonly List<GameClient> Clients;
 
         public MapEngine()
         {
-            _clients = new List<GameClient>();
+            Clients = new List<GameClient>();
         }
 
         public void Send(NetworkMessage message)
         {
-            _clients.ForEach(client => client.Send(message));
+            Clients.ForEach(client => client.Send(message));
         }
 
         public void SendGameRolePlayShowActorMessage(GameClient client)
         {
-            foreach (GameClient mapClient in _clients)
+            foreach (GameClient mapClient in Clients)
             {
                 client.Send(new GameRolePlayShowActorMessage(mapClient.Character.GetGameRolePlayCharacterInformations));
             }
@@ -30,7 +30,7 @@ namespace Past.Game.Engine
 
         public void SendCharacterLevelUpInformation(GameClient client)
         {
-            foreach (GameClient mapClient in _clients)
+            foreach (GameClient mapClient in Clients)
             {
                 if (mapClient != client)
                 {
@@ -41,11 +41,11 @@ namespace Past.Game.Engine
 
         public void AddClient(GameClient client)
         {
-            lock (_clients)
+            lock (Clients)
             {
-                if (!_clients.Contains(client))
+                if (!Clients.Contains(client))
                 {
-                    _clients.Add(client);
+                    Clients.Add(client);
                     SendGameRolePlayShowActorMessage(client);
                     Send(new GameRolePlayShowActorMessage(client.Character.GetGameRolePlayCharacterInformations));
                 }
@@ -54,11 +54,11 @@ namespace Past.Game.Engine
 
         public void RemoveClient(GameClient client)
         {
-            lock (_clients)
+            lock (Clients)
             {
-                if (_clients.Contains(client))
+                if (Clients.Contains(client))
                 {
-                    _clients.Remove(client);
+                    Clients.Remove(client);
                     Send(new GameContextRemoveElementMessage(client.Character.Id));
                 }
             }
@@ -66,7 +66,7 @@ namespace Past.Game.Engine
 
         public static void Initialize()
         {
-            foreach (var map in Map.Maps.Values)
+            foreach (Map map in Map.Maps.Values)
             {
                 map.Instance = new MapEngine();
             }
