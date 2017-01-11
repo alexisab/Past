@@ -8,12 +8,12 @@ namespace Past.Tools
     {
         private static void Main(string[] args)
         {
-            /*using (StreamWriter writer = new StreamWriter("mapsDatas"))
+            using (StreamWriter writer = new StreamWriter("mapsDatas"))
             {
-                foreach (string file in Directory.GetFiles(@"C:\Users\skeee\Desktop\Dofus 2 Online\content\maps", "*", SearchOption.AllDirectories).Where(x => x.Contains("dlm")))
+                foreach (string file in Directory.GetFiles(@"C:\Users\skeee\Desktop\Dofus 2\content\maps", "*", SearchOption.AllDirectories).Where(x => x.Contains("dlm")))
                 {
                     var map = new Dlm.DlmReader().ReadDLM(file);
-                    bool outdoor = map.MapType == 1 ? true : false;
+                    bool outdoor = map.MapType == 1;
                     writer.WriteLine($"Maps.Add({map.Id}, new Map({map.Id}, {outdoor}, {map.SubareaId}, {map.TopNeighbourId}, {map.BottomNeighbourId}, {map.LeftNeighbourId}, {map.RightNeighbourId}));");
                 }
                 Console.WriteLine("Done ...");
@@ -22,7 +22,7 @@ namespace Past.Tools
             while (true)
             {
                 Console.Read();
-            }*/
+            }
         }
     }
 }

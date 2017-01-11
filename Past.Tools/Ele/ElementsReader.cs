@@ -1,7 +1,7 @@
-﻿/*using Past.Protocol.IO;
+﻿using Past.Protocol.IO;
 using System;
 using System.IO;
-using ZLibNet;
+using zlib;
 
 namespace Past.Tools.Ele
 {
@@ -43,7 +43,7 @@ namespace Past.Tools.Ele
 
         private void Uncompress(Stream input, Stream output)
         {
-            ZLibStream outZStream = new ZLibStream(output, CompressionMode.Decompress);
+            ZOutputStream outZStream = new ZOutputStream(output);
             try
             {
                 byte[] raw = new byte[(int)input.Length];
@@ -60,4 +60,4 @@ namespace Past.Tools.Ele
             }
         }
     }
-}*/
+}
