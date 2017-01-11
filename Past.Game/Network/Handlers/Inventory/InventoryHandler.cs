@@ -19,5 +19,10 @@ namespace Past.Game.Network.Handlers.Inventory
         {
             client.Send(new SpellListMessage(true, client.Character.Spells.ConvertAll(spell => new SpellItem(spell.Position, spell.SpellId, spell.Level)).ToArray()));
         }
+
+        public static void SendKamasUpdateMessage(GameClient client, int kamasTotal)
+        {
+            client.Send(new KamasUpdateMessage(kamasTotal));
+        }
     }
 }
