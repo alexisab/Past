@@ -12,6 +12,7 @@ using Past.Protocol.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Past.Game.Network.Handlers.Character
 {
@@ -31,15 +32,19 @@ namespace Past.Game.Network.Handlers.Character
 
         public static void HandleCharacterCreationRequestMessage(GameClient client, CharacterCreationRequestMessage message)
         {
-            if (client.Account.Characters.Count >= 5)
+            if (client.Account.Characters.Count >= 5 && !client.Account.HasRights)
             {
                 client.Send(new CharacterCreationResultMessage((sbyte)CharacterCreationResultEnum.ERR_TOO_MANY_CHARACTERS));
             }
             else
             {
-                if (CharacterRecord.NameExist(message.name)) //need to add check for non allowed char
+                if (CharacterRecord.NameExist(message.name))
                 {
                     client.Send(new CharacterCreationResultMessage((sbyte)CharacterCreationResultEnum.ERR_NAME_ALREADY_EXISTS));
+                }
+                else if (!new Regex("^[A-Z][a-z]{2,9}(?:-[A-Z][a-z]{2,9}|[a-z]{1,10})$").IsMatch(message.name))
+                {
+                    client.Send(new CharacterCreationResultMessage((sbyte) CharacterCreationResultEnum.ERR_INVALID_NAME));
                 }
                 else
                 {
@@ -133,7 +138,7 @@ namespace Past.Game.Network.Handlers.Character
                 client.Character = character;
                 client.Send(new CharacterSelectedSuccessMessage(character.GetCharacterBaseInformations));
                 ContextRoleplayHandler.SendEmoteListMessage(client, new sbyte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 19, 21, 22, 23, 24 });
-                ChatHandler.SendEnabledChannelsMessage(client, new sbyte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 });
+                ChatHandler.SendEnabledChannelsMessage(client, new sbyte[] { 0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11 });
                 InventoryHandler.SendInventoryContentMessage(client, new ObjectItem[0], character.Kamas); //TODO Get the characters items
                 InventoryHandler.SendInventoryWeightMessage(client, 0, character.MaxPods);
                 InventoryHandler.SendSpellListMessage(client);
