@@ -8,7 +8,6 @@ namespace Past.Game.Engine
 {
     public class CommandEngine
     {
-        
         public static void Handle(GameClient client, string content)
         {
             string[] command = content.Split(' ');
@@ -74,7 +73,27 @@ namespace Past.Game.Engine
                 case ".addkamas":
                     if (client.Account.Role >= GameHierarchyEnum.GAMEMASTER_PADAWAN)
                     {
-
+                        GameClient targetClient = GameServer.Clients.FirstOrDefault(target => target.Character.Name == command[1]);
+                        if (targetClient != null)
+                        {
+                            int amount;
+                            if (int.TryParse(command[2], out amount))
+                            {
+                                targetClient.Character.AddKamas(amount);
+                            }
+                            else
+                            {
+                                BasicHandler.SendTextInformationMessage(client,
+                                    TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16,
+                                    new[] {"Error", $"{command[2]} is not a valid amount !"});
+                            }
+                        }
+                        else
+                        {
+                            BasicHandler.SendTextInformationMessage(client,
+                                TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16,
+                                new[] { "Error", $"Can't found the character {command[1]} !" });
+                        }
                     }
                     break;
                 case ".kick":
