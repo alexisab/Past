@@ -52,6 +52,21 @@ namespace Past.Common.Database.Record
             }
         }
 
+        public static AccountRecord ReturnAccount(int id)
+        {
+            lock (DatabaseManager.Object)
+            {
+                AccountRecord account = null;
+                MySqlDataReader reader = DatabaseManager.ExecuteQuery($"SELECT * FROM accounts WHERE Id = '{id}' LIMIT 1");
+                if (reader.Read())
+                {
+                    account = new AccountRecord(reader);
+                }
+                reader.Close();
+                return account;
+            }
+        }
+
         public static AccountRecord ReturnAccountWithTicket(string ticket)
         {
             lock (DatabaseManager.Object)
