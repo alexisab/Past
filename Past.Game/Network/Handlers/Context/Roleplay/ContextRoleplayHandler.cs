@@ -103,7 +103,7 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
             {
                 byte oldPosition = spellRecord.Position;
                 byte newPosition = message.position;
-                CharacterSpellRecord spell2Record = client.Character.Spells.FirstOrDefault(x => x.Position == newPosition);
+                CharacterSpellRecord spell2Record = client.Character.Spells.FirstOrDefault(spell => spell.Position == newPosition);
                 if (spell2Record != null)
                 {
                     spellRecord.Position = newPosition;
