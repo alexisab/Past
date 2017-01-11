@@ -107,7 +107,7 @@ namespace Past.Common.Database.Record
                     characters.Add(new CharacterRecord(reader));
                 }
                 reader.Close();
-                return characters.OrderByDescending(x => x.LastUsage).ToList();
+                return characters.OrderByDescending(character => character.LastUsage).ToList();
             }
         }
 
