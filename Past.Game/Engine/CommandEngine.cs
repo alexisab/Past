@@ -14,7 +14,7 @@ namespace Past.Game.Engine
             switch (command[0])
             {
                 case ".help":
-                    Command.Commands.Where(cmd => cmd.Value.Role <= client.Account.Role).ToList().ForEach(cmd => BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new[] { $"{cmd.Value.Name}", $"{cmd.Value.Description}" }));
+                    Command.Commands.Where(cmd => cmd.Role <= client.Account.Role).ToList().ForEach(cmd => BasicHandler.SendTextInformationMessage(client, TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16, new[] { $"{cmd.Name}", $"{cmd.Description}" }));
                     break;
                 case ".save":
                     client.Character.Save();
@@ -41,7 +41,7 @@ namespace Past.Game.Engine
                 case ".go":
                     if (client.Account.Role >= GameHierarchyEnum.MODERATOR)
                     {
-                        Map map = Map.Maps.FirstOrDefault(findMap => findMap.Value.Id == int.Parse(command[1])).Value;
+                        Map map = Map.Maps.FirstOrDefault(findMap => findMap.Id == int.Parse(command[1]));
                         if (map != null && map.Id != client.Character.CurrentMapId)
                         {
                             client.Character.Teleport(map.Id, client.Character.CellId);

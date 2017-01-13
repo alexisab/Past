@@ -66,7 +66,7 @@ namespace Past.Game.Engine
 
         public static void Initialize()
         {
-            foreach (Map map in Map.Maps.Values)
+            foreach (Map map in Map.Maps)
             {
                 map.Instance = new MapEngine();
             }

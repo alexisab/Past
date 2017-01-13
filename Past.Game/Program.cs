@@ -27,7 +27,6 @@ namespace Past.Game
             GameServer gameServer = new GameServer();
 
             while (true)
-
             {
                 Console.ReadLine();
             }

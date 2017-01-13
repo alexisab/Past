@@ -48,7 +48,7 @@ namespace Past.Game.Network.Handlers.Character
                 }
                 else
                 {
-                    Breed breed = Breed.Breeds[(BreedEnum)message.breed];
+                    Breed breed = Breed.Breeds[message.breed - 1];
                     string look = message.sex == false ? breed.MaleLook : breed.FemaleLook;
                     CharacterRecord characterRecord = new CharacterRecord(client.Account.Id, message.name, 1, 0, (BreedEnum)message.breed, message.colors.Distinct().Count() != 1 ? look.Insert(look.IndexOf("||") + 1, $"1={message.colors[0]},2={message.colors[1]},3={message.colors[2]},4={message.colors[3]},5={message.colors[4]}") : look, message.sex, Config.StartMap != 0 ? Config.StartMap : breed.StartMapId, Config.StartCellId != 0 ? Config.StartCellId : breed.StartDisposition.cellId, Config.StartDirection != 0 ? (DirectionsEnum)Config.StartDirection : (DirectionsEnum)breed.StartDisposition.direction, AlignmentSideEnum.ALIGNMENT_NEUTRAL, 0, 0, false, 0, 0, 0, DateTime.Now);
                     characterRecord.Create();

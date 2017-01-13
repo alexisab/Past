@@ -82,7 +82,7 @@ namespace Past.Game.Engine
             }
         }
 
-        public Breed BreedData => Common.Data.Breed.Breeds[Breed];
+        public Breed BreedData => Common.Data.Breed.Breeds[(int)Breed - 1];
 
         public string EntityLookString
         {
@@ -123,9 +123,9 @@ namespace Past.Game.Engine
 
         }
 
-        public Map Map => Map.Maps[CurrentMapId];
+        public Map Map => Map.Maps.Find(map => map.Id == CurrentMapId);
 
-        public MapEngine CurrentMap => (MapEngine)Map.Maps[CurrentMapId].Instance;
+        public MapEngine CurrentMap => (MapEngine)Map.Instance;
 
         public short CellId
         {
@@ -470,6 +470,12 @@ namespace Past.Game.Engine
                 CharacterHandler.SendCharacterStatsListMessage(Client);
                 InventoryHandler.SendSpellListMessage(Client);
             }
+        }
+
+        public void AddKamas(int amount)
+        {
+            Kamas += amount;
+            InventoryHandler.SendKamasUpdateMessage(Client, Kamas);
         }
 
         private int GetNextSpell(byte level)

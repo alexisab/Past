@@ -10,7 +10,7 @@ namespace Past.Game.Network.Handlers.Chat
 {
     public class ChatHandler
     {
-        public static void HandleChatClientMultiMessage(GameClient client, ChatClientMultiMessage message) //TODO
+        public static void HandleChatClientMultiMessage(GameClient client, ChatClientMultiMessage message)
         {
             if (!message.content.StartsWith("."))
             {
@@ -41,16 +41,16 @@ namespace Past.Game.Network.Handlers.Chat
                     case (sbyte)ChatChannelsMultiEnum.CHANNEL_SEEK:
                         SendSeekChatServerMessage(client, message.content, client.Character.Id, client.Character.Name);
                         break;
-                    case (sbyte)ChatChannelsMultiEnum.CHANNEL_NOOB:
-                        break;
+                    /*case (sbyte)ChatChannelsMultiEnum.CHANNEL_NOOB:
+                        break;*/
                     case (sbyte)ChatChannelsMultiEnum.CHANNEL_ADMIN:
-                        if (client.Account.Role == GameHierarchyEnum.ADMIN)
+                        if (client.Account.Role > GameHierarchyEnum.PLAYER)
                         {
                             SendAdminChatServerMessage(client, message.content, client.Character.Id, client.Character.Name);
                         }
                         break;
                     default:
-                        SendChatServerMessage(client, message.channel, message.content, client.Character.Id, client.Character.Name);
+                        SendGlobalChatServerMessage(client, message.content, client.Character.Id, client.Character.Name);
                         break;
                 }
             }
@@ -82,52 +82,48 @@ namespace Past.Game.Network.Handlers.Chat
         {
             if (!string.IsNullOrEmpty(content) && Enum.IsDefined(typeof(ChatChannelsMultiEnum), channel))
             {
-                client.Character.CurrentMap.Send(new ChatServerMessage(channel, content, Functions.ReturnUnixTimeStamp(DateTime.Now), "", senderId, senderName));
+                client.Send(new ChatServerMessage(channel, content, Functions.ReturnUnixTimeStamp(DateTime.Now), "", senderId, senderName));
             }
         }
 
         #region Send Chat
+        public static void SendGlobalChatServerMessage(GameClient client, string content, int senderId, string senderName)
+        {
+            foreach (GameClient gameClient in client.Character.CurrentMap.Clients)
+            {
+                SendChatServerMessage(gameClient, 0, content, senderId, senderName);
+            }
+        }
+
         public static void SendSalesChatServerMessage(GameClient client, string content, int senderId, string senderName)
         {
-            if (!string.IsNullOrEmpty(content))
+            foreach (GameClient gameClient in GameServer.Clients.Where(gameClient => gameClient.Character != null && gameClient.Character.Map.SubAreaId == client.Character.Map.SubAreaId))
             {
-                foreach (GameClient gameClient in GameServer.Clients.Where(gameClient => gameClient.Character != null && gameClient.Character.Map.SubAreaId == client.Character.Map.SubAreaId))
-                {
-                    SendChatServerMessage(gameClient, 5, content, senderId, senderName);
-                }
+                SendChatServerMessage(gameClient, 5, content, senderId, senderName);
             }
         }
 
         public static void SendSeekChatServerMessage(GameClient client, string content, int senderId, string senderName)
         {
-            if (!string.IsNullOrEmpty(content))
+            foreach (GameClient gameClient in GameServer.Clients.Where(gameClient => gameClient.Character != null && gameClient.Character.Map.SubAreaId == client.Character.Map.SubAreaId))
             {
-                foreach (GameClient gameClient in GameServer.Clients.Where(gameClient => gameClient.Character != null && gameClient.Character.Map.SubAreaId == client.Character.Map.SubAreaId))
-                {
-                    SendChatServerMessage(gameClient, 6, content, senderId, senderName);
-                }
+                SendChatServerMessage(gameClient, 6, content, senderId, senderName);
             }
         }
 
         public static void SendAlignChatServerMessage(GameClient client, string content, int senderId, string senderName)
         {
-            if (!string.IsNullOrEmpty(content))
+            foreach (GameClient gameClient in GameServer.Clients.Where(gameClient => gameClient.Character != null && gameClient.Character.AlignmentSide == client.Character.AlignmentSide))
             {
-                foreach (GameClient gameClient in GameServer.Clients.Where(gameClient => gameClient.Character != null && gameClient.Character.AlignmentSide == client.Character.AlignmentSide))
-                {
-                    SendChatServerMessage(gameClient, 3, content, senderId, senderName);
-                }
+                SendChatServerMessage(gameClient, 3, content, senderId, senderName);
             }
         }
 
         public static void SendAdminChatServerMessage(GameClient client, string content, int senderId, string senderName)
         {
-            if (!string.IsNullOrEmpty(content))
+            foreach (GameClient gameClient in GameServer.Clients.Where(gameClient => gameClient.Character != null))
             {
-                foreach (GameClient gameClient in GameServer.Clients.Where(gameClient => gameClient.Character != null))
-                {
-                    SendChatServerMessage(gameClient, 8, content, senderId, senderName);
-                }
+                SendChatServerMessage(gameClient, 8, content, senderId, senderName);
             }
         }
         #endregion
