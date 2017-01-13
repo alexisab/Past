@@ -65,6 +65,7 @@ namespace Past.Game.Network.Handlers.Chat
             GameClient targetClient = GameServer.Clients.FirstOrDefault(target => target.Character.Name == message.receiver);
             if (targetClient != null && targetClient != client)
             {
+                client.Send(new ChatServerCopyMessage(9, message.content, Functions.ReturnUnixTimeStamp(DateTime.Now), "", targetClient.Character.Id, targetClient.Character.Name));
                 SendChatServerMessage(targetClient, 9, message.content, client.Character.Id, client.Character.Name);
             }
             else
