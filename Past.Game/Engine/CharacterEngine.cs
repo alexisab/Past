@@ -414,14 +414,7 @@ namespace Past.Game.Engine
         {
             Save();
             CurrentMap.RemoveClient(Client);
-            if (Party != null)
-            {
-                if (Party.Leader == Client)
-                {
-                    Party.Disband();
-                }
-                Party.RemoveMember(Client);
-            }
+            Party?.Leave(Client);
         }
 
         public void SendLoginMessage()

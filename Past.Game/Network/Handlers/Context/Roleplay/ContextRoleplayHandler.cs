@@ -153,6 +153,11 @@ namespace Past.Game.Network.Handlers.Context.Roleplay
             }
         }
 
+        public static void HandlePartyLeaveRequestMessage(GameClient client, PartyLeaveRequestMessage message)
+        {
+            client.Character.Party?.Leave(client);
+        }
+
         public static void HandleGuidedModeQuitRequestMessage(GameClient client, GuidedModeQuitRequestMessage message)
         {
 
