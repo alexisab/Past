@@ -47,7 +47,6 @@
     <Compile Include="Database\DatabaseManager.cs" />
     <Compile Include="Database\Record\AccountRecord.cs" />
     <Compile Include="Database\Record\CharacterRecord.cs" />
-    <Compile Include="Database\Record\AccountSocialRecord.cs" />
     <Compile Include="Database\Record\CharacterSpellRecord.cs" />
     <Compile Include="Data\Command.cs" />
     <Compile Include="Data\Breed.cs" />
