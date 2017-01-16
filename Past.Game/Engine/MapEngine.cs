@@ -3,6 +3,7 @@ using Past.Game.Network;
 using Past.Protocol;
 using Past.Protocol.Messages;
 using System.Collections.Generic;
+using Past.Protocol.Types;
 
 namespace Past.Game.Engine
 {
@@ -70,6 +71,11 @@ namespace Past.Game.Engine
             {
                 map.Instance = new MapEngine();
             }
+        }
+
+        public InteractiveElement[] GetInteractiveElements(int mapId)
+        {
+            return Interactive.Interactives.ContainsKey(mapId) ? Interactive.Interactives[mapId] : new InteractiveElement[0];
         }
     }
 }
