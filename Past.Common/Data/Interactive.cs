@@ -22,7 +22,7 @@ namespace Past.Common.Data
             Interactives.Add(143372, new[] { new InteractiveElement(437117, new short[] { 44, 114 }, new short[0]) });
             Interactives.Add(144419, new[] { new InteractiveElement(58211, new short[] { 44, 114 }, new short[0]) });
             Interactives.Add(133896, new[] { new InteractiveElement(443366, new short[] { 44, 114 }, new short[0]) });
-            Interactives.Add(17932, new[] { new InteractiveElement(458282, new short[] { 44, 114 }, new short[0]) });
+            Interactives.Add(17932, new[] { new InteractiveElement(57573, new short[] { 44, 114 }, new short[0]) });
             Interactives.Add(13060, new[] { new InteractiveElement(1254, new short[] { 44, 114 }, new short[0]) });
             Interactives.Add(12054, new[] { new InteractiveElement(149940, new short[] { 44, 114 }, new short[0]) });
             Interactives.Add(8991, new[] { new InteractiveElement(1246, new short[] { 44, 114 }, new short[0]) });
@@ -35,6 +35,11 @@ namespace Past.Common.Data
             Interactives.Add(131608, new[] { new InteractiveElement(57527, new short[] { 44, 114 }, new short[0]) });
             Interactives.Add(5142, new[] { new InteractiveElement(57554, new short[] { 44, 114 }, new short[0]) });
             Interactives.Add(2567, new[] { new InteractiveElement(57272, new short[] { 44, 114 }, new short[0]) });
+            Interactives.Add(148744, new[] { new InteractiveElement(406477, new short[] { 44, 114 }, new short[0]) });
+            Interactives.Add(1797, new[] { new InteractiveElement(1202, new short[] { 44, 114 }, new short[0]) });
+            Interactives.Add(3844, new[] { new InteractiveElement(57539, new short[] { 44, 114 }, new short[0]) });
+            Interactives.Add(132096, new[] { new InteractiveElement(77916, new short[] { 44, 114 }, new short[0]) });
+            Interactives.Add(131597, new[] { new InteractiveElement(57590, new short[] { 44, 114 }, new short[0]) });
         }
     }
 }
