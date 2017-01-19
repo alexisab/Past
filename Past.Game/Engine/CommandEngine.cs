@@ -20,96 +20,142 @@ namespace Past.Game.Engine
                     client.Character.Save();
                     break;
                 case ".start":
-                    client.Character.Teleport(client.Character.BreedData.StartMapId, client.Character.BreedData.StartDisposition.cellId);
+                    client.Character.Teleport(client.Character.GetSpawnMap, client.Character.BreedData.StartDisposition.cellId);
                     break;
                 case ".goname":
                     if (client.Account.Role >= GameHierarchyEnum.MODERATOR)
                     {
-                        GameClient targetClient = GameServer.Clients.FirstOrDefault(target => target.Character.Name == command[1]);
-                        if (targetClient != null && targetClient != client)
-                        {
-                            client.Character.Teleport(targetClient.Character.CurrentMapId, targetClient.Character.CellId);
-                        }
-                        else
+                        if (string.IsNullOrEmpty(command[1]))
                         {
                             BasicHandler.SendTextInformationMessage(client,
                                 TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16,
-                                new[] {"Error", $"Can't found the character {command[1]} !"});
+                                new[] {"Error", "Enter a name first !"});
+                        }
+                        else
+                        {
+                            GameClient targetClient =
+                                GameServer.Clients.FirstOrDefault(target => target.Character.Name == command[1]);
+                            if (targetClient != null && targetClient != client)
+                            {
+                                client.Character.Teleport(targetClient.Character.CurrentMapId,
+                                    targetClient.Character.CellId);
+                            }
+                            else
+                            {
+                                BasicHandler.SendTextInformationMessage(client,
+                                    TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16,
+                                    new[] {"Error", $"Can't found the character {command[1]} !"});
+                            }
                         }
                     }
                     break;
                 case ".go":
                     if (client.Account.Role >= GameHierarchyEnum.MODERATOR)
                     {
-                        Map map = Map.Maps.FirstOrDefault(findMap => findMap.Id == int.Parse(command[1]));
-                        if (map != null && map.Id != client.Character.CurrentMapId)
+                        if (string.IsNullOrEmpty(command[1]))
                         {
-                            client.Character.Teleport(map.Id, client.Character.CellId);
+                            BasicHandler.SendTextInformationMessage(client,
+                                    TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16,
+                                    new[] { "Error", "Enter a map id first !" });
                         }
                         else
                         {
-                            BasicHandler.SendTextInformationMessage(client,
-                                TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16,
-                                new[] {"Error", $"Can't found the map {command[1]} !"});
+                            Map map = Map.Maps.FirstOrDefault(findMap => findMap.Id == int.Parse(command[1]));
+                            if (map != null && map.Id != client.Character.CurrentMapId)
+                            {
+                                client.Character.Teleport(map.Id, client.Character.CellId);
+                            }
+                            else
+                            {
+                                BasicHandler.SendTextInformationMessage(client,
+                                    TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16,
+                                    new[] {"Error", $"Can't found the map {command[1]} !"});
+                            }
                         }
                     }
                     break;
                 case ".levelup":
                     if (client.Account.Role >= GameHierarchyEnum.GAMEMASTER_PADAWAN)
                     {
-                        GameClient targetClient = GameServer.Clients.FirstOrDefault(target => target.Character.Name == command[1]);
-                        if (targetClient != null)
+                        if (string.IsNullOrEmpty(command[1]))
                         {
-                            targetClient.Character.LevelUp();
+                            client.Character.LevelUp();
                         }
                         else
                         {
-                            BasicHandler.SendTextInformationMessage(client,
-                                TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16,
-                                new[] {"Error", $"Can't found the character {command[1]} !"});
+                            GameClient targetClient = GameServer.Clients.FirstOrDefault(target => target.Character.Name == command[1]);
+                            if (targetClient != null)
+                            {
+                                targetClient.Character.LevelUp();
+                            }
+                            else
+                            {
+                                BasicHandler.SendTextInformationMessage(client,
+                                    TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16,
+                                    new[] {"Error", $"Can't found the character {command[1]} !"});
+                            }
                         }
                     }
                     break;
                 case ".addkamas":
                     if (client.Account.Role >= GameHierarchyEnum.GAMEMASTER_PADAWAN)
                     {
-                        GameClient targetClient = GameServer.Clients.FirstOrDefault(target => target.Character.Name == command[1]);
-                        if (targetClient != null)
+                        if (string.IsNullOrEmpty(command[1]))
                         {
-                            int amount;
-                            if (int.TryParse(command[2], out amount))
+                            BasicHandler.SendTextInformationMessage(client,
+                                TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16,
+                                new[] { "Error", "Enter a name first !" });
+                        }
+                        else
+                        {
+                            GameClient targetClient = GameServer.Clients.FirstOrDefault(target => target.Character.Name == command[1]);
+                            if (targetClient != null)
                             {
-                                targetClient.Character.AddKamas(amount);
+                                int amount;
+                                if (int.TryParse(command[2], out amount))
+                                {
+                                    targetClient.Character.AddKamas(amount);
+                                }
+                                else
+                                {
+                                    BasicHandler.SendTextInformationMessage(client,
+                                        TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16,
+                                        new[] {"Error", $"{command[2]} is not a valid amount !"});
+                                }
                             }
                             else
                             {
                                 BasicHandler.SendTextInformationMessage(client,
                                     TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16,
-                                    new[] {"Error", $"{command[2]} is not a valid amount !"});
+                                    new[] {"Error", $"Can't found the character {command[1]} !"});
                             }
-                        }
-                        else
-                        {
-                            BasicHandler.SendTextInformationMessage(client,
-                                TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16,
-                                new[] { "Error", $"Can't found the character {command[1]} !" });
                         }
                     }
                     break;
                 case ".kick":
                     if (client.Account.Role >= GameHierarchyEnum.GAMEMASTER)
                     {
-                        GameClient targetClient = GameServer.Clients.FirstOrDefault(target => target.Character.Name == command[1]);
-                        if (targetClient != null)
-                        {
-                            BasicHandler.SendSystemMessageDisplayMessage(targetClient, true, 18, new []{ client.Character.Name, "" });
-                            targetClient.Disconnect();
-                        }
-                        else
+                        if (string.IsNullOrEmpty(command[1]))
                         {
                             BasicHandler.SendTextInformationMessage(client,
                                 TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16,
-                                new[] { "Error", $"Can't found the character {command[1]} !" });
+                                new[] {"Error", "Enter a name first !"});
+                        }
+                        else
+                        {
+                            GameClient targetClient = GameServer.Clients.FirstOrDefault(target => target.Character.Name == command[1]);
+                            if (targetClient != null)
+                            {
+                                BasicHandler.SendSystemMessageDisplayMessage(targetClient, true, 18,
+                                    new[] {client.Character.Name, ""});
+                                targetClient.Disconnect();
+                            }
+                            else
+                            {
+                                BasicHandler.SendTextInformationMessage(client,
+                                    TextInformationTypeEnum.TEXT_INFORMATION_ERROR, 16,
+                                    new[] {"Error", $"Can't found the character {command[1]} !"});
+                            }
                         }
                     }
                     break;
