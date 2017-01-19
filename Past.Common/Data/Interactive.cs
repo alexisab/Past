@@ -30,7 +30,7 @@ namespace Past.Common.Data
             Interactives.Add(15654, new[] { new InteractiveElement(60101, new short[] { 44, 114 }, new short[0]) });
             Interactives.Add(15153, new[] { new InteractiveElement(159227, new short[] { 44, 114 }, new short[0]) });
             Interactives.Add(14419207, new[] { new InteractiveElement(52836, new short[] { 44, 114 }, new short[0]) });
-            Interactives.Add(20973313, new[] { new InteractiveElement(437121, new short[] { 44, 114 }, new short[0]) });
+            //Interactives.Add(20973313, new[] { new InteractiveElement(437121, new short[] { 44, 114 }, new short[0]) }); bug idk why
             Interactives.Add(28050436, new[] { new InteractiveElement(435664, new short[] { 44, 114 }, new short[0]) });
             Interactives.Add(131608, new[] { new InteractiveElement(57527, new short[] { 44, 114 }, new short[0]) });
             Interactives.Add(5142, new[] { new InteractiveElement(57554, new short[] { 44, 114 }, new short[0]) });
@@ -40,6 +40,47 @@ namespace Past.Common.Data
             Interactives.Add(3844, new[] { new InteractiveElement(57539, new short[] { 44, 114 }, new short[0]) });
             Interactives.Add(132096, new[] { new InteractiveElement(77916, new short[] { 44, 114 }, new short[0]) });
             Interactives.Add(131597, new[] { new InteractiveElement(57590, new short[] { 44, 114 }, new short[0]) });
+        }
+
+        public static short GetZaapCellId(int mapId)
+        {
+            short cellId;
+            switch (mapId)
+            {
+                case 2323:
+                case 139265: cellId = 314; break;
+                case 21761028: cellId = 217; break;
+                case 21760512: cellId = 273; break;
+                case 16778242: cellId = 314; break;
+                case 154642: cellId = 217; break;
+                case 800: cellId = 300; break;
+                case 138543: cellId = 215; break;
+                case 147768: cellId = 242; break;
+                case 141588: cellId = 313; break;
+                case 143372: cellId = 257; break;
+                case 144419: cellId = 216; break;
+                case 133896: cellId = 235; break;
+                case 17932: cellId = 116; break;
+                case 13060: cellId = 173; break;
+                case 12054: cellId = 329; break;
+                case 8991: cellId = 228; break;
+                case 13605: cellId = 227; break;
+                case 15654: cellId = 259; break;
+                case 15153: cellId = 327; break;
+                case 14419207: cellId = 299; break;
+                //case 20973313: cellId = 343; break;
+                case 28050436: cellId = 387; break;
+                case 131608: cellId = 381; break;
+                case 5142: cellId = 467; break;
+                case 2567: cellId = 235; break;
+                case 148744: cellId = 143; break;
+                case 1797: cellId = 287; break;
+                case 3844: cellId = 254; break;
+                case 132096: cellId = 206; break;
+                case 131597: cellId = 355; break;
+                default: cellId = 0; break;
+            }
+            return cellId;
         }
     }
 }

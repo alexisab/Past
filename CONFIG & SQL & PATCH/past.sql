@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2016-12-16 22:16:20
+Date: 2017-01-19 05:14:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -37,9 +37,9 @@ CREATE TABLE `accounts` (
 -- ----------------------------
 -- Records of accounts
 -- ----------------------------
-INSERT INTO `accounts` VALUES ('1', 'Test', '098f6bcd4621d373cade4e832627b4f6', 'TRVPSUPVIDCNSTGTXEDDMTSRHFHQDGYT', 'admin', '40', 'Delete ?', 'Yes', '2016-10-04 11:42:16', '2016-12-11 17:40:55', '127.0.0.1');
-INSERT INTO `accounts` VALUES ('2', 'Test2', '098f6bcd4621d373cade4e832627b4f6', 'LRTFRCLHPARVRXFGQXBPRZZIKWOJSCVQ', 'admin2', '10', 'Delete ?', 'Yes', '2016-10-04 11:42:16', '2016-12-04 21:58:14', '127.0.0.1');
-INSERT INTO `accounts` VALUES ('3', 'Test3', '098f6bcd4621d373cade4e832627b4f6', 'EBQXYBISBNCLLLJFMVSLKAUBDNLNDAZK', 'admin3', '40', 'Delete ?', 'Yes', '2016-10-04 11:42:16', '2016-12-04 21:58:27', '127.0.0.1');
+INSERT INTO `accounts` VALUES ('1', 'Test', '098f6bcd4621d373cade4e832627b4f6', 'FGLABAOWASSYCELSRPWGUZYUBTUKCBZX', 'admin', '4', 'Delete ?', 'Yes', '2016-10-04 11:42:16', '2017-01-19 04:12:15', '127.0.0.1');
+INSERT INTO `accounts` VALUES ('2', 'Test2', '098f6bcd4621d373cade4e832627b4f6', 'THRSUEVYPFGMMIIQJIUOYWRSMMFOWOJH', 'admin2', '1', 'Delete ?', 'Yes', '2016-10-04 11:42:16', '2017-01-13 04:28:29', '127.0.0.1');
+INSERT INTO `accounts` VALUES ('3', 'Test3', '098f6bcd4621d373cade4e832627b4f6', 'EBQXYBISBNCLLLJFMVSLKAUBDNLNDAZK', 'admin3', '4', 'Delete ?', 'Yes', '2016-10-04 11:42:16', '2016-12-04 21:58:27', '127.0.0.1');
 
 -- ----------------------------
 -- Table structure for characters
@@ -57,6 +57,7 @@ CREATE TABLE `characters` (
   `MapId` int(11) NOT NULL,
   `CellId` smallint(6) NOT NULL,
   `Direction` tinyint(3) NOT NULL,
+  `SpawnMapId` int(11) DEFAULT NULL,
   `Health` int(11) DEFAULT '55',
   `Energy` smallint(6) DEFAULT '10000',
   `AP` tinyint(3) unsigned DEFAULT '6',
@@ -76,16 +77,16 @@ CREATE TABLE `characters` (
   `SpellsPoints` smallint(6) DEFAULT '0',
   `LastUsage` datetime DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=MyISAM AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of characters
 -- ----------------------------
-INSERT INTO `characters` VALUES ('31', '1', 'Skeezr', '1', '110', '1', '{1|11,420,197,353|1=8089936,2=14036310,3=770001,4=1476050,5=15483569,6=15483569|125|1@0={264|||80},6@0={170|||125}}', '1', '131883', '396', '1', '55', '10000', '6', '3', '0', '0', '30', '20', '0', '0', '2', '1754', '0', '0', '0', '1287', '3', '2016-12-11 17:40:55');
-INSERT INTO `characters` VALUES ('56', '2', 'Asinaki', '1', '0', '2', '{1048|||100}', '0', '21757955', '383', '7', '55', '10000', '6', '3', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2016-12-04 21:58:14');
-INSERT INTO `characters` VALUES ('76', '1', 'Ogetanifow', '1', '0', '2', '{1|21||125|6@0={170|||125}}', '1', '21757955', '347', '1', '55', '10000', '6', '3', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2016-12-04 21:59:38');
-INSERT INTO `characters` VALUES ('77', '2', 'Emoqak', '1', '0', '7', '{1|71||125}', '1', '21757955', '312', '1', '55', '10000', '6', '3', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2016-11-24 02:54:01');
-INSERT INTO `characters` VALUES ('78', '3', 'Ebowage', '1', '0', '3', '{1|31||95}', '1', '21757955', '428', '4', '55', '10000', '6', '3', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2016-12-04 21:58:27');
+INSERT INTO `characters` VALUES ('31', '1', 'Skeezr', '1', '110', '1', '{1|11,420,197,353|1=8089936,2=14036310,3=770001,4=1476050,5=15483569,6=15483569|125|1@0={264|||80},6@0={170|||125}}', '1', '131883', '396', '1', null, '55', '10000', '6', '3', '0', '0', '30', '20', '0', '0', '2', '1754', '0', '0', '0', '1287', '3', '2016-12-11 17:40:55');
+INSERT INTO `characters` VALUES ('56', '2', 'Asinaki', '1', '0', '2', '{1048|||100}', '0', '21757956', '156', '3', null, '55', '10000', '6', '3', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2017-01-13 04:28:29');
+INSERT INTO `characters` VALUES ('76', '1', 'Ogetanifow', '1', '0', '2', '{1|21||125|6@0={170|||125}}', '1', '21761028', '159', '2', '2323', '55', '10000', '6', '3', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '300', '0', '0', '2017-01-19 04:12:15');
+INSERT INTO `characters` VALUES ('77', '2', 'Emoqak', '1', '0', '7', '{1|71||125}', '1', '21757955', '312', '1', null, '55', '10000', '6', '3', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2016-11-24 02:54:01');
+INSERT INTO `characters` VALUES ('78', '3', 'Ebowage', '1', '0', '3', '{1|31||95}', '1', '21757955', '428', '4', null, '55', '10000', '6', '3', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2016-12-04 21:58:27');
 
 -- ----------------------------
 -- Table structure for characters_spell
@@ -98,7 +99,7 @@ CREATE TABLE `characters_spell` (
   `SpellId` int(11) NOT NULL,
   `Level` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`Id`)
-) ENGINE=MyISAM AUTO_INCREMENT=109 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=121 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of characters_spell

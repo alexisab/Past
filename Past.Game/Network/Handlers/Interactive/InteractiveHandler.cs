@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Past.Common.Data;
 using Past.Protocol.Messages;
 
 namespace Past.Game.Network.Handlers.Interactive
@@ -18,12 +18,12 @@ namespace Past.Game.Network.Handlers.Interactive
                 case 114:
                     IEnumerable<int> zaaps = from interactive in Common.Data.Interactive.Interactives
                         from interactiveElement in interactive.Value
-                        where interactiveElement.enabledSkillIds.SequenceEqual(new short[] {44, 114})
+                        where interactiveElement.enabledSkillIds.SequenceEqual(new short[] { 44, 114 })
                         select interactive.Key;
                     IEnumerable<short> zaapsSubAreaIds = from interactive in Common.Data.Interactive.Interactives
-                        join map in Common.Data.Map.Maps on interactive.Key equals map.Id
+                        join map in Map.Maps on interactive.Key equals map.Id
                         select (short) map.SubAreaId;
-                    client.Send(new ZaapListMessage(0, zaaps.ToArray(), zaapsSubAreaIds.ToArray(), new short[zaaps.Count()], client.Character.GetSpawnMap()));
+                    client.Send(new ZaapListMessage(0, zaaps.ToArray(), zaapsSubAreaIds.ToArray(), new short[zaaps.Count()], client.Character.GetSpawnMap));
                     break;
             }
             client.Send(new InteractiveUseEndedMessage(message.elemId, message.skillId));
@@ -31,6 +31,13 @@ namespace Past.Game.Network.Handlers.Interactive
 
         public static void HandleTeleportRequestMessage(GameClient client, TeleportRequestMessage message)
         {
+            Map map = Map.Maps.FirstOrDefault(findMap => findMap.Id == message.mapId);
+            if (map != null && map.Id != client.Character.CurrentMapId)
+            {
+                short cellId = Common.Data.Interactive.GetZaapCellId(map.Id);
+                client.Character.Teleport(map.Id, cellId == 0 ? client.Character.CellId : cellId);
+            }
+            client.Send(new LeaveDialogMessage());
         }
     }
 }

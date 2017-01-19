@@ -9,6 +9,7 @@ using Past.Protocol.Enums;
 using Past.Protocol.Types;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Past.Game.Network;
 
@@ -119,6 +120,19 @@ namespace Past.Game.Engine
             set
             {
                 Record.MapId = value;
+            }
+
+        }
+
+        public int? SpawnMapId
+        {
+            get
+            {
+                return Record.SpawnMapId;
+            }
+            set
+            {
+                Record.SpawnMapId = value;
             }
 
         }
@@ -497,6 +511,14 @@ namespace Past.Game.Engine
             }
             return spell;
         }
+
+        public void SetSpawnMap(int mapId)
+        {
+            SpawnMapId = mapId;
+            BasicHandler.SendTextInformationMessage(Client, TextInformationTypeEnum.TEXT_INFORMATION_MESSAGE, 6, new string[0]);
+        }
+
+        public int GetSpawnMap => SpawnMapId ?? BreedData.StartMapId;
 
         public bool CanBoostSpell(CharacterSpellRecord spell)
         {

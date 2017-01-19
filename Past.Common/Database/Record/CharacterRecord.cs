@@ -20,6 +20,7 @@ namespace Past.Common.Database.Record
         public int MapId { get; set; }
         public short CellId { get; set; }
         public DirectionsEnum Direction { get; set; }
+        public int? SpawnMapId { get; set; }
         public AlignmentSideEnum AlignementSide { get; set; }
         public ushort Honor { get; set; }
         public ushort Dishonor { get; set; }
@@ -54,6 +55,7 @@ namespace Past.Common.Database.Record
             MapId = (int)reader["MapId"];
             CellId = (short)reader["CellId"];
             Direction = (DirectionsEnum)(sbyte)reader["Direction"];
+            SpawnMapId = reader["SpawnMapId"] as int?;
             Health = (int)reader["Health"];
             Energy = (short)reader["Energy"];
             AP = (byte)reader["AP"];
@@ -118,7 +120,7 @@ namespace Past.Common.Database.Record
 
         public int Update()
         {
-            return DatabaseManager.ExecuteNonQuery($"UPDATE characters SET Name = '{Name}', Level = '{Level}', Experience = '{Experience}', Breed = '{(sbyte)Breed}', EntityLookString = '{EntityLookString}', Sex = '{Convert.ToSByte(Sex)}', MapId = '{MapId}', CellId = '{CellId}', Direction = '{(sbyte)Direction}', Health = '{Health}', Energy = '{Energy}', AP = '{AP}', MP = '{MP}', Strength = '{Strength}', Vitality = '{Vitality}', Wisdom = '{Wisdom}', Chance = '{Chance}', Agility = '{Agility}', Intelligence = '{Intelligence}', AlignementSide = '{(sbyte)AlignementSide}', Honor = '{Honor}', PvPEnabled = '{Convert.ToSByte(PvPEnabled)}', Kamas = '{Kamas}', StatsPoints = '{StatsPoints}', SpellsPoints = '{SpellsPoints}', LastUsage = '{LastUsage:yyyy-MM-dd HH:mm:ss}' WHERE Id = '{Id}'");
+            return DatabaseManager.ExecuteNonQuery($"UPDATE characters SET Name = '{Name}', Level = '{Level}', Experience = '{Experience}', Breed = '{(sbyte)Breed}', EntityLookString = '{EntityLookString}', Sex = '{Convert.ToSByte(Sex)}', MapId = '{MapId}', CellId = '{CellId}', Direction = '{(sbyte)Direction}', SpawnMapId = '{SpawnMapId}', Health = '{Health}', Energy = '{Energy}', AP = '{AP}', MP = '{MP}', Strength = '{Strength}', Vitality = '{Vitality}', Wisdom = '{Wisdom}', Chance = '{Chance}', Agility = '{Agility}', Intelligence = '{Intelligence}', AlignementSide = '{(sbyte)AlignementSide}', Honor = '{Honor}', PvPEnabled = '{Convert.ToSByte(PvPEnabled)}', Kamas = '{Kamas}', StatsPoints = '{StatsPoints}', SpellsPoints = '{SpellsPoints}', LastUsage = '{LastUsage:yyyy-MM-dd HH:mm:ss}' WHERE Id = '{Id}'");
         }
 
         public int Create()
