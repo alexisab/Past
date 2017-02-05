@@ -1,7 +1,7 @@
-﻿using Past.Protocol.IO;
-using System.Drawing;
+﻿using System.Drawing;
+using Past.Protocol.IO;
 
-namespace Past.Tools.Dlm
+namespace Past.Protocol.Files.Dlm
 {
     public class Fixture
     {
@@ -13,7 +13,7 @@ namespace Past.Tools.Dlm
         public byte RedMultiplier { get; set; }
         public byte GreenMultiplier { get; set; }
         public byte BlueMultiplier { get; set; }
-        public int Hue => (int)(RedMultiplier << 16 | GreenMultiplier << 8 | BlueMultiplier);
+        public int Hue => RedMultiplier << 16 | GreenMultiplier << 8 | BlueMultiplier;
         public byte Alpha { get; set; }
 
         public Fixture FromRaw(BigEndianReader raw)

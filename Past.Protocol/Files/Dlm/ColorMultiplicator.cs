@@ -1,4 +1,4 @@
-﻿namespace Past.Tools.Dlm
+﻿namespace Past.Protocol.Files.Dlm
 {
     public class ColorMultiplicator
     {
@@ -20,11 +20,11 @@
 
         public static int Clamp(int value, int min, int max)
         {
-             if (value > max)
-             {
+            if (value > max)
+            {
                 return max;
-             }
-             return value < min ? min : value;
+            }
+            return value < min ? min : value;
         }
 
         public ColorMultiplicator Multiply(ColorMultiplicator cm)
@@ -46,6 +46,6 @@
             return cmr;
         }
 
-        public override string ToString() => $"[r: {Red}, g: {Green}, b: {Blue }";
+        public override string ToString() => $"[r: {Red}, g: {Green}, b: {Blue}]";
     }
 }

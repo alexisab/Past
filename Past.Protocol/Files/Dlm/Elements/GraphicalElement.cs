@@ -1,7 +1,7 @@
-﻿using Past.Protocol.IO;
-using System.Drawing;
+﻿using System.Drawing;
+using Past.Protocol.IO;
 
-namespace Past.Tools.Dlm.Elements
+namespace Past.Protocol.Files.Dlm.Elements
 {
     public class GraphicalElement : BasicElement
     {

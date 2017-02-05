@@ -1,7 +1,7 @@
-﻿using Past.Protocol.IO;
-using System;
+﻿using System;
+using Past.Protocol.IO;
 
-namespace Past.Tools.Dlm
+namespace Past.Protocol.Files.Dlm
 {
     public class Map
     {
@@ -19,7 +19,7 @@ namespace Past.Tools.Dlm
         public Fixture[] BackgroundFixtures { get; set; }
         public byte ForegroundsCount { get; set; }
         public Fixture[] ForegroundFixtures { get; set; }
-        public int GroundCRC { get; set; }
+        public int GroundCrc { get; set; }
         public byte LayersCount { get; set; }
         public Layer[] Layers { get; set; }
         public int CellsCount => 560;
@@ -37,7 +37,7 @@ namespace Past.Tools.Dlm
                 MapVersion = raw.ReadByte();
                 Id = raw.ReadInt();
                 RelativeId = raw.ReadInt();
-                MapType = raw.ReadByte(); //0 = Outdoor / 1 = Indoor
+                MapType = raw.ReadByte();
                 SubareaId = raw.ReadInt();
                 TopNeighbourId = raw.ReadInt();
                 BottomNeighbourId = raw.ReadInt();
@@ -58,7 +58,7 @@ namespace Past.Tools.Dlm
                     Fixture fg = new Fixture();
                     ForegroundFixtures[i] = fg.FromRaw(raw);
                 }
-                GroundCRC = raw.ReadInt();
+                GroundCrc = raw.ReadInt();
                 raw.ReadInt();
                 LayersCount = raw.ReadByte();
                 Layers = new Layer[LayersCount];

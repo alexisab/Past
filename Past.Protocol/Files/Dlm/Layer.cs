@@ -1,6 +1,6 @@
 ﻿using Past.Protocol.IO;
 
-namespace Past.Tools.Dlm
+namespace Past.Protocol.Files.Dlm
 {
     public class Layer
     {

@@ -1,6 +1,6 @@
 ﻿using Past.Protocol.IO;
 
-namespace Past.Tools.Dlm
+namespace Past.Protocol.Files.Dlm
 {
     public class CellData
     {
@@ -21,8 +21,10 @@ namespace Past.Tools.Dlm
 
         public CellData FromRaw(BigEndianReader raw)
         {
-            CellData cell = new CellData();
-            cell.Floor = raw.ReadByte() * 10;
+            CellData cell = new CellData
+            {
+                Floor = raw.ReadByte() * 10
+            };
             if (cell.Floor != -1280)
             {
                 cell.LosMov = raw.ReadByte();

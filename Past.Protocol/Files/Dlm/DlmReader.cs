@@ -1,13 +1,12 @@
-﻿using Past.Protocol.IO;
-using System;
+﻿using System;
 using System.IO;
-using zlib;
+using Past.Protocol.IO;
 
-namespace Past.Tools.Dlm
+namespace Past.Protocol.Files.Dlm
 {
     public class DlmReader
     {
-        public Map ReadDLM(string filePath)
+        public Map ReadDlm(string filePath)
         {
             Stream dlm = File.OpenRead(filePath);
             BigEndianReader reader = new BigEndianReader(dlm);
@@ -19,7 +18,7 @@ namespace Past.Tools.Dlm
                 try
                 {
                     MemoryStream output = new MemoryStream();
-                    Uncompress(dlm, output);
+                    Utils.Uncompress(dlm, output);
                     ba = output.ToArray();
                 }
                 catch
@@ -38,26 +37,5 @@ namespace Past.Tools.Dlm
             map.FromRaw(reader);
             return map;
         }
-
-        private void Uncompress(Stream input, Stream output)
-        {
-            ZOutputStream outZStream = new ZOutputStream(output);
-            try
-            {
-                byte[] raw = new byte[(int)input.Length];
-                for (int i = 0; i < (int)input.Length; i++)
-                {
-                    raw[i] = (byte)input.ReadByte();
-                }
-                outZStream.Write(raw, 0, raw.Length);
-                output.Flush();
-            }
-            finally
-            {
-                outZStream.Close();
-            }
-        }
     }
 }
-
-

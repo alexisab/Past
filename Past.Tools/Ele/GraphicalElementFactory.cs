@@ -9,15 +9,15 @@ namespace Past.Tools.Ele
         {
             switch (elementType)
             {
-                case (int)GraphicalElementTypes.NORMAL:
+                case (int)GraphicalElementTypes.Normal:
                     return new NormalGraphicalElementData(elementId, elementType);
-                case (int)GraphicalElementTypes.BOUNDING_BOX:
+                case (int)GraphicalElementTypes.BoundingBox:
                     return new BoundingBoxGraphicalElementData(elementId, elementType);
-                case (int)GraphicalElementTypes.ANIMATED:
+                case (int)GraphicalElementTypes.Animated:
                     return new AnimatedGraphicalElementData(elementId, elementType);
-                case (int)GraphicalElementTypes.ENTITY:
+                case (int)GraphicalElementTypes.Entity:
                     return new EntityGraphicalElementData(elementId, elementType);
-                case (int)GraphicalElementTypes.PARTICLES:
+                case (int)GraphicalElementTypes.Particles:
                     return new ParticlesGraphicalElementData(elementId, elementType);
                 default:
                     throw new Exception($"Unknown graphical element data type {elementType} for element {elementId}");

@@ -1,7 +1,7 @@
-﻿using Past.Protocol.IO;
-using Past.Tools.Dlm.Elements;
+﻿using Past.Protocol.Files.Dlm.Elements;
+using Past.Protocol.IO;
 
-namespace Past.Tools.Dlm
+namespace Past.Protocol.Files.Dlm
 {
     public class Cell
     {
@@ -11,9 +11,11 @@ namespace Past.Tools.Dlm
 
         public Cell FromRaw(BigEndianReader raw)
         {
-            Cell cell = new Cell();
-            cell.CellId = raw.ReadShort();
-            cell.ElementsCount = raw.ReadShort();
+            Cell cell = new Cell
+            {
+                CellId = raw.ReadShort(),
+                ElementsCount = raw.ReadShort()
+            };
             cell.Elements = new BasicElement[cell.ElementsCount];
             for (int i = 0; i < cell.ElementsCount; i++)
             {

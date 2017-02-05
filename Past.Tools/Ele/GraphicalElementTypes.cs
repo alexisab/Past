@@ -2,10 +2,10 @@
 {
     public enum GraphicalElementTypes
     {
-        NORMAL = 0,
-        BOUNDING_BOX = 1,
-        ANIMATED = 2,
-        ENTITY = 3,
-        PARTICLES = 4
+        Normal = 0,
+        BoundingBox = 1,
+        Animated = 2,
+        Entity = 3,
+        Particles = 4
     }
 }

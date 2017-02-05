@@ -50,6 +50,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.8.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -59,22 +63,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="zlib.net, Version=1.0.3.0, Culture=neutral, PublicKeyToken=47d7877cb3620160">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\zlib.net.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dlm\Cell.cs" />
-    <Compile Include="Dlm\CellData.cs" />
-    <Compile Include="Dlm\ColorMultiplicator.cs" />
-    <Compile Include="Dlm\DlmReader.cs" />
-    <Compile Include="Dlm\Elements\BasicElement.cs" />
-    <Compile Include="Dlm\Elements\GraphicalElement.cs" />
-    <Compile Include="Dlm\Elements\SoundElement.cs" />
-    <Compile Include="Dlm\Fixture.cs" />
-    <Compile Include="Dlm\Layer.cs" />
-    <Compile Include="Dlm\Map.cs" />
     <Compile Include="Ele\Elements.cs" />
     <Compile Include="Ele\ElementsReader.cs" />
     <Compile Include="Ele\GraphicalElementData.cs" />

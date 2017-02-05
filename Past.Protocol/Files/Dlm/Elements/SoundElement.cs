@@ -1,10 +1,9 @@
 ﻿using Past.Protocol.IO;
 
-namespace Past.Tools.Dlm.Elements
+namespace Past.Protocol.Files.Dlm.Elements
 {
     public class SoundElement : BasicElement
     {
-
         public int SoundId { get; set; }
         public short BaseVolume { get; set; }
         public int FullVolumeDistance { get; set; }

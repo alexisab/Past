@@ -32,12 +32,17 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="zlib.net, Version=1.0.3.0, Culture=neutral, PublicKeyToken=47d7877cb3620160">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\zlib.net.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\EmoteEnum.cs" />
@@ -95,6 +100,17 @@
     <Compile Include="Enums\TaxCollectorErrorReasonEnum.cs" />
     <Compile Include="Enums\TeamEnum.cs" />
     <Compile Include="Enums\TextInformationTypeEnum.cs" />
+    <Compile Include="Files\Dlm\Cell.cs" />
+    <Compile Include="Files\Dlm\CellData.cs" />
+    <Compile Include="Files\Dlm\ColorMultiplicator.cs" />
+    <Compile Include="Files\Dlm\DlmReader.cs" />
+    <Compile Include="Files\Dlm\Elements\BasicElement.cs" />
+    <Compile Include="Files\Dlm\Elements\GraphicalElement.cs" />
+    <Compile Include="Files\Dlm\Elements\SoundElement.cs" />
+    <Compile Include="Files\Dlm\Fixture.cs" />
+    <Compile Include="Files\Dlm\Layer.cs" />
+    <Compile Include="Files\Dlm\Map.cs" />
+    <Compile Include="Files\Utils.cs" />
     <Compile Include="IO\BigEndianReader.cs" />
     <Compile Include="IO\BigEndianWriter.cs" />
     <Compile Include="IO\BooleanByteWrapper.cs" />
